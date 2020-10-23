@@ -1,0 +1,67 @@
+apply plugin: 'com.android.library'
+
+apply plugin: 'stringfog'
+stringfog {
+    // 这是加解密 key，可以自由定义。
+    def random = ["a", "b", "c", "d", "e", "f", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
+    Collections.shuffle(random)
+    key getConfigKey()
+    println "fogkey : " + key
+    // 开关
+    enable true
+    // 加解密库的实现类路径，需和上面配置的加解密算法库一致。
+    implementation 'com.github.megatronking.stringfog.xor.StringFogImpl'
+    // 指定需加密的代码包路径，可配置多个，未指定将默认全部加密。
+    // fogPackages = ['com.xxx.xxx']
+}
+static def getConfigKey() {
+    def date = new Date()
+    def formattedDate = date.format('yyyyMMdd')
+    return String.valueOf(("adsopt-" + formattedDate).hashCode())
+}
+def isSnapshot = true
+android {
+    compileSdkVersion 29
+    buildToolsVersion "29.0.3"
+
+    defaultConfig {
+        minSdkVersion 19
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1.0.1" + (isSnapshot ? ".1-SNAPSHOT" : "")
+        ndk {
+            abiFilters "armeabi", "armeabi-v7a"//可以适当补填其他
+        }
+        consumerProguardFiles 'proguard-sdk-rules.pro'
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    // stringfog
+    implementation 'com.github.megatronking.stringfog:xor:1.1.0'
+}
+
+
+apply plugin: 'maven'
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            repository(url: isSnapshot ? nexus_url_snapshot : nexus_url) {
+                authentication(userName: nexus_user, password: nexus_password)
+            }
+            pom.version = android.defaultConfig.versionName
+            pom.artifactId = "daemon"
+            pom.groupId = "com.keep.daemon"
+            pom.name = "daemon"
+            pom.packaging = "aar"
+        }
+    }
+}

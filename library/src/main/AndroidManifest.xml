@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.sogou.daemon">
+
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <instrumentation
+        android:name="com.sogou.daemon.component.DaemonInstrumentation"
+        android:targetPackage="${PACKAKG_NAME}"
+        android:targetProcesses="${PACKAKG_NAME},${PACKAKG_NAME}:resident,${PACKAKG_NAME}:daemon,${PACKAKG_NAME}:assist1,${PACKAKG_NAME}:assist2" />
+
+    <application>
+        <service
+            android:name="com.sogou.daemon.component.DaemonService"
+            android:exported="true"
+            android:process=":daemon" />
+        <receiver
+            android:name="com.sogou.daemon.component.DaemonReceiver"
+            android:exported="true" />
+
+        <service
+            android:name="com.sogou.daemon.component.AssistService1"
+            android:exported="true"
+            android:process=":assist1" />
+        <service
+            android:name="com.sogou.daemon.component.AssistService2"
+            android:exported="true"
+            android:process=":assist2" />
+    </application>
+
+</manifest>
