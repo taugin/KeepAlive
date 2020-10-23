@@ -13,7 +13,7 @@ import com.sogou.daemon.utils.Utils;
 public class KeepAlive {
     public static void attachBaseContext(Context context, Class<?> service) {
         if (service != null) {
-            Utils.putString(context,  Service.class.getName(), service.getName());
+            Utils.putString(context,  Service.class.getName() + "_Name", service.getName());
         }
         JavaDaemon.getInstance().init(context, new Intent(context, DaemonService.class), new Intent(context, DaemonReceiver.class), new Intent(context, DaemonInstrumentation.class));
         JavaDaemon.getInstance().startAppLock(context, new String[]{"daemon", "assist1", "assist2"});
