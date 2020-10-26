@@ -3,12 +3,12 @@ package com.sogou.daemon;
 import android.content.Intent;
 
 public class DaemonEnv {
-    public String a;
-    public String b;
+    public String cmdLine;
+    public String publicDir;
 
     /* renamed from: c  reason: collision with root package name */
-    public String f4741c;
-    public Intent d;
-    public Intent e;
-    public Intent f;
+    public String nativeDir;
+    public Intent serviceIntent;
+    public Intent receiverIntent;
+    public Intent instrumentIntent;
 }

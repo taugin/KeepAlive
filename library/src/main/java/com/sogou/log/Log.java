@@ -21,7 +21,7 @@ public class Log {
     private static final int ERROR = android.util.Log.ERROR;
     private static final int WARN = android.util.Log.WARN;
 
-    public static final String TAG = "sogou-daemon";
+    public static final String TAG = "kalive";
     public static final boolean DEBUGABLE = BuildConfig.DEBUG;
 
     private static boolean isLoggable(String tag, int level) {

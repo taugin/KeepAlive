@@ -1,6 +1,5 @@
 package com.sogou.daemon;
 
-import com.sogou.daemon.utils.Utils;
 import com.sogou.log.Log;
 
 import java.io.BufferedReader;
@@ -12,7 +11,7 @@ import java.util.Map;
 
 public class ShellExecutor {
     private static final String COLON_SEPARATOR = ":";
-    public static void a(File file, Map map, String[] strArr) {
+    public static void exec(File file, Map map, String[] strArr) {
         if (strArr.length > 0) {
             ProcessBuilder processBuilder = new ProcessBuilder(new String[0]);
             String str = System.getenv("PATH");
@@ -61,14 +60,14 @@ public class ShellExecutor {
                 outputStream.write("exit 156\n".getBytes());
                 outputStream.flush();
                 process.waitFor();
-                a(bufferedReader);
+                readResult(bufferedReader);
             } catch (IOException e2) {
             } catch (InterruptedException e3) {
             }
         }
     }
 
-    public static String a(BufferedReader bufferedReader) throws IOException {
+    public static String readResult(BufferedReader bufferedReader) throws IOException {
         StringBuilder sb = new StringBuilder();
         String readLine = bufferedReader.readLine();
         Log.v(Log.TAG, "readString: " + readLine);

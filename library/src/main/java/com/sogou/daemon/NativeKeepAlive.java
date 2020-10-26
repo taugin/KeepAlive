@@ -11,7 +11,7 @@ public class NativeKeepAlive {
 
     static {
         try {
-            System.loadLibrary("core_alive");
+            System.loadLibrary("daemon_alive");
         } catch (Exception e) {
             Log.e(Log.TAG, "error : " + e, e);
         }

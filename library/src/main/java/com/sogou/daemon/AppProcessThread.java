@@ -9,40 +9,40 @@ import java.util.ArrayList;
 import java.util.Map;
 
 public class AppProcessThread extends Thread {
-    private Context a;
+    private Context context;
     private String[] b;
 
     /* renamed from: c  reason: collision with root package name */
-    private String f4739c;
+    private String processName;
 
     public AppProcessThread(Context context, String[] strArr, String str) {
-        this.a = context;
-        this.f4739c = str;
+        this.context = context;
+        this.processName = str;
         this.b = strArr;
     }
 
     public void run() {
-        DaemonEnv b2 = JavaDaemon.getInstance().b();
+        DaemonEnv b2 = JavaDaemon.getInstance().getDaemonEnv();
         DaemonEntity daemonEntity = new DaemonEntity();
-        daemonEntity.b = this.f4739c;
+        daemonEntity.b = this.processName;
         daemonEntity.a = this.b;
-        daemonEntity.f4740c = b2.d;
-        daemonEntity.d = b2.e;
-        daemonEntity.e = b2.f;
-        String str = b2.b;
+        daemonEntity.f4740c = b2.serviceIntent;
+        daemonEntity.d = b2.receiverIntent;
+        daemonEntity.e = b2.instrumentIntent;
+        String str = b2.publicDir;
         ArrayList arrayList = new ArrayList();
         arrayList.add("export CLASSPATH=$CLASSPATH:" + str);
-        String str2 = b2.f4741c;
+        String str2 = b2.nativeDir;
         String str3 = "export _LD_LIBRARY_PATH=/system/lib/:/vendor/lib/:" + str2;
         arrayList.add(str3);
         arrayList.add("export LD_LIBRARY_PATH=/system/lib/:/vendor/lib/:" + str2);
-        arrayList.add(String.format("%s / %s %s --application --nice-name=%s &", new Object[]{new File("/system/bin/app_process32").exists() ? "app_process32" : "app_process", DaemonMain.class.getName(), daemonEntity.toString(), this.f4739c}));
+        arrayList.add(String.format("%s / %s %s --application --nice-name=%s &", new Object[]{new File("/system/bin/app_process32").exists() ? "app_process32" : "app_process", DaemonMain.class.getName(), daemonEntity.toString(), this.processName}));
         File file = new File("/");
         String[] strArr = new String[arrayList.size()];
         for (int i = 0; i < strArr.length; i++) {
             strArr[i] = (String) arrayList.get(i);
             Log.v(Log.TAG, strArr[i]);
         }
-        ShellExecutor.a(file, (Map) null, strArr);
+        ShellExecutor.exec(file, (Map) null, strArr);
     }
 }

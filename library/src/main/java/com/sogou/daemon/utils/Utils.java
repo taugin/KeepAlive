@@ -14,7 +14,7 @@ import java.io.File;
 import java.io.FileReader;
 
 public class Utils {
-    public static String a() {
+    public static String getCmdLine() {
         try {
             return new BufferedReader(new FileReader(new File("/proc/self/cmdline"))).readLine().trim();
         } catch (Exception e) {
@@ -22,7 +22,7 @@ public class Utils {
         }
     }
 
-    public static void a(Context context, Class cls) {
+    public static void startServiceOrBindService(Context context, Class cls) {
         Intent intent = new Intent(context, cls);
         try {
             context.startService(intent);

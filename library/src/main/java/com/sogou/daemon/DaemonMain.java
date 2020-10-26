@@ -1,5 +1,6 @@
 package com.sogou.daemon;
 
+import android.content.Intent;
 import android.os.Build;
 import android.os.IBinder;
 import android.os.Parcel;
@@ -121,7 +122,8 @@ public class DaemonMain {
         if (Build.VERSION.SDK_INT >= 26) {
             this.d.writeInt(1);
         }
-        this.b.d.setFlags(32);
+
+        this.b.d.setFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
         this.b.d.writeToParcel(this.d, 0);
         this.d.writeString((String) null);
         this.d.writeStrongBinder((IBinder) null);

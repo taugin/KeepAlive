@@ -15,6 +15,6 @@ public class DaemonInstrumentation extends Instrumentation {
     public void onCreate(Bundle bundle) {
         super.onCreate(bundle);
         Log.v(Log.TAG, "onCreate");
-        Utils.a(getTargetContext(), DaemonService.class);
+        Utils.startServiceOrBindService(getTargetContext(), DaemonService.class);
     }
 }
