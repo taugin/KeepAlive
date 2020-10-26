@@ -5,7 +5,7 @@
     implementation 'com.keep.daemon:daemon:1.0.2'
 	
 3. 在app.gradle的manifestPlaceholders配置PACKAKG_NAME属性值，如下：
-	manifestPlaceholders = [PACKAKG_NAME: applicationId]
+	manifestPlaceholders = [PACKAGE_NAME: applicationId]
 	
 4. 创建一个远程Service，继承DaemonBaseService，增加process属性，如:resident，并且配置action，name为Service类名全称
 
