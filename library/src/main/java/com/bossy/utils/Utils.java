@@ -1,4 +1,4 @@
-package com.kalive.utils;
+package com.bossy.utils;
 
 import android.content.ComponentName;
 import android.content.Context;

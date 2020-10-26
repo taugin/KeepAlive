@@ -1,14 +1,14 @@
-package com.kalive;
+package com.bossy;
 
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 
-import com.kalive.daemon.JavaDaemon;
-import com.kalive.component.DaemonInstrumentation;
-import com.kalive.component.DaemonReceiver;
-import com.kalive.component.DaemonService;
-import com.kalive.utils.Utils;
+import com.bossy.daemon.JavaDaemon;
+import com.bossy.component.DaemonInstrumentation;
+import com.bossy.component.DaemonReceiver;
+import com.bossy.component.DaemonService;
+import com.bossy.utils.Utils;
 
 public class KeepAlive {
     public static void attachBaseContext(Context context, Class<?> service) {

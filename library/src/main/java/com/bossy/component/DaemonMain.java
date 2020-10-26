@@ -1,4 +1,4 @@
-package com.sogou.daemon;
+package com.bossy.component;
 
 import android.content.Intent;
 import android.os.Build;
@@ -6,13 +6,15 @@ import android.os.IBinder;
 import android.os.Parcel;
 import android.os.Process;
 
-import com.kalive.daemon.IBinderManager;
-import com.kalive.env.DaemonEntity;
-import com.kalive.log.Log;
+import com.bossy.daemon.IBinderManager;
+import com.bossy.env.DaemonEntity;
+import com.bossy.log.Log;
+import com.sogou.daemon.NativeKeepAlive;
 
+import java.io.Serializable;
 import java.lang.reflect.Field;
 
-public class DaemonMain {
+public class DaemonMain implements Serializable {
     IBinderManager a = new IBinderManager();
     /* access modifiers changed from: private */
     public DaemonEntity b;

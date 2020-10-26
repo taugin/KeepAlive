@@ -1,13 +1,11 @@
-package com.kalive.daemon;
+package com.bossy.daemon;
 
 import android.content.Context;
 
-import com.kalive.daemon.JavaDaemon;
-import com.kalive.daemon.ShellExecutor;
-import com.kalive.log.Log;
-import com.kalive.env.DaemonEntity;
-import com.kalive.env.DaemonEnv;
-import com.sogou.daemon.DaemonMain;
+import com.bossy.log.Log;
+import com.bossy.env.DaemonEntity;
+import com.bossy.env.DaemonEnv;
+import com.bossy.component.DaemonMain;
 
 import java.io.File;
 import java.util.ArrayList;

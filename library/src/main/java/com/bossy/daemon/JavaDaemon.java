@@ -1,12 +1,12 @@
-package com.kalive.daemon;
+package com.bossy.daemon;
 
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 
-import com.kalive.utils.Utils;
-import com.kalive.env.DaemonEnv;
-import com.kalive.log.Log;
+import com.bossy.utils.Utils;
+import com.bossy.env.DaemonEnv;
+import com.bossy.log.Log;
 import com.sogou.daemon.NativeKeepAlive;
 
 import java.util.ArrayList;

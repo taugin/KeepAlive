@@ -1,10 +1,10 @@
-package com.kalive.component;
+package com.bossy.component;
 
 import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
 
-import com.kalive.log.Log;
+import com.bossy.log.Log;
 
 public class AssistService2 extends Service {
     public IBinder onBind(Intent intent) {

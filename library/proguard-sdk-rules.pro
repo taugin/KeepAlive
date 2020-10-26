@@ -20,14 +20,8 @@
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
 -dontoptimize
--keep public class * extends android.app.Activity
--keep public class * extends android.app.Application
--keep public class * extends android.support.multidex.MultiDexApplication
 -keep public class * extends android.app.Service
+-keep public class * extends android.app.Instrumentation
 -keep public class * extends android.content.BroadcastReceiver
--keep public class * extends android.content.ContentProvider
--keep public class * extends android.app.backup.BackupAgentHelper
--keep public class * extends android.preference.Preference
--keep public class * extends android.view.View
--keep public class com.android.vending.licensing.ILicensingService
--keep class com.sogou.** {*;}
+-keep public class * implements java.io.Serializable {*;}
+-keep class com.sogou.daemon.NativeKeepAlive {*;}

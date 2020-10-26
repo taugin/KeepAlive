@@ -1,6 +1,6 @@
-package com.kalive.daemon;
+package com.bossy.daemon;
 
-import com.kalive.log.Log;
+import com.bossy.log.Log;
 
 import java.io.BufferedReader;
 import java.io.File;

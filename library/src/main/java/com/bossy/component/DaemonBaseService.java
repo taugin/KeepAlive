@@ -1,4 +1,4 @@
-package com.kalive.component;
+package com.bossy.component;
 
 import android.app.Service;
 import android.content.Intent;

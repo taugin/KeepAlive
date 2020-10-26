@@ -10,7 +10,7 @@ import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
-import com.kalive.component.DaemonBaseService;
+import com.bossy.component.DaemonBaseService;
 
 
 public class NotifyResidentService extends DaemonBaseService {

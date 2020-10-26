@@ -1,10 +1,10 @@
-package com.kalive.component;
+package com.bossy.component;
 
 import android.app.Application;
 import android.app.Instrumentation;
 import android.os.Bundle;
-import com.kalive.utils.Utils;
-import com.kalive.log.Log;
+import com.bossy.utils.Utils;
+import com.bossy.log.Log;
 
 public class DaemonInstrumentation extends Instrumentation {
     public void callApplicationOnCreate(Application application) {
