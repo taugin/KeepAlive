@@ -49,4 +49,17 @@ public class Utils {
     public static String getString(Context context, String key, String defValue) {
         return PreferenceManager.getDefaultSharedPreferences(context).getString(key, defValue);
     }
+
+
+    public static void putLong(Context context, String key, long value) {
+        PreferenceManager.getDefaultSharedPreferences(context).edit().putLong(key, value).apply();
+    }
+
+    public static long getLong(Context context, String key) {
+        return getLong(context, key, 0);
+    }
+
+    public static long getLong(Context context, String key, long defValue) {
+        return PreferenceManager.getDefaultSharedPreferences(context).getLong(key, defValue);
+    }
 }

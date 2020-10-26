@@ -4,7 +4,7 @@ import android.annotation.SuppressLint;
 import android.os.Environment;
 
 
-import com.sogou.daemon.BuildConfig;
+import com.bossy.BuildConfig;
 
 import java.io.File;
 import java.io.FileWriter;
