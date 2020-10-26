@@ -1,10 +1,10 @@
-package com.sogou.daemon.component;
+package com.kalive.component;
 
 import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
-import com.sogou.daemon.utils.Utils;
-import com.sogou.log.Log;
+
+import com.kalive.log.Log;
 
 public class AssistService1 extends Service {
     public IBinder onBind(Intent intent) {

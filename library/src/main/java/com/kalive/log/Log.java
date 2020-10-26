@@ -1,4 +1,4 @@
-package com.sogou.log;
+package com.kalive.log;
 
 import android.annotation.SuppressLint;
 import android.os.Environment;

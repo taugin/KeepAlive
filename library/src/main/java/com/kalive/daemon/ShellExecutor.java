@@ -1,6 +1,6 @@
-package com.sogou.daemon;
+package com.kalive.daemon;
 
-import com.sogou.log.Log;
+import com.kalive.log.Log;
 
 import java.io.BufferedReader;
 import java.io.File;

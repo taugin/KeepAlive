@@ -1,4 +1,4 @@
-package com.sogou.daemon.component;
+package com.kalive.component;
 
 import android.app.Service;
 import android.content.Intent;

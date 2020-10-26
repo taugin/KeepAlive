@@ -1,11 +1,13 @@
-package com.sogou.daemon;
+package com.kalive.daemon;
 
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 
-import com.sogou.daemon.utils.Utils;
-import com.sogou.log.Log;
+import com.kalive.utils.Utils;
+import com.sogou.daemon.DaemonEnv;
+import com.sogou.daemon.NativeKeepAlive;
+import com.kalive.log.Log;
 
 import java.util.ArrayList;
 

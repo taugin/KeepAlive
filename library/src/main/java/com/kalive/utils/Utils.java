@@ -1,4 +1,4 @@
-package com.sogou.daemon.utils;
+package com.kalive.utils;
 
 import android.content.ComponentName;
 import android.content.Context;
@@ -6,8 +6,6 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
-
-import com.sogou.log.Log;
 
 import java.io.BufferedReader;
 import java.io.File;

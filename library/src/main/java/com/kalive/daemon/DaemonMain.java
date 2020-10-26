@@ -1,4 +1,4 @@
-package com.sogou.daemon;
+package com.kalive.daemon;
 
 import android.content.Intent;
 import android.os.Build;
@@ -6,7 +6,10 @@ import android.os.IBinder;
 import android.os.Parcel;
 import android.os.Process;
 
-import com.sogou.log.Log;
+import com.sogou.daemon.DaemonEntity;
+import com.sogou.daemon.IBinderManager;
+import com.sogou.daemon.NativeKeepAlive;
+import com.kalive.log.Log;
 
 import java.lang.reflect.Field;
 

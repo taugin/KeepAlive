@@ -1,14 +1,14 @@
-package com.sogou;
+package com.kalive;
 
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 
-import com.sogou.daemon.JavaDaemon;
-import com.sogou.daemon.component.DaemonInstrumentation;
-import com.sogou.daemon.component.DaemonReceiver;
-import com.sogou.daemon.component.DaemonService;
-import com.sogou.daemon.utils.Utils;
+import com.kalive.daemon.JavaDaemon;
+import com.kalive.component.DaemonInstrumentation;
+import com.kalive.component.DaemonReceiver;
+import com.kalive.component.DaemonService;
+import com.kalive.utils.Utils;
 
 public class KeepAlive {
     public static void attachBaseContext(Context context, Class<?> service) {

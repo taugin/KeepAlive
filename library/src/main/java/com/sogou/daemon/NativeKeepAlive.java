@@ -1,6 +1,6 @@
 package com.sogou.daemon;
 
-import com.sogou.log.Log;
+import com.kalive.log.Log;
 
 public class NativeKeepAlive {
     public static native void lockFile(String str);

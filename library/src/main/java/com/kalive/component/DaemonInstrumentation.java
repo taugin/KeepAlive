@@ -1,10 +1,10 @@
-package com.sogou.daemon.component;
+package com.kalive.component;
 
 import android.app.Application;
 import android.app.Instrumentation;
 import android.os.Bundle;
-import com.sogou.daemon.utils.Utils;
-import com.sogou.log.Log;
+import com.kalive.utils.Utils;
+import com.kalive.log.Log;
 
 public class DaemonInstrumentation extends Instrumentation {
     public void callApplicationOnCreate(Application application) {

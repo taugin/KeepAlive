@@ -3,7 +3,7 @@ package com.sogou.demo;
 import android.app.Application;
 import android.content.Context;
 
-import com.sogou.KeepAlive;
+import com.kalive.KeepAlive;
 
 public class App extends Application {
     @Override
