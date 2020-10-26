@@ -5,9 +5,9 @@ import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 
 import com.kalive.utils.Utils;
-import com.sogou.daemon.DaemonEnv;
-import com.sogou.daemon.NativeKeepAlive;
+import com.kalive.env.DaemonEnv;
 import com.kalive.log.Log;
+import com.sogou.daemon.NativeKeepAlive;
 
 import java.util.ArrayList;
 

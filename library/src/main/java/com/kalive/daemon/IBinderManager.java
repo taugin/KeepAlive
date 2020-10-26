@@ -1,4 +1,4 @@
-package com.sogou.daemon;
+package com.kalive.daemon;
 
 import java.lang.reflect.Field;
 

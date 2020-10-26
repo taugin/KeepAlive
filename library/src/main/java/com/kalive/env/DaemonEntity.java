@@ -1,4 +1,4 @@
-package com.sogou.daemon;
+package com.kalive.env;
 
 import android.content.Intent;
 import android.os.Parcel;
