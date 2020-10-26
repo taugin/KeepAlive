@@ -15,6 +15,9 @@ import androidx.core.app.NotificationManagerCompat;
 import com.bossy.component.DaemonBaseService;
 import com.bossy.utils.Utils;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 
 public class NotifyResidentService extends DaemonBaseService {
     private static Object sObject = null;
@@ -30,7 +33,7 @@ public class NotifyResidentService extends DaemonBaseService {
         try {
             NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "daemon");
             builder.setContentTitle(getApplicationInfo().loadLabel(getPackageManager()) + "正在运行中");
-            builder.setContentText("App已经被复活" + getAliveTimes() + "次");
+            builder.setContentText("App已经被复活" + getAliveTimes() + "次 : " + new SimpleDateFormat("MM/dd HH:mm:ss").format(new Date()));
             builder.setSmallIcon(getApplicationInfo().icon);
             PendingIntent pendingIntent = PendingIntent.getActivity(this, (int) System.currentTimeMillis(), getSettingsDetail(), PendingIntent.FLAG_UPDATE_CURRENT);
             builder.setContentIntent(pendingIntent);
@@ -51,6 +54,7 @@ public class NotifyResidentService extends DaemonBaseService {
     private long getAliveTimes() {
         long times = Utils.getLong(this, "pref_alive_times", 0);
         if (sObject == null) {
+            sObject = new Object();
             times = times + 1;
             Utils.putLong(this, "pref_alive_times", times);
         }
