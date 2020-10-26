@@ -17,7 +17,7 @@ stringfog {
 static def getConfigKey() {
     def date = new Date()
     def formattedDate = date.format('yyyyMMdd')
-    return String.valueOf(("adsopt-" + formattedDate).hashCode())
+    return String.valueOf(("kalive-" + formattedDate).hashCode())
 }
 def isSnapshot = true
 android {
