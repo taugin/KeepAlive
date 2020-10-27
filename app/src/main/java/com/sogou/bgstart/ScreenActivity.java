@@ -28,7 +28,8 @@ import androidx.annotation.Nullable;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
-import com.bossy.log.Log;
+
+import com.sogou.log.Log;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

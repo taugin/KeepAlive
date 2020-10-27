@@ -3,7 +3,8 @@ package com.sogou.log;
 import android.annotation.SuppressLint;
 import android.os.Environment;
 
-import com.bossy.BuildConfig;
+
+import com.sogou.daemon.demo.BuildConfig;
 
 import java.io.File;
 import java.io.FileWriter;
