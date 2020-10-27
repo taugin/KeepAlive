@@ -2,7 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.sogou.daemon.demo">
 
-
+    <uses-permission android:name="android.permission.REORDER_TASKS" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <application
         android:name="com.sogou.demo.App"
         android:allowBackup="true"
@@ -17,6 +18,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <service
             android:name="com.sogou.demo.NotifyResidentService"
             android:process=":resident">
@@ -24,6 +26,18 @@
                 <action android:name="com.sogou.demo.NotifyResidentService" />
             </intent-filter>
         </service>
+
+        <activity
+            android:name="com.sogou.bgstart.ScreenActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
+            android:excludeFromRecents="true"
+            android:label=""
+            android:launchMode="singleInstance"
+            android:theme="@android:style/Theme.Translucent">
+            <intent-filter>
+                <action android:name="${applicationId}.action.MATCH_DOING" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
