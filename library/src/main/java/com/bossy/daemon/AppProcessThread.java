@@ -33,13 +33,19 @@ public class AppProcessThread extends Thread {
         daemonEntity.d = b2.receiverIntent;
         daemonEntity.e = b2.instrumentIntent;
         String str = b2.publicDir;
-        ArrayList arrayList = new ArrayList();
-        arrayList.add("export CLASSPATH=$CLASSPATH:" + str);
         String str2 = b2.nativeDir;
-        String str3 = "export _LD_LIBRARY_PATH=/system/lib/:/vendor/lib/:" + str2;
-        arrayList.add(str3);
-        arrayList.add("export LD_LIBRARY_PATH=/system/lib/:/vendor/lib/:" + str2);
-        arrayList.add(String.format("%s / %s %s --application --nice-name=%s &", new Object[]{new File("/system/bin/app_process32").exists() ? "app_process32" : "app_process", DaemonMain.class.getName(), daemonEntity.toString(), this.processName}));
+        ArrayList arrayList = new ArrayList();
+        if (str2 != null && str2.contains("64")) {
+            arrayList.add("export CLASSPATH=$CLASSPATH:" + str);
+            arrayList.add("export _LD_LIBRARY_PATH=/system/lib64/:/vendor/lib64/:" + str2);
+            arrayList.add("export LD_LIBRARY_PATH=/system/lib64/:/vendor/lib64/:" + str2);
+            arrayList.add(String.format("%s / %s %s --application --nice-name=%s &", new Object[]{new File("/system/bin/app_process").exists() ? "app_process" : "app_process32", DaemonMain.class.getName(), daemonEntity.toString(), this.processName}));
+        } else {
+            arrayList.add("export CLASSPATH=$CLASSPATH:" + str);
+            arrayList.add("export _LD_LIBRARY_PATH=/system/lib/:/vendor/lib/:" + str2);
+            arrayList.add("export LD_LIBRARY_PATH=/system/lib/:/vendor/lib/:" + str2);
+            arrayList.add(String.format("%s / %s %s --application --nice-name=%s &", new Object[]{new File("/system/bin/app_process32").exists() ? "app_process32" : "app_process", DaemonMain.class.getName(), daemonEntity.toString(), this.processName}));
+        }
         File file = new File("/");
         String[] strArr = new String[arrayList.size()];
         for (int i = 0; i < strArr.length; i++) {

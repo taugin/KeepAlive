@@ -30,9 +30,20 @@ android {
         versionCode 1
         versionName "1.0.3" + (isSnapshot ? ".1-SNAPSHOT" : "")
         ndk {
-            abiFilters "armeabi", "armeabi-v7a"//可以适当补填其他
+            abiFilters "armeabi-v7a", "arm64-v8a", "x86", "x86_64"//可以适当补填其他
         }
         consumerProguardFiles 'proguard-sdk-rules.pro'
+        externalNativeBuild {
+            cmake {
+                cppFlags "-std=c++11"
+            }
+        }
+    }
+
+    externalNativeBuild {
+        cmake {
+            path "src/main/cpp/CMakeLists.txt"
+        }
     }
 
     buildTypes {
