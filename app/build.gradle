@@ -11,14 +11,14 @@ android {
         versionCode 1
         versionName "1.0"
         ndk {
-            abiFilters "armeabi", "armeabi-v7a"//可以适当补填其他
+            abiFilters "armeabi", "armeabi-v7a", "x86"//可以适当补填其他
         }
         manifestPlaceholders = [PACKAGE_NAME: applicationId]
     }
 
     buildTypes {
         debug {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
         release {

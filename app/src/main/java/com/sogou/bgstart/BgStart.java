@@ -53,9 +53,7 @@ public class BgStart {
                     if (TextUtils.equals(Intent.ACTION_USER_PRESENT, intent.getAction())) {
                         if (!isInterceptActivityInBg()) {
                             Log.v(Log.TAG, "isInterceptActivityInBg");
-                            Intent activityIntent = new Intent(context, ScreenActivity.class);
-                            activityIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                            context.startActivity(activityIntent);
+                            startBgActivity(context);
                         } else {
                             startActivityInBg(context, ScreenActivity.class);
                         }
@@ -63,6 +61,16 @@ public class BgStart {
                 }
             }
         }, intentFilter);
+    }
+
+    private static void startBgActivity(Context context) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
+            Intent activityIntent = new Intent(context, ScreenActivity.class);
+            activityIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            context.startActivity(activityIntent);
+        } else {
+            start2(context, "", ScreenActivity.class);
+        }
     }
 
     public static void moveTaskToFront(Context context) {
@@ -130,7 +138,34 @@ public class BgStart {
         }
     }
 
+    private static void start2(Context context, String str, Class<?> clazz) {
+        Intent intent = new Intent(context, clazz);
+        intent.setAction(context.getPackageName() + ".action.INNER");
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
+        boolean startSuccess = false;
+        PendingIntent pendingIntent = PendingIntent.getActivity(context, 10102, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        try {
+            pendingIntent.send();
+            startSuccess = true;
+        } catch (Exception e) {
+            Log.e(Log.TAG, "error : " + e, e);
+        }
+        if (!startSuccess) {
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            try {
+                Log.v(Log.TAG, "");
+                context.startActivity(intent);
+            } catch (Exception unused2) {
+            }
+        }
+        showNotification(context, pendingIntent);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            startWithAlarm(context, intent, 200);
+        }
+    }
+
     public static void startActivityInBg2(Context context, String str, Class cls) {
+        Log.v(Log.TAG, "clazz : " + cls);
         Context applicationContext = context.getApplicationContext();
         Intent intent = new Intent(applicationContext, cls);
         intent.setAction(context.getPackageName() + ".action.INNER");
@@ -139,6 +174,7 @@ public class BgStart {
     }
 
     public static void startWithAlarm(Context context, Intent intent, int i2) {
+        Log.v(Log.TAG, "i2 : " + i2);
         PendingIntent activity = PendingIntent.getActivity(context, 10102, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         if (alarmManager != null) {
@@ -155,37 +191,33 @@ public class BgStart {
 
     public static void startActivityInBg(final Context context, final Class<?> clazz) {
         Log.v(Log.TAG, "Build.VERSION.SDK_INT : " + Build.VERSION.SDK_INT);
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
-            moveTaskToFront(context);
-            if (sHandler != null) {
-                sHandler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        Intent intent = new Intent(context, clazz);
-                        intent.setAction(context.getPackageName() + ".action.INNER");
-                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
-                        boolean startSuccess = true;
-                        PendingIntent pendingIntent = PendingIntent.getActivity(context, 10102, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-                        try {
-                            pendingIntent.send();
-                        } catch (Exception e) {
-                            Log.e(Log.TAG, "error : " + e, e);
-                            startSuccess = false;
-                        }
-                        if (!startSuccess) {
-                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                            try {
-                                Log.v(Log.TAG, "");
-                                context.startActivity(intent);
-                            } catch (Exception unused2) {
-                            }
-                        }
-                        showNotification(context, pendingIntent);
+        moveTaskToFront(context);
+        if (sHandler != null) {
+            sHandler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    Intent intent = new Intent(context, clazz);
+                    intent.setAction(context.getPackageName() + ".action.INNER");
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
+                    boolean startSuccess = true;
+                    PendingIntent pendingIntent = PendingIntent.getActivity(context, 10102, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+                    try {
+                        pendingIntent.send();
+                    } catch (Exception e) {
+                        Log.e(Log.TAG, "error : " + e, e);
+                        startSuccess = false;
                     }
-                }, 100);
-            }
-        } else {
-            startActivityInBg2(context, "user_present", clazz);
+                    if (!startSuccess) {
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        try {
+                            Log.v(Log.TAG, "");
+                            context.startActivity(intent);
+                        } catch (Exception unused2) {
+                        }
+                    }
+                    showNotification(context, pendingIntent);
+                }
+            }, 100);
         }
     }
 

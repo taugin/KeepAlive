@@ -241,7 +241,7 @@ public class ScreenActivity extends Activity {
                 WallpaperManager wm = WallpaperManager.getInstance(this);
                 drawable = wm.getDrawable();
             } catch (Exception e) {
-                Log.e(Log.TAG, "error : " + e);
+//                Log.e(Log.TAG, "error : " + e);
             }
         }
         if (drawable == null) {
