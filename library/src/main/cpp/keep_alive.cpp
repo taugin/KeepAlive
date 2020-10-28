@@ -2,6 +2,7 @@
 #include <jni.h>
 #include <android/log.h>
 #include <unistd.h>
+#include <string.h>
 #include <fcntl.h>
 #include <sys/file.h>
 #include <assert.h>
@@ -55,7 +56,20 @@ native_lockFile(JNIEnv *env, jclass jobj,
     lock_file(lock_file_path);
 }
 
-#define JNIREG_CLASS "com/bossy/component/DaemonMain"//指定要注册的类
+// #define JNIREG_CLASS "com/bossy/component/DaemonMain"//指定要注册的类
+
+static jstring findJniRegClass(JNIEnv *env) {
+    jclass clazz = env->FindClass("java/lang/System");
+    if (clazz == NULL) {
+        return NULL;
+    }
+    jmethodID method_get = env->GetStaticMethodID(clazz, "getProperty", "(Ljava/lang/String;)Ljava/lang/String;");
+    jstring reg_class_path = env->NewStringUTF("REGISTER_CLASS_PATH");
+    jobject jobj = env->CallStaticObjectMethod(clazz, method_get, reg_class_path);
+    const char *reg_class_name = env->GetStringUTFChars(static_cast<jstring>(jobj), 0);
+    env->ReleaseStringUTFChars(static_cast<jstring>(jobj), reg_class_name);
+    return env->NewStringUTF(reg_class_name);
+}
 /**
 * Table of methods associated with a single class.
 */
@@ -79,10 +93,18 @@ static int registerNativeMethods(JNIEnv *env, const char *className,
 }
 
 static int registerNatives(JNIEnv *env) {
-    if (!registerNativeMethods(env, JNIREG_CLASS, gMethods,
-                               sizeof(gMethods) / sizeof(gMethods[0]))) {
+    jstring reg_class_name = findJniRegClass(env);
+    if (reg_class_name == NULL) {
         return JNI_FALSE;
     }
+    const char* jni_class_name = env->GetStringUTFChars(reg_class_name, 0);
+    LOGD("jni_class_name : %s", jni_class_name);
+    if (!registerNativeMethods(env, jni_class_name, gMethods,
+                               sizeof(gMethods) / sizeof(gMethods[0]))) {
+        env->ReleaseStringUTFChars(reg_class_name, jni_class_name);
+        return JNI_FALSE;
+    }
+    env->ReleaseStringUTFChars(reg_class_name, jni_class_name);
     return JNI_TRUE;
 }
 
