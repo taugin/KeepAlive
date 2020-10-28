@@ -107,7 +107,7 @@ static int registerNativeMethods(JNIEnv *env, const char *className,
 static int registerNatives(JNIEnv *env) {
     jstring reg_class_name = findJniRegClass(env);
     if (reg_class_name == NULL) {
-        LOGD("can not find register class");
+        LOGE("can not find register class");
         reg_class_name = env->NewStringUTF(JNIREG_CLASS);
     }
     const char* jni_class_name = env->GetStringUTFChars(reg_class_name, 0);
