@@ -3,13 +3,13 @@ package com.bossy.daemon;
 import java.lang.reflect.Field;
 
 public class IBinderManager {
-    private int a = a("TRANSACTION_startService", "START_SERVICE_TRANSACTION");
-    private int b = a("TRANSACTION_broadcastIntent", "BROADCAST_INTENT_TRANSACTION");
+    private int mStartService_Transaction = getTransaction("TRANSACTION_startService", "START_SERVICE_TRANSACTION");
+    private int mBroadcastIntent_Transaction = getTransaction("TRANSACTION_broadcastIntent", "BROADCAST_INTENT_TRANSACTION");
 
     /* renamed from: c  reason: collision with root package name */
-    private int f5177c = a("TRANSACTION_startInstrumentation", "START_INSTRUMENTATION_TRANSACTION");
+    private int mStartInstrumentation_Transaction = getTransaction("TRANSACTION_startInstrumentation", "START_INSTRUMENTATION_TRANSACTION");
 
-    public int a(String str, String str2) {
+    public int getTransaction(String str, String str2) {
         try {
             Class<?> cls = Class.forName("android.app.IActivityManager$Stub");
             Field declaredField = cls.getDeclaredField(str);
@@ -27,16 +27,16 @@ public class IBinderManager {
         }
     }
 
-    public int a() {
-        return this.a;
+    public int getStartServiceTransaction() {
+        return this.mStartService_Transaction;
     }
 
-    public int b() {
-        return this.b;
+    public int getBroadcastTransaction() {
+        return this.mBroadcastIntent_Transaction;
     }
 
-    public int c() {
-        return this.f5177c;
+    public int getInstrumentationTransaction() {
+        return this.mStartInstrumentation_Transaction;
     }
 
     public void b(Throwable throwable) {
