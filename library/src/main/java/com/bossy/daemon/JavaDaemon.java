@@ -7,7 +7,7 @@ import android.content.pm.ApplicationInfo;
 import com.bossy.utils.Utils;
 import com.bossy.env.DaemonEnv;
 import com.bossy.log.Log;
-import com.sogou.daemon.NativeKeepAlive;
+import com.bossy.component.DaemonMain;
 
 import java.util.ArrayList;
 
@@ -56,7 +56,7 @@ public class JavaDaemon {
             }
             if (specProcessHasStarted) {
                 Log.v(Log.TAG, "app lock file start : " + substring);
-                NativeKeepAlive.lockFile(context.getFilesDir() + "/" + substring + "_daemon");
+                DaemonMain.lockFile(context.getFilesDir() + "/" + substring + "_daemon");
                 Log.v(Log.TAG, "app lock file finish");
                 String[] strArr2 = new String[arrayList.size()];
                 for (int i = 0; i < strArr2.length; i++) {

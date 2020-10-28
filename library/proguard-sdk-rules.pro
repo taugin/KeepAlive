@@ -25,4 +25,3 @@
 -keep public class * extends android.app.Instrumentation
 -keep public class * extends android.content.BroadcastReceiver
 -keep public class * implements java.io.Serializable {*;}
--keep class com.sogou.daemon.NativeKeepAlive {*;}

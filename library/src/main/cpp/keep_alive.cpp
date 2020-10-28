@@ -1,9 +1,6 @@
 
 #include <jni.h>
-#include <sys/wait.h>
 #include <android/log.h>
-#include <stdio.h>
-#include <stdlib.h>
 #include <unistd.h>
 #include <fcntl.h>
 #include <sys/file.h>
@@ -58,7 +55,7 @@ native_lockFile(JNIEnv *env, jclass jobj,
     lock_file(lock_file_path);
 }
 
-#define JNIREG_CLASS "com/sogou/daemon/NativeKeepAlive"//指定要注册的类
+#define JNIREG_CLASS "com/bossy/component/DaemonMain"//指定要注册的类
 /**
 * Table of methods associated with a single class.
 */

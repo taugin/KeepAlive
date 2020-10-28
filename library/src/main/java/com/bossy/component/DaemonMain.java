@@ -9,12 +9,25 @@ import android.os.Process;
 import com.bossy.daemon.IBinderManager;
 import com.bossy.env.DaemonEntity;
 import com.bossy.log.Log;
-import com.sogou.daemon.NativeKeepAlive;
 
 import java.io.Serializable;
 import java.lang.reflect.Field;
 
 public class DaemonMain implements Serializable {
+    public static native void lockFile(String str);
+
+    public static native void nativeSetSid();
+
+    public static native void waitFileLock(String str);
+
+    static {
+        try {
+            System.loadLibrary("bossy_daemon");
+        } catch (Exception e) {
+            Log.e(Log.TAG, "error : " + e, e);
+        }
+    }
+
     IBinderManager a = new IBinderManager();
     /* access modifiers changed from: private */
     public DaemonEntity b;
@@ -41,7 +54,7 @@ public class DaemonMain implements Serializable {
         try {
             i();
             f();
-            NativeKeepAlive.nativeSetSid();
+            DaemonMain.nativeSetSid();
             try {
                 Log.v(Log.TAG, "setargv0 " + this.b.b);
                 Process.class.getMethod("setArgV0", new Class[]{String.class}).invoke((Object) null, new Object[]{this.b.b});
@@ -51,7 +64,7 @@ public class DaemonMain implements Serializable {
                 new DaemonThread(i).start();
             }
             Log.v(Log.TAG, this.b.b + " start lock File" + this.b.a[0]);
-            NativeKeepAlive.waitFileLock(this.b.a[0]);
+            DaemonMain.waitFileLock(this.b.a[0]);
             Log.v(Log.TAG, "lock File finish");
             d();
             c();
@@ -181,7 +194,7 @@ public class DaemonMain implements Serializable {
 
         public void run() {
             setPriority(10);
-            NativeKeepAlive.waitFileLock(DaemonMain.this.b.a[this.b]);
+            DaemonMain.waitFileLock(DaemonMain.this.b.a[this.b]);
             Log.v(Log.TAG, "Thread lock File finish");
             DaemonMain.this.d();
             DaemonMain.this.c();
