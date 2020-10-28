@@ -4,7 +4,7 @@ import android.app.ActivityManager;
 import android.app.Application;
 import android.content.Context;
 
-import com.bossy.KeepAlive;
+import com.shrewd.KeepAlive;
 import com.sogou.bgstart.BgStart;
 
 public class App extends Application {

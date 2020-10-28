@@ -1,4 +1,4 @@
-package com.bossy.env;
+package com.shrewd.env;
 
 import android.content.Intent;
 

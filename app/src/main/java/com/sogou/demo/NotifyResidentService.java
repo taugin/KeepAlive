@@ -12,8 +12,8 @@ import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
-import com.bossy.component.DaemonBaseService;
-import com.bossy.utils.Utils;
+import com.shrewd.cmp.DaemonBaseService;
+import com.shrewd.utils.Utils;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

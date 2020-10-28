@@ -1,4 +1,4 @@
-package com.bossy.utils;
+package com.shrewd.utils;
 
 import android.content.ComponentName;
 import android.content.Context;

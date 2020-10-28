@@ -1,13 +1,13 @@
-package com.bossy.daemon;
+package com.shrewd.daemon;
 
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 
-import com.bossy.component.DaemonMain;
-import com.bossy.env.DaemonEnv;
-import com.bossy.log.Log;
-import com.bossy.utils.Utils;
+import com.shrewd.cmp.DaemonMain;
+import com.shrewd.env.DaemonEnv;
+import com.shrewd.log.Log;
+import com.shrewd.utils.Utils;
 
 import java.util.ArrayList;
 

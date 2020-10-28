@@ -1,12 +1,12 @@
-package com.bossy.component;
+package com.shrewd.cmp;
 
 import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
 
-import com.bossy.log.Log;
+import com.shrewd.log.Log;
 
-public class AssistService2 extends Service {
+public class AService2 extends Service {
     public IBinder onBind(Intent intent) {
         return null;
     }

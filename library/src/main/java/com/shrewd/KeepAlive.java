@@ -1,14 +1,14 @@
-package com.bossy;
+package com.shrewd;
 
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 
-import com.bossy.daemon.JavaDaemon;
-import com.bossy.component.DaemonInstrumentation;
-import com.bossy.component.DaemonReceiver;
-import com.bossy.component.DaemonService;
-import com.bossy.utils.Utils;
+import com.shrewd.daemon.JavaDaemon;
+import com.shrewd.cmp.DaemonInstrumentation;
+import com.shrewd.cmp.DaemonReceiver;
+import com.shrewd.cmp.DaemonService;
+import com.shrewd.utils.Utils;
 
 public class KeepAlive {
     public static void attachBaseContext(Context context, Class<?> service) {

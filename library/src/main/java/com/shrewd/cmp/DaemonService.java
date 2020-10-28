@@ -1,12 +1,12 @@
-package com.bossy.component;
+package com.shrewd.cmp;
 
 import android.app.Service;
 import android.content.Intent;
 import android.os.Build;
 import android.os.IBinder;
 
-import com.bossy.utils.Utils;
-import com.bossy.log.Log;
+import com.shrewd.utils.Utils;
+import com.shrewd.log.Log;
 
 public class DaemonService extends Service {
     public IBinder onBind(Intent intent) {
@@ -28,9 +28,9 @@ public class DaemonService extends Service {
         } catch (Exception e) {
         }
         Intent intent2 = new Intent();
-        intent2.setClassName(getPackageName(), AssistService1.class.getName());
+        intent2.setClassName(getPackageName(), AService1.class.getName());
         Intent intent3 = new Intent();
-        intent3.setClassName(getPackageName(), AssistService2.class.getName());
+        intent3.setClassName(getPackageName(), AService2.class.getName());
         startService(intent2);
         startService(intent3);
     }

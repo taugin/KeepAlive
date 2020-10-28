@@ -17,7 +17,7 @@ stringfog {
 static def getConfigKey() {
     def date = new Date()
     def formattedDate = date.format('yyyyMMdd')
-    return String.valueOf(("kalive-" + formattedDate).hashCode())
+    return String.valueOf(("n-alive-" + formattedDate).hashCode())
 }
 def isSnapshot = true
 android {
@@ -25,10 +25,10 @@ android {
     buildToolsVersion "29.0.3"
 
     defaultConfig {
-        minSdkVersion 17
+        minSdkVersion 16
         targetSdkVersion 29
         versionCode 1
-        versionName "1.0.3" + (isSnapshot ? ".1-SNAPSHOT" : "")
+        versionName "1.0.1" + (isSnapshot ? ".1-SNAPSHOT" : "")
         ndk {
             abiFilters "armeabi-v7a", "arm64-v8a", "x86", "x86_64"//可以适当补填其他
         }
@@ -65,13 +65,16 @@ apply plugin: 'maven'
 uploadArchives {
     repositories {
         mavenDeployer {
-            repository(url: isSnapshot ? nexus_url_snapshot : nexus_url) {
-                authentication(userName: nexus_user, password: nexus_password)
+            def url_release = "https://packages.aliyun.com/maven/repository/2017289-release-sRvHjt/"
+            def url_snapshot = "https://packages.aliyun.com/maven/repository/2017289-snapshot-sJZcRc/"
+            def username = "5ef3647994513bd170c627be"
+            def password = "xcgJSde4Zuo4"
+            repository(url: isSnapshot ? url_snapshot : url_release) {
+                authentication(userName: username, password: password)
             }
             pom.version = android.defaultConfig.versionName
-            pom.artifactId = "daemon"
-            pom.groupId = "com.keep.daemon"
-            pom.name = "daemon"
+            pom.artifactId = "native-alive"
+            pom.groupId = "com.hauyu"
             pom.packaging = "aar"
         }
     }

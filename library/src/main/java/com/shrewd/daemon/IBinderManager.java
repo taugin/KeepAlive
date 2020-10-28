@@ -1,4 +1,4 @@
-package com.bossy.daemon;
+package com.shrewd.daemon;
 
 import java.lang.reflect.Field;
 

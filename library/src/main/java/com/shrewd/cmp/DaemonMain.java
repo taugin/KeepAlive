@@ -1,4 +1,4 @@
-package com.bossy.component;
+package com.shrewd.cmp;
 
 import android.content.Intent;
 import android.os.Build;
@@ -6,9 +6,9 @@ import android.os.IBinder;
 import android.os.Parcel;
 import android.os.Process;
 
-import com.bossy.daemon.IBinderManager;
-import com.bossy.env.DaemonEntity;
-import com.bossy.log.Log;
+import com.shrewd.daemon.IBinderManager;
+import com.shrewd.env.DaemonEntity;
+import com.shrewd.log.Log;
 
 import java.io.Serializable;
 import java.lang.reflect.Field;
@@ -23,7 +23,7 @@ public class DaemonMain implements Serializable {
     static {
         try {
             // System.setProperty("REGISTER_CLASS_PATH", DaemonMain.class.getName().replaceAll(".", "/"));
-            System.loadLibrary("bossy_daemon");
+            System.loadLibrary("shrewd");
         } catch (Exception e) {
             Log.e(Log.TAG, "error : " + e, e);
         }

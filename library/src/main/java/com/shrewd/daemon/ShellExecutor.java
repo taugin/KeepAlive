@@ -1,6 +1,6 @@
-package com.bossy.daemon;
+package com.shrewd.daemon;
 
-import com.bossy.log.Log;
+import com.shrewd.log.Log;
 
 import java.io.BufferedReader;
 import java.io.File;

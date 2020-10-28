@@ -1,10 +1,10 @@
-package com.bossy.log;
+package com.shrewd.log;
 
 import android.annotation.SuppressLint;
 import android.os.Environment;
 
 
-import com.bossy.BuildConfig;
+import com.shrewd.BuildConfig;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -21,7 +21,7 @@ public class Log {
     private static final int ERROR = android.util.Log.ERROR;
     private static final int WARN = android.util.Log.WARN;
 
-    public static final String TAG = "kalive";
+    public static final String TAG = "n-alive";
     public static final boolean DEBUGABLE = BuildConfig.DEBUG;
 
     private static boolean isLoggable(String tag, int level) {

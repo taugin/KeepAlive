@@ -1,10 +1,10 @@
-package com.bossy.component;
+package com.shrewd.cmp;
 
 import android.app.Application;
 import android.app.Instrumentation;
 import android.os.Bundle;
-import com.bossy.utils.Utils;
-import com.bossy.log.Log;
+import com.shrewd.utils.Utils;
+import com.shrewd.log.Log;
 
 public class DaemonInstrumentation extends Instrumentation {
     public void callApplicationOnCreate(Application application) {
