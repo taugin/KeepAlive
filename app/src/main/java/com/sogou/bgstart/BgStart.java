@@ -40,7 +40,6 @@ public class BgStart {
     public static void init(Context context) {
         Log.v(Log.TAG, "Build.BRAND : " + Build.BRAND);
         registerScreen(context);
-        sHandler = new MyHandler(context);
     }
 
     private static void registerScreen(Context context) {
@@ -73,7 +72,7 @@ public class BgStart {
         }
     }
 
-    public static void moveTaskToFront(Context context) {
+    private static void moveTaskToFront(Context context) {
         try {
             ActivityManager activityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
             for (ActivityManager.RunningTaskInfo next : activityManager.getRunningTasks(200)) {
@@ -90,7 +89,7 @@ public class BgStart {
         }
     }
 
-    public static void createNotificationChannel(Context context, NotificationManager notificationManager) {
+    private static void createNotificationChannel(Context context, NotificationManager notificationManager) {
         if (Build.VERSION.SDK_INT >= 26 && notificationManager.getNotificationChannel(CHANNEL_ID) == null) {
             NotificationChannel notificationChannel = new NotificationChannel(CHANNEL_ID, "throne_weather_title", NotificationManager.IMPORTANCE_HIGH);
             notificationChannel.setDescription("weather_remind_desc");
@@ -104,7 +103,7 @@ public class BgStart {
         }
     }
 
-    public static void showNotification(Context context, PendingIntent pendingIntent) {
+    private static void showNotification(Context context, PendingIntent pendingIntent) {
         try {
             NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
             createNotificationChannel(context, notificationManager);
@@ -114,6 +113,7 @@ public class BgStart {
                             .setSmallIcon(context.getApplicationInfo().icon)
                             .setFullScreenIntent(pendingIntent, true)
                             .setCustomHeadsUpContentView(new RemoteViews(context.getPackageName(), R.layout.lock_layout_heads_up)).build());
+            enableHandler(context);
             sHandler.removeMessages(101);
             sHandler.sendEmptyMessageDelayed(101, 1000);
         } catch (Exception e) {
@@ -164,7 +164,7 @@ public class BgStart {
         }
     }
 
-    public static void startActivityInBg2(Context context, String str, Class cls) {
+    private static void startActivityInBg2(Context context, String str, Class cls) {
         Log.v(Log.TAG, "clazz : " + cls);
         Context applicationContext = context.getApplicationContext();
         Intent intent = new Intent(applicationContext, cls);
@@ -173,7 +173,7 @@ public class BgStart {
         startWithAlarm(applicationContext, intent, 200);
     }
 
-    public static void startWithAlarm(Context context, Intent intent, int i2) {
+    private static void startWithAlarm(Context context, Intent intent, int i2) {
         Log.v(Log.TAG, "i2 : " + i2);
         PendingIntent activity = PendingIntent.getActivity(context, 10102, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
@@ -192,33 +192,32 @@ public class BgStart {
     public static void startActivityInBg(final Context context, final Class<?> clazz) {
         Log.v(Log.TAG, "Build.VERSION.SDK_INT : " + Build.VERSION.SDK_INT);
         moveTaskToFront(context);
-        if (sHandler != null) {
-            sHandler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    Intent intent = new Intent(context, clazz);
-                    intent.setAction(context.getPackageName() + ".action.INNER");
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
-                    boolean startSuccess = true;
-                    PendingIntent pendingIntent = PendingIntent.getActivity(context, 10102, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-                    try {
-                        pendingIntent.send();
-                    } catch (Exception e) {
-                        Log.e(Log.TAG, "error : " + e, e);
-                        startSuccess = false;
-                    }
-                    if (!startSuccess) {
-                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        try {
-                            Log.v(Log.TAG, "");
-                            context.startActivity(intent);
-                        } catch (Exception unused2) {
-                        }
-                    }
-                    showNotification(context, pendingIntent);
+        enableHandler(context);
+        sHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Intent intent = new Intent(context, clazz);
+                intent.setAction(context.getPackageName() + ".action.INNER");
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
+                boolean startSuccess = true;
+                PendingIntent pendingIntent = PendingIntent.getActivity(context, 10102, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+                try {
+                    pendingIntent.send();
+                } catch (Exception e) {
+                    Log.e(Log.TAG, "error : " + e, e);
+                    startSuccess = false;
                 }
-            }, 100);
-        }
+                if (!startSuccess) {
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    try {
+                        Log.v(Log.TAG, "");
+                        context.startActivity(intent);
+                    } catch (Exception unused2) {
+                    }
+                }
+                showNotification(context, pendingIntent);
+            }
+        }, 100);
     }
 
     public static void onBgActivityStart(Context context) {
@@ -264,6 +263,7 @@ public class BgStart {
         if (!isInterceptActivityInBg()) {
             return false;
         }
+        enableHandler(activity);
         sHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -278,5 +278,11 @@ public class BgStart {
 
     public static boolean isInterceptActivityInBg() {
         return sInterceptActivityBrands.contains(Build.BRAND);
+    }
+
+    private static void enableHandler(Context context) {
+        if (sHandler == null) {
+            sHandler = new MyHandler(context);
+        }
     }
 }
