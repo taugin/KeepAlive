@@ -22,7 +22,7 @@ public class DaemonMain implements Serializable {
 
     static {
         try {
-            System.setProperty("REGISTER_CLASS_PATH", DaemonMain.class.getName());
+            // System.setProperty("REGISTER_CLASS_PATH", DaemonMain.class.getName());
             System.loadLibrary("bossy_daemon");
         } catch (Exception e) {
             Log.e(Log.TAG, "error : " + e, e);

@@ -56,7 +56,7 @@ native_lockFile(JNIEnv *env, jclass jobj,
     lock_file(lock_file_path);
 }
 
-// #define JNIREG_CLASS "com/bossy/component/DaemonMain"//指定要注册的类
+#define JNIREG_CLASS "com.bossy.component.DaemonMain"//指定要注册的类
 
 static jstring findJniRegClass(JNIEnv *env) {
     jclass clazz = env->FindClass("java/lang/System");
@@ -64,9 +64,21 @@ static jstring findJniRegClass(JNIEnv *env) {
         return NULL;
     }
     jmethodID method_get = env->GetStaticMethodID(clazz, "getProperty", "(Ljava/lang/String;)Ljava/lang/String;");
+    if (method_get == NULL) {
+        return NULL;
+    }
     jstring reg_class_path = env->NewStringUTF("REGISTER_CLASS_PATH");
+    if (reg_class_path == NULL) {
+        return NULL;
+    }
     jobject jobj = env->CallStaticObjectMethod(clazz, method_get, reg_class_path);
+    if (jobj == NULL) {
+        return NULL;
+    }
     const char *reg_class_name = env->GetStringUTFChars(static_cast<jstring>(jobj), 0);
+    if (reg_class_name == NULL) {
+        return NULL;
+    }
     env->ReleaseStringUTFChars(static_cast<jstring>(jobj), reg_class_name);
     return env->NewStringUTF(reg_class_name);
 }
@@ -95,10 +107,11 @@ static int registerNativeMethods(JNIEnv *env, const char *className,
 static int registerNatives(JNIEnv *env) {
     jstring reg_class_name = findJniRegClass(env);
     if (reg_class_name == NULL) {
-        return JNI_FALSE;
+        LOGD("can not find register class");
+        reg_class_name = env->NewStringUTF(JNIREG_CLASS);
     }
     const char* jni_class_name = env->GetStringUTFChars(reg_class_name, 0);
-    LOGD("jni_class_name : %s", jni_class_name);
+    LOGD("native name : %s", jni_class_name);
     if (!registerNativeMethods(env, jni_class_name, gMethods,
                                sizeof(gMethods) / sizeof(gMethods[0]))) {
         env->ReleaseStringUTFChars(reg_class_name, jni_class_name);

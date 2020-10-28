@@ -4,10 +4,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 
-import com.bossy.utils.Utils;
+import com.bossy.component.DaemonMain;
 import com.bossy.env.DaemonEnv;
 import com.bossy.log.Log;
-import com.bossy.component.DaemonMain;
+import com.bossy.utils.Utils;
 
 import java.util.ArrayList;
 
