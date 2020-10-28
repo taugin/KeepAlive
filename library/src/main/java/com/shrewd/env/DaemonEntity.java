@@ -17,13 +17,13 @@ public class DaemonEntity implements Parcelable {
             return new DaemonEntity[i];
         }
     };
-    public String[] a;
-    public String b;
+    public String[] daemonPath;
+    public String processName;
 
     /* renamed from: c  reason: collision with root package name */
-    public Intent f4740c;
-    public Intent d;
-    public Intent e;
+    public Intent serviceIntent;
+    public Intent broadcastIntent;
+    public Intent instrumentIntent;
 
     public int describeContents() {
         return 0;
@@ -33,43 +33,43 @@ public class DaemonEntity implements Parcelable {
     }
 
     protected DaemonEntity(Parcel parcel) {
-        this.a = parcel.createStringArray();
-        this.b = parcel.readString();
+        this.daemonPath = parcel.createStringArray();
+        this.processName = parcel.readString();
         if (parcel.readInt() != 0) {
-            this.f4740c = (Intent) Intent.CREATOR.createFromParcel(parcel);
+            this.serviceIntent = (Intent) Intent.CREATOR.createFromParcel(parcel);
         }
         if (parcel.readInt() != 0) {
-            this.d = (Intent) Intent.CREATOR.createFromParcel(parcel);
+            this.broadcastIntent = (Intent) Intent.CREATOR.createFromParcel(parcel);
         }
         if (parcel.readInt() != 0) {
-            this.e = (Intent) Intent.CREATOR.createFromParcel(parcel);
+            this.instrumentIntent = (Intent) Intent.CREATOR.createFromParcel(parcel);
         }
     }
 
     public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeStringArray(this.a);
-        parcel.writeString(this.b);
-        if (this.f4740c == null) {
+        parcel.writeStringArray(this.daemonPath);
+        parcel.writeString(this.processName);
+        if (this.serviceIntent == null) {
             parcel.writeInt(0);
         } else {
             parcel.writeInt(1);
-            this.f4740c.writeToParcel(parcel, i);
+            this.serviceIntent.writeToParcel(parcel, i);
         }
-        if (this.d == null) {
+        if (this.broadcastIntent == null) {
             parcel.writeInt(0);
         } else {
             parcel.writeInt(1);
-            this.d.writeToParcel(parcel, i);
+            this.broadcastIntent.writeToParcel(parcel, i);
         }
-        if (this.e == null) {
+        if (this.instrumentIntent == null) {
             parcel.writeInt(0);
             return;
         }
         parcel.writeInt(1);
-        this.e.writeToParcel(parcel, i);
+        this.instrumentIntent.writeToParcel(parcel, i);
     }
 
-    public static DaemonEntity a(String str) {
+    public static DaemonEntity toObject(String str) {
         byte[] decode = Base64.decode(str, 2);
         Parcel obtain = Parcel.obtain();
         obtain.unmarshall(decode, 0, decode.length);

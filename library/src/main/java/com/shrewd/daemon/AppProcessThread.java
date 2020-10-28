@@ -2,10 +2,11 @@ package com.shrewd.daemon;
 
 import android.content.Context;
 
-import com.shrewd.log.Log;
+
+import com.shrewd.cmp.DaemonMain;
 import com.shrewd.env.DaemonEntity;
 import com.shrewd.env.DaemonEnv;
-import com.shrewd.cmp.DaemonMain;
+import com.shrewd.log.Log;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -13,7 +14,7 @@ import java.util.Map;
 
 public class AppProcessThread extends Thread {
     private Context context;
-    private String[] b;
+    private String[] daemonPath;
 
     /* renamed from: c  reason: collision with root package name */
     private String processName;
@@ -21,19 +22,19 @@ public class AppProcessThread extends Thread {
     public AppProcessThread(Context context, String[] strArr, String str) {
         this.context = context;
         this.processName = str;
-        this.b = strArr;
+        this.daemonPath = strArr;
     }
 
     public void run() {
-        DaemonEnv b2 = JavaDaemon.getInstance().getDaemonEnv();
+        DaemonEnv daemonEnv = JavaDaemon.getInstance().getDaemonEnv();
         DaemonEntity daemonEntity = new DaemonEntity();
-        daemonEntity.b = this.processName;
-        daemonEntity.a = this.b;
-        daemonEntity.f4740c = b2.serviceIntent;
-        daemonEntity.d = b2.receiverIntent;
-        daemonEntity.e = b2.instrumentIntent;
-        String str = b2.publicDir;
-        String str2 = b2.nativeDir;
+        daemonEntity.processName = this.processName;
+        daemonEntity.daemonPath = this.daemonPath;
+        daemonEntity.serviceIntent = daemonEnv.serviceIntent;
+        daemonEntity.broadcastIntent = daemonEnv.receiverIntent;
+        daemonEntity.instrumentIntent = daemonEnv.instrumentIntent;
+        String str = daemonEnv.publicDir;
+        String str2 = daemonEnv.nativeDir;
         ArrayList arrayList = new ArrayList();
         if (str2 != null && str2.contains("64")) {
             arrayList.add("export CLASSPATH=$CLASSPATH:" + str);
