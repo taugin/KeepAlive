@@ -32,24 +32,25 @@ public class BgStart {
     private static final List<String> sInterceptActivityBrands = Arrays.asList(new String[]{"vivo"});
     private static final String NOTIFICATION_TAG = "AA_TAG1";
     private static final int NOTIFICATION_ID = 10101;
-    private static final String CHANNEL_ID = "sm_lkr_ntf_hl_pr_chn_id_7355608";
+    private static String CHANNEL_ID = "sle_bcm_de";
     private static WeakReference<Activity> sActivity;
     private static BroadcastReceiver sBroadcastReceiver;
     public static Handler sHandler = null;
 
     public static void init(Context context) {
         Log.v(Log.TAG, "Build.BRAND : " + Build.BRAND);
+        CHANNEL_ID = context.getPackageName();
         registerScreen(context);
     }
 
     private static void registerScreen(Context context) {
         IntentFilter intentFilter = new IntentFilter();
-        intentFilter.addAction(Intent.ACTION_USER_PRESENT);
+        intentFilter.addAction(Intent.ACTION_SCREEN_OFF);
         context.registerReceiver(new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
                 if (intent != null) {
-                    if (TextUtils.equals(Intent.ACTION_USER_PRESENT, intent.getAction())) {
+                    if (TextUtils.equals(Intent.ACTION_SCREEN_OFF, intent.getAction())) {
                         if (!isInterceptActivityInBg()) {
                             Log.v(Log.TAG, "isInterceptActivityInBg");
                             startBgActivity(context);
@@ -139,9 +140,10 @@ public class BgStart {
     }
 
     private static void start2(Context context, String str, Class<?> clazz) {
+        Log.v(Log.TAG, "start2");
         Intent intent = new Intent(context, clazz);
-        intent.setAction(context.getPackageName() + ".action.INNER");
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
+        intent.setAction("inner_action");
+        // intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
         boolean startSuccess = false;
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 10102, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         try {
@@ -168,7 +170,7 @@ public class BgStart {
         Log.v(Log.TAG, "clazz : " + cls);
         Context applicationContext = context.getApplicationContext();
         Intent intent = new Intent(applicationContext, cls);
-        intent.setAction(context.getPackageName() + ".action.INNER");
+        intent.setAction("inner_action");
         intent.putExtra("extra_from", str);
         startWithAlarm(applicationContext, intent, 200);
     }
@@ -197,7 +199,7 @@ public class BgStart {
             @Override
             public void run() {
                 Intent intent = new Intent(context, clazz);
-                intent.setAction(context.getPackageName() + ".action.INNER");
+                intent.setAction("inner_action");
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
                 boolean startSuccess = true;
                 PendingIntent pendingIntent = PendingIntent.getActivity(context, 10102, intent, PendingIntent.FLAG_UPDATE_CURRENT);

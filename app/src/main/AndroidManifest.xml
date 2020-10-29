@@ -32,6 +32,8 @@
             android:excludeFromRecents="true"
             android:label=""
             android:launchMode="singleInstance"
+            android:hardwareAccelerated="true"
+            android:taskAffinity=":ScreenActivity"
             android:theme="@android:style/Theme.Translucent">
             <intent-filter>
                 <action android:name="${applicationId}.action.MATCH_DOING" />
