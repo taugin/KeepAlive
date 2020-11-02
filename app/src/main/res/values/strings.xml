@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">KeepAliveDaemon</string>
+    <string name="throne_weather_title">Weather</string>
+    <string name="weather_remind_desc">Weather forecast &amp; sudden weather change remind</string>
+    <string name="accessibility_desc">"开启辅助功能，将自动帮您检测微信好友是否删除了您
+开启辅助功能后，系统会例行警示提示，趣清理承诺不会收集任何隐私数据，请放心开启"</string>
 </resources>

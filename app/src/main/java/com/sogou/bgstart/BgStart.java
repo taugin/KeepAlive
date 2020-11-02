@@ -3,6 +3,7 @@ package com.sogou.bgstart;
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.AlarmManager;
+import android.app.KeyguardManager;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -32,25 +33,25 @@ public class BgStart {
     private static final List<String> sInterceptActivityBrands = Arrays.asList(new String[]{"vivo"});
     private static final String NOTIFICATION_TAG = "AA_TAG1";
     private static final int NOTIFICATION_ID = 10101;
-    private static String CHANNEL_ID = "sle_bcm_de";
+    private static final String CHANNEL_ID = "sm_lkr_ntf_hl_pr_chn_id_7355608";
     private static WeakReference<Activity> sActivity;
     private static BroadcastReceiver sBroadcastReceiver;
     public static Handler sHandler = null;
 
     public static void init(Context context) {
         Log.v(Log.TAG, "Build.BRAND : " + Build.BRAND);
-        CHANNEL_ID = context.getPackageName();
+        ao.init(context);
         registerScreen(context);
     }
 
     private static void registerScreen(Context context) {
         IntentFilter intentFilter = new IntentFilter();
-        intentFilter.addAction(Intent.ACTION_SCREEN_OFF);
+        intentFilter.addAction(Intent.ACTION_SCREEN_ON);
         context.registerReceiver(new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
                 if (intent != null) {
-                    if (TextUtils.equals(Intent.ACTION_SCREEN_OFF, intent.getAction())) {
+                    if (TextUtils.equals(Intent.ACTION_SCREEN_ON, intent.getAction())) {
                         if (!isInterceptActivityInBg()) {
                             Log.v(Log.TAG, "isInterceptActivityInBg");
                             startBgActivity(context);
@@ -69,7 +70,8 @@ public class BgStart {
             activityIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(activityIntent);
         } else {
-            start2(context, "", ScreenActivity.class);
+//            start2(context, "screen_off", ScreenActivity.class);
+            notifyStart(context);
         }
     }
 
@@ -92,7 +94,7 @@ public class BgStart {
 
     private static void createNotificationChannel(Context context, NotificationManager notificationManager) {
         if (Build.VERSION.SDK_INT >= 26 && notificationManager.getNotificationChannel(CHANNEL_ID) == null) {
-            NotificationChannel notificationChannel = new NotificationChannel(CHANNEL_ID, "throne_weather_title", NotificationManager.IMPORTANCE_HIGH);
+            NotificationChannel notificationChannel = new NotificationChannel(CHANNEL_ID, "Weather", NotificationManager.IMPORTANCE_HIGH);
             notificationChannel.setDescription("weather_remind_desc");
             notificationChannel.setLockscreenVisibility(-1);
             notificationChannel.enableLights(false);
@@ -113,7 +115,7 @@ public class BgStart {
                     new NotificationCompat.Builder(context, CHANNEL_ID)
                             .setSmallIcon(context.getApplicationInfo().icon)
                             .setFullScreenIntent(pendingIntent, true)
-                            .setCustomHeadsUpContentView(new RemoteViews(context.getPackageName(), R.layout.lock_layout_heads_up)).build());
+                            .setCustomHeadsUpContentView(new RemoteViews(context.getPackageName(), R.layout.locker_layout_heads_up)).build());
             enableHandler(context);
             sHandler.removeMessages(101);
             sHandler.sendEmptyMessageDelayed(101, 1000);
@@ -134,15 +136,42 @@ public class BgStart {
             super.handleMessage(message);
             if (message.what == 101) {
                 NotificationManager notificationManager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
-                notificationManager.cancel(NOTIFICATION_TAG, 10101);
+                notificationManager.cancel(NOTIFICATION_TAG, NOTIFICATION_ID);
             }
         }
     }
 
+    private static void notifyStart(final Context context) {
+        Log.v(Log.TAG, "notifyStart111");
+        KeyguardManager keyguardManager = (KeyguardManager) context.getSystemService("keyguard");
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            Log.v(Log.TAG, "notifyStart222");
+            Intent intent = new Intent(context, ScreenActivity.class);
+            intent.setFlags(268435456);
+            NotificationCompat.Builder fullScreenIntent = new NotificationCompat.Builder(context, "101").setSmallIcon(R.drawable.ad_close).setContentTitle("").setContentText("").setPriority(1).setFullScreenIntent(PendingIntent.getActivity(context, 0, intent, 0), true);
+            NotificationChannel notificationChannel = new NotificationChannel("101", "lock_screen", 4);
+            NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+            notificationManager.createNotificationChannel(notificationChannel);
+            notificationManager.notify(R.drawable.ad_close, fullScreenIntent.build());
+            new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    ((NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE)).cancel(R.drawable.ad_close);
+
+                }
+            }, 500);
+        }
+        Intent intent = new Intent(context, ScreenActivity.class);
+        intent.addFlags(268435456);
+        context.startActivity(intent);
+    }
+
     private static void start2(Context context, String str, Class<?> clazz) {
         Log.v(Log.TAG, "start2");
-        Intent intent = new Intent(context, clazz);
+        Intent intent = new Intent(context.getApplicationContext(), clazz);
         intent.setAction("inner_action");
+        intent.putExtra("extra_from", str);
+        Log.v(Log.TAG, "str : " + str);
         // intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
         boolean startSuccess = false;
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 10102, intent, PendingIntent.FLAG_UPDATE_CURRENT);
@@ -156,11 +185,12 @@ public class BgStart {
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             try {
                 Log.v(Log.TAG, "");
-                context.startActivity(intent);
-            } catch (Exception unused2) {
+                context.getApplicationContext().startActivity(intent);
+            } catch (Exception e) {
+                Log.e(Log.TAG, "error : " + e, e);
             }
         }
-        showNotification(context, pendingIntent);
+        ao.showNotification(context, pendingIntent);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             startWithAlarm(context, intent, 200);
         }

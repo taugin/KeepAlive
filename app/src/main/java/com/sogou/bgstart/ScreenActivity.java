@@ -2,6 +2,7 @@ package com.sogou.bgstart;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.KeyguardManager;
 import android.app.WallpaperManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -25,6 +26,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
@@ -43,12 +45,27 @@ public class ScreenActivity extends Activity {
     private Handler mHandler = null;
     private ViewGroup mLockAdLayout;
 
+    public void d() {
+        if (Build.VERSION.SDK_INT >= 26) {
+            a(true);
+            ((KeyguardManager) getSystemService("keyguard")).requestDismissKeyguard(this, (KeyguardManager.KeyguardDismissCallback) null);
+        }
+    }
+    private void a(boolean z) {
+        try {
+            Class.forName(AppCompatActivity.class.getName()).getMethod("setShowWhenLocked", new Class[]{Boolean.TYPE}).invoke(this, new Object[]{Boolean.valueOf(z)});
+            Class.forName(AppCompatActivity.class.getName()).getMethod("setTurnScreenOn", new Class[]{Boolean.TYPE}).invoke(this, new Object[]{Boolean.valueOf(z)});
+        } catch (Exception e) {
+        }
+    }
+
     @SuppressLint("SourceLockedOrientationActivity")
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+        d();
         super.onCreate(savedInstanceState);
+        Log.v(Log.TAG, "ScreenActivity.onCreate");
         BgStart.onBgActivityStart(this);
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         try {
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
         } catch (Exception e) {
@@ -111,6 +128,7 @@ public class ScreenActivity extends Activity {
     }
 
     private void updateDataAndView() {
+        hideNavigationBar(this);
         updateFullScreenState();
         showLockScreenView();
     }
