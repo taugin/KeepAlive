@@ -28,7 +28,7 @@ android {
         minSdkVersion 17
         targetSdkVersion 29
         versionCode 1
-        versionName "1.0.3" + (isSnapshot ? ".1-SNAPSHOT" : "")
+        versionName "1.1.0" + (isSnapshot ? ".1-SNAPSHOT" : "")
         ndk {
             abiFilters "armeabi-v7a", "arm64-v8a", "x86", "x86_64"//可以适当补填其他
         }
