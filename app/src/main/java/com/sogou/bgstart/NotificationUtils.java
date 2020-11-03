@@ -20,7 +20,7 @@ import com.sogou.log.Log;
 import java.util.concurrent.TimeUnit;
 
 /* compiled from: filemagic */
-public class ao {
+public class NotificationUtils {
     public static final long a = TimeUnit.SECONDS.toMillis(1);
     public static final Handler sHandler = new MyHandler(Looper.getMainLooper());
     private static final int MEDIA_INFO_PLAY_TO_END = 10101;
@@ -39,7 +39,7 @@ public class ao {
         public void handleMessage(Message message) {
             super.handleMessage(message);
             if (message.what == 101) {
-                ao.cancelNotification((NotificationManager) sContext.getSystemService(Context.NOTIFICATION_SERVICE));
+                NotificationUtils.cancelNotification((NotificationManager) sContext.getSystemService(Context.NOTIFICATION_SERVICE));
             }
         }
     }

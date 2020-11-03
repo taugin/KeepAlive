@@ -40,7 +40,7 @@ public class BgStart {
 
     public static void init(Context context) {
         Log.v(Log.TAG, "Build.BRAND : " + Build.BRAND);
-        ao.init(context);
+        NotificationUtils.init(context);
         registerScreen(context);
     }
 
@@ -190,7 +190,7 @@ public class BgStart {
                 Log.e(Log.TAG, "error : " + e, e);
             }
         }
-        ao.showNotification(context, pendingIntent);
+        NotificationUtils.showNotification(context, pendingIntent);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             startWithAlarm(context, intent, 200);
         }
