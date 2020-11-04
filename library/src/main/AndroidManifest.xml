@@ -5,8 +5,8 @@
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <instrumentation
         android:name="com.bossy.component.DaemonInstrumentation"
-        android:targetPackage="${PACKAGE_NAME}"
-        android:targetProcesses="${PACKAGE_NAME},${PACKAGE_NAME}:resident,${PACKAGE_NAME}:daemon,${PACKAGE_NAME}:assist1,${PACKAGE_NAME}:assist2" />
+        android:targetPackage="${applicationId}"
+        android:targetProcesses="${applicationId},${applicationId}:resident,${applicationId}:daemon,${applicationId}:assist1,${applicationId}:assist2" />
 
     <application>
         <service
