@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="colorRateButtonText" format="color" />
+    <attr name="colorRateTitleText" format="color" />
+    <attr name="colorRatingBar" format="color" />
+</resources>
