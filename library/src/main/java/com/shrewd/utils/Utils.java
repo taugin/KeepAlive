@@ -4,6 +4,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.os.Build;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
 
@@ -61,5 +62,16 @@ public class Utils {
 
     public static long getLong(Context context, String key, long defValue) {
         return PreferenceManager.getDefaultSharedPreferences(context).getLong(key, defValue);
+    }
+
+    public static void startService(Context context, Intent intent) {
+        try {
+            if (Build.VERSION.SDK_INT >= 26) {
+                context.startForegroundService(intent);
+            } else {
+                context.startService(intent);
+            }
+        } catch (Exception e) {
+        }
     }
 }
