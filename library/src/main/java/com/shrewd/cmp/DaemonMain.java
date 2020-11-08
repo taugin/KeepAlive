@@ -58,7 +58,7 @@ public class DaemonMain implements Serializable {
             fillAllParcel();
             DaemonMain.nativeSetSid();
             try {
-                Log.v(Log.TAG, "setargv0 " + this.daemonEntity.processName);
+                Log.iv(Log.TAG, "setargv0 " + this.daemonEntity.processName);
                 Process.class.getMethod("setArgV0", new Class[]{String.class}).invoke((Object) null, new Object[]{this.daemonEntity.processName});
             } catch (Exception e2) {
                 Log.e(Log.TAG, "error : " + e2);
@@ -66,13 +66,13 @@ public class DaemonMain implements Serializable {
             for (int i = 1; i < this.daemonEntity.daemonPath.length; i++) {
                 new DaemonThread(i).start();
             }
-            Log.v(Log.TAG, this.daemonEntity.processName + " start lock File" + this.daemonEntity.daemonPath[0]);
+            Log.iv(Log.TAG, this.daemonEntity.processName + " start lock File" + this.daemonEntity.daemonPath[0]);
             DaemonMain.waitFileLock(this.daemonEntity.daemonPath[0]);
-            Log.v(Log.TAG, "lock File finish");
+            Log.iv(Log.TAG, "lock File finish");
             startService();
             sendBroadcast();
             startInstrumentation();
-            Log.v(Log.TAG, "start android finish");
+            Log.iv(Log.TAG, "start android finish");
         } catch (Exception e3) {
             Log.e(Log.TAG, "error : " + e3);
             mBinderManager.b(e3);
@@ -186,7 +186,7 @@ public class DaemonMain implements Serializable {
             declaredField.setAccessible(true);
             this.mBinder = (IBinder) declaredField.get(invoke);
             IBinder iBinder = (IBinder) Class.forName("android.os.ServiceManager").getMethod("getService", new Class[]{String.class}).invoke((Object) null, new Object[]{"activity"});
-            Log.v(Log.TAG, "initAmsBinder: mRemote == iBinder " + this.mBinder);
+            Log.iv(Log.TAG, "initAmsBinder: mRemote == iBinder " + this.mBinder);
         } catch (Throwable th) {
             Log.e(Log.TAG, "error : " + th);
             mBinderManager.b(th);
@@ -203,12 +203,11 @@ public class DaemonMain implements Serializable {
         public void run() {
             setPriority(10);
             DaemonMain.waitFileLock(DaemonMain.this.daemonEntity.daemonPath[this.mIndex]);
-            Log.v(Log.TAG, "Thread lock File finish");
+            Log.iv(Log.TAG, "Thread lock File finish");
             DaemonMain.this.startService();
             DaemonMain.this.sendBroadcast();
             DaemonMain.this.startInstrumentation();
-            Log.v(Log.TAG, "Thread start android finish");
-            Log.v(Log.TAG, "Thread  exit ");
+            Log.iv(Log.TAG, "Thread start android finish, thread exit");
         }
     }
 }

@@ -38,7 +38,7 @@ public class JavaDaemon {
     public void startAppLock(Context context, String[] strArr) {
         boolean specProcessHasStarted;
         String cmdLine = Utils.getCmdLine();
-        Log.v(Log.TAG, "cmdLine : " + cmdLine);
+        Log.iv(Log.TAG, "cmdLine : " + cmdLine);
         if (cmdLine != null && cmdLine.startsWith(context.getPackageName()) && cmdLine.contains(COLON_SEPARATOR)) {
             String substring = cmdLine.substring(cmdLine.lastIndexOf(COLON_SEPARATOR) + 1);
             ArrayList arrayList = new ArrayList();
@@ -54,10 +54,11 @@ public class JavaDaemon {
             } else {
                 specProcessHasStarted = false;
             }
+            Log.iv(Log.TAG, "process : " + substring + " , processStarted : " + specProcessHasStarted);
             if (specProcessHasStarted) {
-                Log.v(Log.TAG, "app lock file start : " + substring);
+                Log.iv(Log.TAG, "app lock file start : " + substring);
                 DaemonMain.lockFile(context.getFilesDir() + "/" + substring + "_daemon");
-                Log.v(Log.TAG, "app lock file finish");
+                Log.iv(Log.TAG, "app lock file finish");
                 String[] strArr2 = new String[arrayList.size()];
                 for (int i = 0; i < strArr2.length; i++) {
                     strArr2[i] = context.getFilesDir() + "/" + ((String) arrayList.get(i)) + "_daemon";

@@ -20,18 +20,31 @@ public class Log {
     private static final int INFO = android.util.Log.INFO;
     private static final int ERROR = android.util.Log.ERROR;
     private static final int WARN = android.util.Log.WARN;
+    private static final boolean INTERNAL_LOG_ENABLE;
 
     public static final String TAG = "n-alive";
-    public static final boolean DEBUGABLE = BuildConfig.DEBUG;
+    public static final boolean DB = BuildConfig.DEBUG;
+
+    static {
+        boolean internal = false;
+        try {
+            File tagFolder = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
+            File debugFile = new File(tagFolder, ".debug");
+            internal = debugFile.exists();
+        } catch (Exception e) {
+        }
+        INTERNAL_LOG_ENABLE = DB ? DB : internal;
+    }
 
     private static boolean isLoggable(String tag, int level) {
-        if (DEBUGABLE) {
+        if (DB) {
             return true;
         }
         return android.util.Log.isLoggable(tag, level);
     }
 
     public static void d(String tag, String message) {
+        tag = checkLogTag(tag);
         if (isLoggable(tag, DEBUG)) {
             String extraString = getMethodNameAndLineNumber();
             tag = privateTag() ? tag : getTag();
@@ -40,6 +53,7 @@ public class Log {
     }
 
     public static void v(String tag, String message) {
+        tag = checkLogTag(tag);
         if (isLoggable(tag, VERBOSE)) {
             String extraString = getMethodNameAndLineNumber();
             tag = privateTag() ? tag : getTag();
@@ -47,7 +61,17 @@ public class Log {
         }
     }
 
+    public static void iv(String tag, String message) {
+        tag = checkLogTag(tag);
+        if (isLoggable(tag, VERBOSE) && INTERNAL_LOG_ENABLE) {
+            String extraString = getMethodNameAndLineNumber();
+            tag = privateTag() ? tag : getTag();
+            android.util.Log.v(tag, extraString + message);
+        }
+    }
+
     public static void i(String tag, String message) {
+        tag = checkLogTag(tag);
         if (isLoggable(tag, INFO)) {
             String extraString = getMethodNameAndLineNumber();
             tag = privateTag() ? tag : getTag();
@@ -56,6 +80,7 @@ public class Log {
     }
 
     public static void w(String tag, String message) {
+        tag = checkLogTag(tag);
         if (isLoggable(tag, WARN)) {
             String extraString = getMethodNameAndLineNumber();
             tag = privateTag() ? tag : getTag();
@@ -64,6 +89,7 @@ public class Log {
     }
 
     public static void e(String tag, String message) {
+        tag = checkLogTag(tag);
         if (isLoggable(tag, ERROR)) {
             String extraString = getMethodNameAndLineNumber();
             tag = privateTag() ? tag : getTag();
@@ -71,16 +97,24 @@ public class Log {
         }
     }
 
-    public static void e(String tag, String message, Throwable e) {
+    public static void e(String tag, String message, Throwable throwable) {
+        tag = checkLogTag(tag);
         if (isLoggable(tag, ERROR)) {
             String extraString = getMethodNameAndLineNumber();
             tag = privateTag() ? tag : getTag();
-            android.util.Log.e(tag, extraString + message, e);
+            android.util.Log.e(tag, extraString + message, throwable);
         }
     }
 
     private static boolean privateTag() {
         return GLOBAL_TAG;
+    }
+
+    private static String checkLogTag(String tag) {
+        if (tag != null && tag.length() > 23) {
+            tag = TAG;
+        }
+        return tag;
     }
 
     @SuppressLint("DefaultLocale")

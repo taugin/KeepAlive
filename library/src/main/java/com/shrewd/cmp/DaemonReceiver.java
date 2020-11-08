@@ -8,6 +8,6 @@ import com.shrewd.log.Log;
 
 public class DaemonReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
-        Log.v(Log.TAG, "onReceiver");
+        Log.iv(Log.TAG, "onReceiver");
     }
 }

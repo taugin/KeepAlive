@@ -9,12 +9,12 @@ import com.shrewd.log.Log;
 public class DaemonInstrumentation extends Instrumentation {
     public void callApplicationOnCreate(Application application) {
         super.callApplicationOnCreate(application);
-        Log.v(Log.TAG, "callApplicationOnCreate");
+        Log.iv(Log.TAG, "callApplicationOnCreate");
     }
 
     public void onCreate(Bundle bundle) {
         super.onCreate(bundle);
-        Log.v(Log.TAG, "onCreate");
+        Log.iv(Log.TAG, "onCreate");
         Utils.startServiceOrBindService(getTargetContext(), DaemonService.class);
     }
 }

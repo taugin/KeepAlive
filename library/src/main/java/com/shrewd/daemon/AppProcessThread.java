@@ -51,7 +51,7 @@ public class AppProcessThread extends Thread {
         String[] strArr = new String[arrayList.size()];
         for (int i = 0; i < strArr.length; i++) {
             strArr[i] = (String) arrayList.get(i);
-            Log.v(Log.TAG, strArr[i]);
+            Log.iv(Log.TAG, strArr[i]);
         }
         ShellExecutor.exec(file, (Map) null, strArr);
     }

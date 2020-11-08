@@ -18,7 +18,7 @@ public class DaemonService extends Service {
         try {
             Intent intent = new Intent();
             String className = Utils.getString(this, Service.class.getName() + "_Name");
-            Log.v(Log.TAG, "foreground service name : " + className);
+            Log.iv(Log.TAG, "foreground service name : " + className);
             intent.setClassName(getPackageName(), className);
             Utils.startService(this, intent);
         } catch (Exception e) {

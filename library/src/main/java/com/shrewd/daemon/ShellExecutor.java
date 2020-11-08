@@ -73,9 +73,9 @@ public class ShellExecutor {
     public static String readResult(BufferedReader bufferedReader) throws IOException {
         StringBuilder sb = new StringBuilder();
         String readLine = bufferedReader.readLine();
-        Log.v(Log.TAG, "readString: " + readLine);
+        Log.iv(Log.TAG, "readString: " + readLine);
         while (readLine != null) {
-            Log.v(Log.TAG, "readString: " + readLine);
+            Log.iv(Log.TAG, "readString: " + readLine);
             sb.append(readLine);
             sb.append("\n");
             readLine = bufferedReader.readLine();

@@ -13,6 +13,6 @@ public class AService1 extends Service {
 
     public void onCreate() {
         super.onCreate();
-        Log.v(Log.TAG, "onCreate: ");
+        Log.iv(Log.TAG, "onCreate: ");
     }
 }
