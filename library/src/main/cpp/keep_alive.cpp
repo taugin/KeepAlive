@@ -10,15 +10,15 @@
 
 extern "C" {
 int lock_file(const char *lock_file_path) {
-    LOGD("start try to lock file >> %s <<", lock_file_path);
+    LOGD("lock file >> %s <<", lock_file_path);
     int lockFileDescriptor = open(lock_file_path, O_RDONLY);
-    LOGD("lockFileDescriptor: %d", lockFileDescriptor);
+    LOGD("lock file id : %d", lockFileDescriptor);
     if (lockFileDescriptor == -1) {
         lockFileDescriptor = open(lock_file_path, /*O_CREAT*/64, /*S_IRUSR*/256);
-        LOGD("lockFileDescriptor: %d", lockFileDescriptor);
+        LOGD("lock file again id : %d", lockFileDescriptor);
     }
     int lockRet = flock(lockFileDescriptor, LOCK_EX);
-    LOGD("lockRet: %d", lockRet);
+    LOGD("lock result : %d", lockRet);
     if (lockRet == -1) {
         LOGE("lock file failed >> %s <<", lock_file_path);
         return 0;
@@ -33,7 +33,7 @@ bool wait_file_lock(const char *lock_file_path) {
         lockFileDescriptor = open(lock_file_path, 64, 256);
     while (flock(lockFileDescriptor, 6) != -1)
         usleep(1000);
-    LOGD("retry lock file >> %s << %d", lock_file_path, lockFileDescriptor);
+    LOGD("lock file again >> %s << %d", lock_file_path, lockFileDescriptor);
     return flock(lockFileDescriptor, LOCK_EX) != -1;
 }
 

@@ -1,5 +1,6 @@
 package com.shrewd.utils;
 
+import android.app.ActivityManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -7,6 +8,7 @@ import android.content.ServiceConnection;
 import android.os.Build;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
+import android.text.TextUtils;
 
 import com.shrewd.log.Log;
 
@@ -79,5 +81,23 @@ public class Utils {
         } catch (Exception e) {
             Log.e(Log.TAG, "error : " + e);
         }
+    }
+
+    /**
+     * 获取当前进程名
+     */
+    public static int getMainProcessId(Context context) {
+        try {
+            ActivityManager manager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+            if (null != manager) {
+                for (ActivityManager.RunningAppProcessInfo process : manager.getRunningAppProcesses()) {
+                    if (TextUtils.equals(process.processName, context.getPackageName())) {
+                        return process.pid;
+                    }
+                }
+            }
+        } catch (Exception e) {
+        }
+        return -1;
     }
 }
