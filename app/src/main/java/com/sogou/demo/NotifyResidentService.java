@@ -14,6 +14,7 @@ import androidx.core.app.NotificationManagerCompat;
 
 import com.shrewd.cmp.DaemonBaseService;
 import com.shrewd.utils.Utils;
+import com.sogou.log.Log;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -47,6 +48,7 @@ public class NotifyResidentService extends DaemonBaseService {
             }
             startForeground(123456, builder.build());
         } catch (Exception e) {
+            Log.e(Log.TAG, "error : " + e);
         }
         return super.onStartCommand(intent, flags, startId);
     }

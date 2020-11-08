@@ -245,6 +245,7 @@ public class BgStart {
                         Log.v(Log.TAG, "");
                         context.startActivity(intent);
                     } catch (Exception unused2) {
+                        Log.e(Log.TAG, "error : " + unused2);
                     }
                 }
                 showNotification(context, pendingIntent);

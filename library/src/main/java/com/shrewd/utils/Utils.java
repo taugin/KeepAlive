@@ -8,6 +8,8 @@ import android.os.Build;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
 
+import com.shrewd.log.Log;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -17,6 +19,7 @@ public class Utils {
         try {
             return new BufferedReader(new FileReader(new File("/proc/self/cmdline"))).readLine().trim();
         } catch (Exception e) {
+            Log.e(Log.TAG, "error : " + e);
             return null;
         }
     }
@@ -26,6 +29,7 @@ public class Utils {
         try {
             context.startService(intent);
         } catch (Exception e) {
+            Log.e(Log.TAG, "error : " + e);
             context.bindService(intent, new ServiceConnection() {
                 public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
                 }
@@ -40,6 +44,7 @@ public class Utils {
         try {
             PreferenceManager.getDefaultSharedPreferences(context).edit().putString(key, value).apply();
         } catch (Exception | Error e) {
+            Log.e(Log.TAG, "error : " + e);
         }
     }
 
@@ -72,6 +77,7 @@ public class Utils {
                 context.startService(intent);
             }
         } catch (Exception e) {
+            Log.e(Log.TAG, "error : " + e);
         }
     }
 }

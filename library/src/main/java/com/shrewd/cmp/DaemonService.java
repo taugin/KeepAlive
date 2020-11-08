@@ -22,6 +22,7 @@ public class DaemonService extends Service {
             intent.setClassName(getPackageName(), className);
             Utils.startService(this, intent);
         } catch (Exception e) {
+            Log.e(Log.TAG, "error : " + e);
         }
         Intent intent2 = new Intent();
         intent2.setClassName(getPackageName(), AService1.class.getName());

@@ -61,6 +61,7 @@ public class DaemonMain implements Serializable {
                 Log.v(Log.TAG, "setargv0 " + this.daemonEntity.processName);
                 Process.class.getMethod("setArgV0", new Class[]{String.class}).invoke((Object) null, new Object[]{this.daemonEntity.processName});
             } catch (Exception e2) {
+                Log.e(Log.TAG, "error : " + e2);
             }
             for (int i = 1; i < this.daemonEntity.daemonPath.length; i++) {
                 new DaemonThread(i).start();
@@ -73,6 +74,7 @@ public class DaemonMain implements Serializable {
             startInstrumentation();
             Log.v(Log.TAG, "start android finish");
         } catch (Exception e3) {
+            Log.e(Log.TAG, "error : " + e3);
             mBinderManager.b(e3);
         }
     }
@@ -83,6 +85,7 @@ public class DaemonMain implements Serializable {
             try {
                 this.mBinder.transact(this.mBinderManager.getInstrumentationTransaction(), this.mInstrumentParcel, (Parcel) null, 1);
             } catch (Exception e2) {
+                Log.e(Log.TAG, "error : " + e2);
                 mBinderManager.b(e2);
             }
         }
@@ -94,6 +97,7 @@ public class DaemonMain implements Serializable {
             try {
                 this.mBinder.transact(this.mBinderManager.getBroadcastTransaction(), this.mBroadcastParcel, (Parcel) null, 1);
             } catch (Exception e2) {
+                Log.e(Log.TAG, "error : " + e2);
                 mBinderManager.b(e2);
             }
         }
@@ -105,6 +109,7 @@ public class DaemonMain implements Serializable {
             try {
                 this.mBinder.transact(this.mBinderManager.getStartServiceTransaction(), this.mServiceParcel, (Parcel) null, 1);
             } catch (Exception e2) {
+                Log.e(Log.TAG, "error : " + e2);
                 mBinderManager.b(e2);
             }
         }
@@ -183,6 +188,7 @@ public class DaemonMain implements Serializable {
             IBinder iBinder = (IBinder) Class.forName("android.os.ServiceManager").getMethod("getService", new Class[]{String.class}).invoke((Object) null, new Object[]{"activity"});
             Log.v(Log.TAG, "initAmsBinder: mRemote == iBinder " + this.mBinder);
         } catch (Throwable th) {
+            Log.e(Log.TAG, "error : " + th);
             mBinderManager.b(th);
         }
     }
