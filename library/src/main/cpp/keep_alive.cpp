@@ -28,13 +28,30 @@ int lock_file(const char *lock_file_path) {
     }
 }
 bool wait_file_lock(const char *lock_file_path) {
+    LOGD("enter wait file lock >> %s <<", lock_file_path);
     int lockFileDescriptor = open(lock_file_path, O_RDONLY);
+    LOGD("lock file id : %d", lockFileDescriptor);
     if (lockFileDescriptor == -1)
         lockFileDescriptor = open(lock_file_path, 64, 256);
-    while (flock(lockFileDescriptor, 6) != -1)
-        usleep(1000);
+    LOGD("start loop lock file id : %d", lockFileDescriptor);
+    int loop_result = -1;
+    for (;;) {
+        loop_result = flock(lockFileDescriptor, 6);
+        LOGD("lock_file_path : %s , loop_result : %d", lock_file_path, loop_result);
+        if (loop_result != -1) {
+            if (loop_result == 0) {
+                int unlock_result = flock(lockFileDescriptor, LOCK_UN);
+                LOGD("lock_file_path : %s , unlock_result : %d", lock_file_path, unlock_result);
+            }
+            usleep(1000);
+        } else {
+            break;
+        }
+    }
     LOGD("lock file again >> %s << %d", lock_file_path, lockFileDescriptor);
-    return flock(lockFileDescriptor, LOCK_EX) != -1;
+    int lock_result = flock(lockFileDescriptor, LOCK_EX);
+    LOGD("lock file result >> %s << %d << %d", lock_file_path, lockFileDescriptor, lock_result);
+    return lock_result != -1;
 }
 
 JNIEXPORT void JNICALL
@@ -63,7 +80,8 @@ static jstring findJniRegClass(JNIEnv *env) {
     if (clazz == NULL) {
         return NULL;
     }
-    jmethodID method_get = env->GetStaticMethodID(clazz, "getProperty", "(Ljava/lang/String;)Ljava/lang/String;");
+    jmethodID method_get = env->GetStaticMethodID(clazz, "getProperty",
+                                                  "(Ljava/lang/String;)Ljava/lang/String;");
     if (method_get == NULL) {
         return NULL;
     }
@@ -110,7 +128,7 @@ static int registerNatives(JNIEnv *env) {
         LOGE("can not find register class");
         reg_class_name = env->NewStringUTF(JNIREG_CLASS);
     }
-    const char* jni_class_name = env->GetStringUTFChars(reg_class_name, 0);
+    const char *jni_class_name = env->GetStringUTFChars(reg_class_name, 0);
     LOGD("native name : %s", jni_class_name);
     if (!registerNativeMethods(env, jni_class_name, gMethods,
                                sizeof(gMethods) / sizeof(gMethods[0]))) {

@@ -36,26 +36,26 @@ public class JavaDaemon {
     }
 
     public void startAppLock(Context context, String[] strArr) {
-        boolean specProcessHasStarted;
+        boolean isSpecProcess;
         String cmdLine = Utils.getCmdLine();
         Log.iv(Log.TAG, "cmdLine : " + cmdLine);
         if (cmdLine != null && cmdLine.startsWith(context.getPackageName()) && cmdLine.contains(COLON_SEPARATOR)) {
             String substring = cmdLine.substring(cmdLine.lastIndexOf(COLON_SEPARATOR) + 1);
             ArrayList arrayList = new ArrayList();
             if (strArr != null) {
-                specProcessHasStarted = false;
+                isSpecProcess = false;
                 for (String str : strArr) {
                     if (str.equals(substring)) {
-                        specProcessHasStarted = true;
+                        isSpecProcess = true;
                     } else {
                         arrayList.add(str);
                     }
                 }
             } else {
-                specProcessHasStarted = false;
+                isSpecProcess = false;
             }
-            Log.iv(Log.TAG, "process : " + substring + " , processStarted : " + specProcessHasStarted);
-            if (specProcessHasStarted) {
+            Log.iv(Log.TAG, "process : " + substring + " , isSpecProcess : " + isSpecProcess);
+            if (isSpecProcess) {
                 Log.iv(Log.TAG, "app lock file start : " + substring);
                 DaemonMain.lockFile(context.getFilesDir() + "/" + substring + "_daemon");
                 Log.iv(Log.TAG, "app lock file finish");
@@ -63,7 +63,7 @@ public class JavaDaemon {
                 for (int i = 0; i < strArr2.length; i++) {
                     strArr2[i] = context.getFilesDir() + "/" + ((String) arrayList.get(i)) + "_daemon";
                 }
-                new AppProcessThread(context, strArr2, "daemon").start();
+                new AppProcessThread(context, strArr2, /*"daemon"*/substring).start();
             }
         }
     }

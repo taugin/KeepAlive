@@ -58,17 +58,17 @@ public class DaemonMain implements Serializable {
             fillAllParcel();
             DaemonMain.nativeSetSid();
             try {
-                Log.iv(Log.TAG, "setargv0 " + this.daemonEntity.processName);
+                Log.iv(Log.TAG, "setargv0 : " + daemonEntity.processName);
                 Process.class.getMethod("setArgV0", new Class[]{String.class}).invoke((Object) null, new Object[]{this.daemonEntity.processName});
             } catch (Exception e2) {
                 Log.e(Log.TAG, "error : " + e2);
             }
-            for (int i = 1; i < this.daemonEntity.daemonPath.length; i++) {
+            for (int i = 1; i < daemonEntity.daemonPath.length; i++) {
                 new DaemonThread(i).start();
             }
-            Log.iv(Log.TAG, this.daemonEntity.processName + " start lock File" + this.daemonEntity.daemonPath[0]);
-            DaemonMain.waitFileLock(this.daemonEntity.daemonPath[0]);
-            Log.iv(Log.TAG, "lock File finish");
+            Log.iv(Log.TAG, "[" + daemonEntity.processName + "] start lock file : " + this.daemonEntity.daemonPath[0]);
+            DaemonMain.waitFileLock(daemonEntity.daemonPath[0]);
+            Log.iv(Log.TAG, "lock file finish");
             startService();
             sendBroadcast();
             startInstrumentation();
