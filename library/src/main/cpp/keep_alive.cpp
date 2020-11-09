@@ -42,8 +42,10 @@ bool wait_file_lock(const char *lock_file_path) {
             if (loop_result == 0) {
                 int unlock_result = flock(lockFileDescriptor, LOCK_UN);
                 LOGV("lock_file_path : %s , unlock_result : %d", lock_file_path, unlock_result);
+                sleep(1);
+            } else {
+                usleep(1000);
             }
-            usleep(1000);
         } else {
             break;
         }
