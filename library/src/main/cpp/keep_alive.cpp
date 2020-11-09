@@ -31,8 +31,22 @@ bool wait_file_lock(const char *lock_file_path) {
     int lockFileDescriptor = open(lock_file_path, O_RDONLY);
     if (lockFileDescriptor == -1)
         lockFileDescriptor = open(lock_file_path, 64, 256);
-    while (flock(lockFileDescriptor, 6) != -1)
-        usleep(1000);
+    int loop_result = -1;
+    for (;;) {
+        loop_result = flock(lockFileDescriptor, 6);
+        LOGD("lock_file_path : %s , loop_result : %d", lock_file_path, loop_result);
+        if (loop_result != -1) {
+            if (loop_result == 0) {
+                int unlock_result = flock(lockFileDescriptor, LOCK_UN);
+                LOGD("lock_file_path : %s , unlock_result : %d", lock_file_path, unlock_result);
+                sleep(1);
+            } else {
+                usleep(1000);
+            }
+        } else {
+            break;
+        }
+    }
     LOGD("retry lock file >> %s << %d", lock_file_path, lockFileDescriptor);
     return flock(lockFileDescriptor, LOCK_EX) != -1;
 }
