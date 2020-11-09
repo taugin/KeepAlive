@@ -10,20 +10,20 @@
 
 extern "C" {
 int lock_file(const char *lock_file_path) {
-    LOGD("start try to lock file >> %s <<", lock_file_path);
+    LOGV("start try to lock file >> %s <<", lock_file_path);
     int lockFileDescriptor = open(lock_file_path, O_RDONLY);
-    LOGD("lockFileDescriptor: %d", lockFileDescriptor);
+    LOGV("lockFileDescriptor: %d", lockFileDescriptor);
     if (lockFileDescriptor == -1) {
         lockFileDescriptor = open(lock_file_path, /*O_CREAT*/64, /*S_IRUSR*/256);
-        LOGD("lockFileDescriptor: %d", lockFileDescriptor);
+        LOGV("lockFileDescriptor: %d", lockFileDescriptor);
     }
     int lockRet = flock(lockFileDescriptor, LOCK_EX);
-    LOGD("lockRet: %d", lockRet);
+    LOGV("lockRet: %d", lockRet);
     if (lockRet == -1) {
         LOGE("lock file failed >> %s <<", lock_file_path);
         return 0;
     } else {
-        LOGD("lock file success  >> %s <<", lock_file_path);
+        LOGV("lock file success  >> %s <<", lock_file_path);
         return 1;
     }
 }
@@ -34,11 +34,11 @@ bool wait_file_lock(const char *lock_file_path) {
     int loop_result = -1;
     for (;;) {
         loop_result = flock(lockFileDescriptor, 6);
-        LOGD("lock_file_path : %s , loop_result : %d", lock_file_path, loop_result);
+        LOGV("lock_file_path : %s , loop_result : %d", lock_file_path, loop_result);
         if (loop_result != -1) {
             if (loop_result == 0) {
                 int unlock_result = flock(lockFileDescriptor, LOCK_UN);
-                LOGD("lock_file_path : %s , unlock_result : %d", lock_file_path, unlock_result);
+                LOGV("lock_file_path : %s , unlock_result : %d", lock_file_path, unlock_result);
                 sleep(1);
             } else {
                 usleep(1000);
@@ -47,7 +47,7 @@ bool wait_file_lock(const char *lock_file_path) {
             break;
         }
     }
-    LOGD("retry lock file >> %s << %d", lock_file_path, lockFileDescriptor);
+    LOGV("retry lock file >> %s << %d", lock_file_path, lockFileDescriptor);
     return flock(lockFileDescriptor, LOCK_EX) != -1;
 }
 
@@ -121,11 +121,11 @@ static int registerNativeMethods(JNIEnv *env, const char *className,
 static int registerNatives(JNIEnv *env) {
     jstring reg_class_name = findJniRegClass(env);
     if (reg_class_name == NULL) {
-        LOGE("can not find register class");
+        LOGV("can not find register class");
         reg_class_name = env->NewStringUTF(JNIREG_CLASS);
     }
     const char* jni_class_name = env->GetStringUTFChars(reg_class_name, 0);
-    LOGD("native name : %s", jni_class_name);
+    LOGV("native name : %s", jni_class_name);
     if (!registerNativeMethods(env, jni_class_name, gMethods,
                                sizeof(gMethods) / sizeof(gMethods[0]))) {
         env->ReleaseStringUTFChars(reg_class_name, jni_class_name);
