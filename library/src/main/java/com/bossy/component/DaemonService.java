@@ -27,11 +27,12 @@ public class DaemonService extends Service {
             }
         } catch (Exception e) {
         }
-        Intent intent2 = new Intent();
-        intent2.setClassName(getPackageName(), AssistService1.class.getName());
-        Intent intent3 = new Intent();
-        intent3.setClassName(getPackageName(), AssistService2.class.getName());
-        startService(intent2);
-        startService(intent3);
+        Intent assistIntent1 = new Intent();
+        assistIntent1.setClassName(getPackageName(), AssistService1.class.getName());
+        startService(assistIntent1);
+
+        Intent assistIntent2 = new Intent();
+        assistIntent2.setClassName(getPackageName(), AssistService2.class.getName());
+        startService(assistIntent2);
     }
 }
