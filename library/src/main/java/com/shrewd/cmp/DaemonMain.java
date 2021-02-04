@@ -125,7 +125,9 @@ public class DaemonMain implements Serializable {
         this.daemonEntity.serviceIntent.writeToParcel(this.mServiceParcel, 0);
         this.mServiceParcel.writeString((String) null);
         if (Build.VERSION.SDK_INT >= 26) {
-            this.mServiceParcel.writeInt(0);
+            // 参数为0，表示用startService启动service
+            // 参数为1，表示用startForegroundService启动service
+            this.mServiceParcel.writeInt(1);
         }
         if (Build.VERSION.SDK_INT >= 23) {
             this.mServiceParcel.writeString(this.daemonEntity.serviceIntent.getComponent().getPackageName());
