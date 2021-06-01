@@ -11,15 +11,15 @@ public class App extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        if (isMainProcess()) {
-            BgStart.init(this);
-        }
+//        if (isMainProcess()) {
+//            BgStart.init(this);
+//        }
+        KeepAlive.attachBaseContext(this, NotifyResidentService.class);
     }
 
     @Override
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
-        KeepAlive.attachBaseContext(base, NotifyResidentService.class);
     }
 
     public boolean isMainProcess() {
