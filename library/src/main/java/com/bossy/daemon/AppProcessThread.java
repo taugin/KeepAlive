@@ -1,6 +1,7 @@
 package com.bossy.daemon;
 
 import android.content.Context;
+import android.text.TextUtils;
 
 import com.bossy.log.Log;
 import com.bossy.env.DaemonEntity;
@@ -10,6 +11,8 @@ import com.bossy.component.DaemonMain;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Map;
+
+import dalvik.system.PathClassLoader;
 
 public class AppProcessThread extends Thread {
     private Context context;
@@ -24,6 +27,22 @@ public class AppProcessThread extends Thread {
         this.daemonPath = strArr;
     }
 
+    private String findLibrary(String library) {
+        try {
+            ClassLoader classLoader = AppProcessThread.class.getClassLoader();
+            if (classLoader instanceof PathClassLoader) {
+                PathClassLoader pathClassLoader = (PathClassLoader) classLoader;
+                String libraryPath = pathClassLoader.findLibrary(library);
+                if (libraryPath != null) {
+                    File libraryFile = new File(libraryPath);
+                    return libraryFile.getParent();
+                }
+            }
+        } catch (Exception | Error e) {
+        }
+        return null;
+    }
+
     public void run() {
         DaemonEnv daemonEnv = JavaDaemon.getInstance().getDaemonEnv();
         DaemonEntity daemonEntity = new DaemonEntity();
@@ -34,6 +53,10 @@ public class AppProcessThread extends Thread {
         daemonEntity.instrumentIntent = daemonEnv.instrumentIntent;
         String str = daemonEnv.publicDir;
         String str2 = daemonEnv.nativeDir;
+        String nativeFilePath = findLibrary("bossy_daemon");
+        if (!TextUtils.isEmpty(nativeFilePath) && !TextUtils.equals(nativeFilePath, str2)) {
+            str2 = str2 + ":" + nativeFilePath;
+        }
         ArrayList arrayList = new ArrayList();
         if (str2 != null && str2.contains("64")) {
             arrayList.add("export CLASSPATH=$CLASSPATH:" + str);
