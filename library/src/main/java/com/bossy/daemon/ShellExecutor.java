@@ -62,7 +62,9 @@ public class ShellExecutor {
                 process.waitFor();
                 readResult(bufferedReader);
             } catch (IOException e2) {
+                Log.v(Log.TAG, "shell executor io exception : " + e2);
             } catch (InterruptedException e3) {
+                Log.v(Log.TAG, "shell executor interrupted exception : " + e3);
             }
         }
     }

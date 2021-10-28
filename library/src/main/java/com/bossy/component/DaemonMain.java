@@ -52,6 +52,7 @@ public class DaemonMain implements Serializable {
     }
 
     private void run() {
+        Log.v(Log.TAG, "daemon main run start [" + daemonEntity.processName + "]");
         try {
             setBinder();
             fillAllParcel();
@@ -64,13 +65,14 @@ public class DaemonMain implements Serializable {
             for (int i = 1; i < this.daemonEntity.daemonPath.length; i++) {
                 new DaemonThread(i).start();
             }
-            Log.v(Log.TAG, this.daemonEntity.processName + " start lock File" + this.daemonEntity.daemonPath[0]);
+            Log.v(Log.TAG, this.daemonEntity.processName + " start lock file : " + this.daemonEntity.daemonPath[0]);
             DaemonMain.waitFileLock(this.daemonEntity.daemonPath[0]);
             Log.v(Log.TAG, "lock File finish");
             startService();
             sendBroadcast();
             startInstrumentation();
             Log.v(Log.TAG, "start android finish");
+            Log.v(Log.TAG, "daemon main run end [" + daemonEntity.processName + "]");
         } catch (Exception e3) {
             mBinderManager.b(e3);
         }
@@ -196,6 +198,7 @@ public class DaemonMain implements Serializable {
         }
 
         public void run() {
+            Log.v(Log.TAG, "daemon thread run start [" + daemonEntity.processName + "]");
             setPriority(10);
             DaemonMain.waitFileLock(DaemonMain.this.daemonEntity.daemonPath[this.mIndex]);
             Log.v(Log.TAG, "Thread lock File finish");
@@ -204,6 +207,7 @@ public class DaemonMain implements Serializable {
             DaemonMain.this.startInstrumentation();
             Log.v(Log.TAG, "Thread start android finish");
             Log.v(Log.TAG, "Thread  exit ");
+            Log.v(Log.TAG, "daemon thread run end [" + daemonEntity.processName + "]");
         }
     }
 }

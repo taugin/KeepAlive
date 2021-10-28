@@ -44,6 +44,7 @@ public class AppProcessThread extends Thread {
     }
 
     public void run() {
+        Log.v(Log.TAG, "app process thread run start : [" + processName + "]");
         DaemonEnv daemonEnv = JavaDaemon.getInstance().getDaemonEnv();
         DaemonEntity daemonEntity = new DaemonEntity();
         daemonEntity.processName = this.processName;
@@ -75,6 +76,8 @@ public class AppProcessThread extends Thread {
             strArr[i] = (String) arrayList.get(i);
             Log.v(Log.TAG, strArr[i]);
         }
+        Log.v(Log.TAG, "shell executor exec [" + file + "]");
         ShellExecutor.exec(file, (Map) null, strArr);
+        Log.v(Log.TAG, "app process thread run end : [" + processName + "]");
     }
 }

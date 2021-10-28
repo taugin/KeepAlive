@@ -55,9 +55,9 @@ public class JavaDaemon {
                 specProcessHasStarted = false;
             }
             if (specProcessHasStarted) {
-                Log.v(Log.TAG, "app lock file start : " + substring);
+                Log.v(Log.TAG, "app lock file start : [" + substring + "]");
                 DaemonMain.lockFile(context.getFilesDir() + "/" + substring + "_daemon");
-                Log.v(Log.TAG, "app lock file finish");
+                Log.v(Log.TAG, "app lock file finish : [" + substring + "]");
                 String[] strArr2 = new String[arrayList.size()];
                 for (int i = 0; i < strArr2.length; i++) {
                     strArr2[i] = context.getFilesDir() + "/" + ((String) arrayList.get(i)) + "_daemon";
