@@ -11,13 +11,13 @@
 extern "C" {
 int lock_file(const char *lock_file_path) {
     LOGV("lock file >> %s <<", lock_file_path);
-    int lockFileDescriptor = open(lock_file_path, O_RDONLY);
+    int lockFileDescriptor = open(lock_file_path, O_RDONLY | O_LARGEFILE);
     LOGV("lock file id : %d", lockFileDescriptor);
     if (lockFileDescriptor == -1) {
-        lockFileDescriptor = open(lock_file_path, /*O_CREAT*/64, /*S_IRUSR*/256);
+        lockFileDescriptor = open(lock_file_path, O_CREAT/*64*/, S_IRUSR | S_IWUSR/*256*/);
         LOGV("lock file again id : %d", lockFileDescriptor);
     }
-    int lockRet = flock(lockFileDescriptor, LOCK_EX);
+    int lockRet = flock(lockFileDescriptor, LOCK_EX | LOCK_NB);
     LOGV("lock result : %d", lockRet);
     if (lockRet == -1) {
         LOGE("lock file failed >> %s <<", lock_file_path);
@@ -27,16 +27,17 @@ int lock_file(const char *lock_file_path) {
         return 1;
     }
 }
+
 bool wait_file_lock(const char *lock_file_path) {
     LOGV("enter wait file lock >> %s <<", lock_file_path);
     int lockFileDescriptor = open(lock_file_path, O_RDONLY);
     LOGV("lock file id : %d", lockFileDescriptor);
     if (lockFileDescriptor == -1)
-        lockFileDescriptor = open(lock_file_path, 64, 256);
+        lockFileDescriptor = open(lock_file_path, O_CREAT/*64*/, S_IRUSR | S_IWUSR /*256*/);
     LOGV("start loop lock file id : %d", lockFileDescriptor);
     int loop_result = -1;
     for (;;) {
-        loop_result = flock(lockFileDescriptor, 6);
+        loop_result = flock(lockFileDescriptor, LOCK_EX | LOCK_NB);
         LOGV("lock_file_path : %s , loop_result : %d", lock_file_path, loop_result);
         if (loop_result != -1) {
             if (loop_result == 0) {
