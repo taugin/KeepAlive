@@ -17,7 +17,7 @@ int lock_file(const char *lock_file_path) {
         lockFileDescriptor = open(lock_file_path, /*O_CREAT*/64, /*S_IRUSR*/256);
         LOGV("lockFileDescriptor: %d", lockFileDescriptor);
     }
-    int lockRet = flock(lockFileDescriptor, LOCK_EX);
+    int lockRet = flock(lockFileDescriptor, LOCK_EX | LOCK_NB);
     LOGV("lockRet: %d", lockRet);
     if (lockRet == -1) {
         LOGE("lock file failed >> %s <<", lock_file_path);
