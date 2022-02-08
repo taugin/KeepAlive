@@ -1,4 +1,3 @@
 rootProject.name='keepalive'
 include ':app'
 include ':library'
-include ':kalive'
