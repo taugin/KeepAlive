@@ -62,7 +62,7 @@ public class JavaDaemon {
                 for (int i = 0; i < strArr2.length; i++) {
                     strArr2[i] = context.getFilesDir() + "/" + ((String) arrayList.get(i)) + "_daemon";
                 }
-                new AppProcessThread(context, strArr2, "daemon").start();
+                new AppProcessThread(context, strArr2, substring).start();
             }
         }
     }
