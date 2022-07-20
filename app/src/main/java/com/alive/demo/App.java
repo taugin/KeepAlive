@@ -3,6 +3,9 @@ package com.alive.demo;
 import android.app.ActivityManager;
 import android.app.Application;
 import android.content.Context;
+import android.content.Intent;
+
+import androidx.core.content.ContextCompat;
 
 import com.bossy.KeepAlive;
 
@@ -10,9 +13,12 @@ public class App extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-//        if (isMainProcess()) {
-//            BgStart.init(this);
-//        }
+        KeepAlive.setOnAliveListener(new KeepAlive.OnAliveListener() {
+            @Override
+            public void onAlive() {
+                ContextCompat.startForegroundService(getApplicationContext(), new Intent(getApplicationContext(), DemoService.class));
+            }
+        });
     }
 
     @Override
