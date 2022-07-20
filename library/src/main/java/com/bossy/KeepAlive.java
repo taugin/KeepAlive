@@ -3,7 +3,7 @@ package com.bossy;
 import android.content.Context;
 import android.text.TextUtils;
 
-import com.bossy.alive.CGNative;
+import com.bossy.alive.KANative;
 import com.bossy.log.Log;
 import com.bossy.utils.Utils;
 
@@ -14,21 +14,25 @@ public class KeepAlive {
     private static final String COLON_SEPARATOR = ":";
 
     public static void attachBaseContext(Context context) {
+        attachBaseContext(context, null);
+    }
+
+    public static void attachBaseContext(Context context, String subProcessName) {
         String packageName = context.getPackageName();
         String processName = getProcessName(context);
-        CGNative.init(context);
+        KANative.init(context, subProcessName);
         Log.v(Log.TAG, "processName : " + processName);
         if (TextUtils.equals(packageName, processName)) {
-            CGNative.onPersistentServiceCreate(context);
-            CGNative.startAllService(context, "application");
-            CGNative.callProvider(context, "service_p");
-            CGNative.callProvider(context, "core_p");
+            KANative.onPersistentServiceCreate(context);
+            KANative.startAllService(context, "application");
+            KANative.callProvider(context, "service_p");
+            KANative.callProvider(context, "core_p");
         } else if (TextUtils.equals("core", processName)) {
-            CGNative.onAssistantServiceCreate(context);
+            KANative.onAssistantServiceCreate(context);
         } else if (TextUtils.equals("core_p", processName)) {
-            CGNative.onAssistantProviderCreate(context);
+            KANative.onAssistantProviderCreate(context);
         } else if (TextUtils.equals("service_p", processName)) {
-            CGNative.onPersistentProviderCreate(context);
+            KANative.onPersistentProviderCreate(context);
         }
         disableAPIDialog();
     }

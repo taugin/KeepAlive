@@ -12,7 +12,7 @@ import com.bossy.log.Log;
 
 import java.io.File;
 
-public class CGNative {
+public class KANative {
     static {
         try {
             System.loadLibrary("bossy_daemon");
@@ -31,9 +31,13 @@ public class CGNative {
     private static final String FILE8 = "file8";
     private static final String FILE_DIR = "5FAD3EB1C8";
 
+    private static final String SUB_PROCESS_NAME = "assist_daemon";
+
+    private static String sSubProcessName;
+
     private static Context sContext;
 
-    public static native boolean nativeMonitor(String file1, String file2, String file3, String file4);
+    public static native boolean nativeMonitor(String file1, String file2, String file3, String file4, String processName);
 
     public static void notifyDead() {
         Log.v(Log.TAG, "notify dead");
@@ -54,8 +58,9 @@ public class CGNative {
         BaseDaemonService.startService(context, intent2);
     }
 
-    public static void init(Context context) {
+    public static void init(Context context, String subProcessName) {
         sContext = context;
+        sSubProcessName = subProcessName;
         initIndicatorFiles(context);
     }
 
@@ -108,7 +113,7 @@ public class CGNative {
                 final String file6 = getAbsolutePath(context, FILE6);
                 final String file7 = getAbsolutePath(context, FILE7);
                 final String file8 = getAbsolutePath(context, FILE8);
-                nativeMonitor(file5, file6, file7, file8);
+                nativeMonitor(file5, file6, file7, file8, getSubProcessName(context));
             }
         }.start();
 
@@ -122,7 +127,7 @@ public class CGNative {
                 final String file6 = getAbsolutePath(context, FILE6);
                 final String file7 = getAbsolutePath(context, FILE7);
                 final String file8 = getAbsolutePath(context, FILE8);
-                nativeMonitor(file6, file5, file8, file7);
+                nativeMonitor(file6, file5, file8, file7, getSubProcessName(context));
             }
         }.start();
     }
@@ -135,7 +140,7 @@ public class CGNative {
                 final String file2 = getAbsolutePath(context, FILE2);
                 final String file3 = getAbsolutePath(context, FILE3);
                 final String file4 = getAbsolutePath(context, FILE4);
-                nativeMonitor(file2, file1, file4, file3);
+                nativeMonitor(file2, file1, file4, file3, getSubProcessName(context));
             }
         }.start();
     }
@@ -148,8 +153,15 @@ public class CGNative {
                 final String file2 = getAbsolutePath(context, FILE2);
                 final String file3 = getAbsolutePath(context, FILE3);
                 final String file4 = getAbsolutePath(context, FILE4);
-                nativeMonitor(file1, file2, file3, file4);
+                nativeMonitor(file1, file2, file3, file4, getSubProcessName(context));
             }
         }.start();
+    }
+
+    private static String getSubProcessName(final Context context) {
+        if (!TextUtils.isEmpty(sSubProcessName)) {
+            return sSubProcessName;
+        }
+        return SUB_PROCESS_NAME;
     }
 }

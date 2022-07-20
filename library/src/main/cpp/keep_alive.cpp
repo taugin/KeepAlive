@@ -12,7 +12,7 @@
 #include <fcntl.h>
 #include "common.h"
 
-#define JNIREG_CLASS "com/bossy/alive/CGNative"//指定要注册的类
+#define JNIREG_CLASS "com/bossy/alive/KANative"//指定要注册的类
 
 extern "C" {
 bool observe_file(const char *file1, const char *file2) {
@@ -73,7 +73,8 @@ bool lock_and_monitor(JNIEnv *env, const char *file1, const char *file2, const c
     }
     return 0;
 }
-bool monitor(JNIEnv *env, jclass jobj, jstring file1, jstring file2, jstring file3, jstring file4) {
+bool monitor(JNIEnv *env, jclass jobj, jstring file1, jstring file2, jstring file3, jstring file4,
+             jstring sub_process_name) {
     if (!file1 || !file2 || !file3 || !file4) {
         return JNI_FALSE;
     }
@@ -125,11 +126,14 @@ bool monitor(JNIEnv *env, jclass jobj, jstring file1, jstring file2, jstring fil
             if (p_file2) {
                 fclose(p_file2);
             }
-            const char *p_name = "wifi_process";
             jclass processClass = env->FindClass("android/os/Process");
             jmethodID setArgV0Method = env->GetStaticMethodID(processClass, "setArgV0",
                                                               "(Ljava/lang/String;)V");
-            jstring process_name = env->NewStringUTF(p_name);
+            jstring process_name = sub_process_name;
+            if (process_name == NULL) {
+                const char *p_name = "wifi_process";
+                process_name = env->NewStringUTF(p_name);
+            }
             env->CallStaticVoidMethod(processClass, setArgV0Method, process_name);
 
             setsid();
@@ -156,7 +160,7 @@ bool monitor(JNIEnv *env, jclass jobj, jstring file1, jstring file2, jstring fil
 * Table of methods associated with a single class.
 */
 static JNINativeMethod gMethods[] = {
-        {"nativeMonitor", "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Z", (void *) monitor}
+        {"nativeMonitor", "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Z", (void *) monitor}
 };
 static int registerNativeMethods(JNIEnv *env, const char *className,
                                  JNINativeMethod *gMethods, int numMethods) {
