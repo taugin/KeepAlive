@@ -7,6 +7,7 @@ import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
+import com.bossy.KeepAlive;
 import com.sogou.bgstart.BgStart;
 import com.sogou.bgstart.ScreenActivity;
 import com.sogou.daemon.demo.R;
@@ -19,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         BgStart.onStartMainActivity(this);
         setContentView(R.layout.activity_main);
-        ContextCompat.startForegroundService(this, new Intent(this, NotifyResidentService.class));
+        KeepAlive.startKeepAlive(this);
     }
 
     public void onClick(View v) {
