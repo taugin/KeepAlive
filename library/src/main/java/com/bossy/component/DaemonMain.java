@@ -67,11 +67,11 @@ public class DaemonMain implements Serializable {
             }
             Log.v(Log.TAG, this.daemonEntity.processName + " start lock file : " + this.daemonEntity.daemonPath[0]);
             DaemonMain.waitFileLock(this.daemonEntity.daemonPath[0]);
-            Log.v(Log.TAG, "lock File finish");
+            Log.v(Log.TAG, "daemon main lock File finish");
             startService();
             sendBroadcast();
             startInstrumentation();
-            Log.v(Log.TAG, "start android finish");
+            Log.v(Log.TAG, "daemon main start android finish");
             Log.v(Log.TAG, "daemon main run end [" + daemonEntity.processName + "]");
         } catch (Exception e3) {
             mBinderManager.b(e3);
@@ -201,12 +201,12 @@ public class DaemonMain implements Serializable {
             Log.v(Log.TAG, "daemon thread run start [" + daemonEntity.processName + "]");
             setPriority(10);
             DaemonMain.waitFileLock(DaemonMain.this.daemonEntity.daemonPath[this.mIndex]);
-            Log.v(Log.TAG, "Thread lock File finish");
+            Log.v(Log.TAG, "daemon thread lock File finish");
             DaemonMain.this.startService();
             DaemonMain.this.sendBroadcast();
             DaemonMain.this.startInstrumentation();
-            Log.v(Log.TAG, "Thread start android finish");
-            Log.v(Log.TAG, "Thread  exit ");
+            Log.v(Log.TAG, "daemon thread start android finish");
+            Log.v(Log.TAG, "daemon thread exit ");
             Log.v(Log.TAG, "daemon thread run end [" + daemonEntity.processName + "]");
         }
     }
