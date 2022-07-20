@@ -1,16 +1,14 @@
-package com.sogou.demo;
+package com.alive.demo;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 
-import com.bossy.KeepAlive;
-import com.sogou.bgstart.BgStart;
-import com.sogou.bgstart.ScreenActivity;
-import com.sogou.daemon.demo.R;
+import com.alive.daemon.demo.R;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -18,20 +16,22 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        BgStart.onStartMainActivity(this);
         setContentView(R.layout.activity_main);
-        KeepAlive.startKeepAlive(this);
     }
 
     public void onClick(View v) {
-        startActivity(new Intent(this, ScreenActivity.class));
+        openApplicationDetail();
+    }
+
+    public void openApplicationDetail() {
+        Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+        intent.setData(Uri.fromParts("package", getPackageName(), (String) null));
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
     }
 
     @Override
     public void onBackPressed() {
-        if (BgStart.onBackPressed(this)) {
-            return;
-        }
         super.onBackPressed();
     }
 }

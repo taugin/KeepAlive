@@ -4,27 +4,27 @@
 
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <instrumentation
-        android:name="com.bossy.component.DaemonInstrumentation"
+        android:name="com.bossy.alive.DaemonInstrumentation"
         android:targetPackage="${applicationId}"
-        android:targetProcesses="${applicationId},${applicationId}:resident,${applicationId}:daemon,${applicationId}:assist1,${applicationId}:assist2" />
+        android:targetProcesses="${applicationId},${applicationId}:core,${applicationId}:service" />
 
     <application>
-        <service
-            android:name="com.bossy.component.DaemonService"
-            android:exported="true"
-            android:process=":daemon" />
-        <receiver
-            android:name="com.bossy.component.DaemonReceiver"
-            android:exported="true" />
 
         <service
-            android:name="com.bossy.component.AssistService1"
-            android:exported="true"
-            android:process=":assist1" />
+            android:name=".alive.DaemonService1"
+            android:process=":core" />
         <service
-            android:name="com.bossy.component.AssistService2"
-            android:exported="true"
-            android:process=":assist2" />
+            android:name=".alive.DaemonService2"
+            android:process=":service" />
+
+        <provider
+            android:name=".alive.AssistantProvider"
+            android:authorities="${applicationId}.core_p"
+            android:process=":core_p" />
+        <provider
+            android:name=".alive.PersistentProvider"
+            android:authorities="${applicationId}.service_p"
+            android:process=":service_p" />
     </application>
 
 </manifest>

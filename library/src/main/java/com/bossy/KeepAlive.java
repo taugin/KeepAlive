@@ -1,40 +1,73 @@
 package com.bossy;
 
-import android.app.Service;
 import android.content.Context;
-import android.content.Intent;
-import android.os.Build;
+import android.text.TextUtils;
 
-import com.bossy.component.DaemonInstrumentation;
-import com.bossy.component.DaemonReceiver;
-import com.bossy.component.DaemonService;
-import com.bossy.daemon.JavaDaemon;
+import com.bossy.alive.CGNative;
+import com.bossy.log.Log;
 import com.bossy.utils.Utils;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+
 public class KeepAlive {
-    public static void attachBaseContext(Context context, Class<?> service) {
-        if (context != null && service != null) {
-            Utils.putString(context, Service.class.getName() + "_Name", service.getName());
+    private static final String COLON_SEPARATOR = ":";
+
+    public static void attachBaseContext(Context context) {
+        String packageName = context.getPackageName();
+        String processName = getProcessName(context);
+        CGNative.init(context);
+        Log.v(Log.TAG, "processName : " + processName);
+        if (TextUtils.equals(packageName, processName)) {
+            CGNative.onPersistentServiceCreate(context);
+            CGNative.startAllService(context, "application");
+            CGNative.callProvider(context, "service_p");
+            CGNative.callProvider(context, "core_p");
+        } else if (TextUtils.equals("core", processName)) {
+            CGNative.onAssistantServiceCreate(context);
+        } else if (TextUtils.equals("core_p", processName)) {
+            CGNative.onAssistantProviderCreate(context);
+        } else if (TextUtils.equals("service_p", processName)) {
+            CGNative.onPersistentProviderCreate(context);
         }
-        initKeepAlive(context);
+        disableAPIDialog();
     }
 
-    private static void initKeepAlive(Context context) {
-        JavaDaemon.getInstance().init(context, new Intent(context, DaemonService.class), new Intent(context, DaemonReceiver.class), new Intent(context, DaemonInstrumentation.class));
-        JavaDaemon.getInstance().startAppLock(context, new String[]{"daemon", "assist1", "assist2"});
+    private static String getProcessName(Context context) {
+        String cmdLine = Utils.getCmdLine();
+        Log.v(Log.TAG, "cmdLine : " + cmdLine);
+        if (cmdLine != null && cmdLine.startsWith(context.getPackageName()) && cmdLine.contains(COLON_SEPARATOR)) {
+            String substring = cmdLine.substring(cmdLine.lastIndexOf(COLON_SEPARATOR) + 1);
+            return substring;
+        }
+        return context.getPackageName();
     }
 
-    public static void startKeepAlive(Context context) {
+    private static void disableAPIDialog() {
         try {
-            String serviceName = Utils.getString(context, Service.class.getName() + "_Name");
-            Intent intent = new Intent();
-            intent.setClassName(context.getPackageName(), serviceName);
-            if (Build.VERSION.SDK_INT >= 26) {
-                context.startForegroundService(intent);
-            } else {
-                context.startService(intent);
-            }
-        } catch (Exception e) {
+            Class<?> cls = Class.forName("android.app.ActivityThread");
+            Method declaredMethod = cls.getDeclaredMethod("currentActivityThread", new Class[0]);
+            declaredMethod.setAccessible(true);
+            Object invoke = declaredMethod.invoke(null, new Object[0]);
+            Field declaredField = cls.getDeclaredField("mHiddenApiWarningShown");
+            declaredField.setAccessible(true);
+            declaredField.setBoolean(invoke, true);
+        } catch (Exception | Error unused) {
         }
     }
+
+    private static OnAliveListener sOnAliveListener;
+
+    public static void setOnAliveListener(OnAliveListener l) {
+        sOnAliveListener = l;
+    }
+
+    public static OnAliveListener getOnAliveListener() {
+        return sOnAliveListener;
+    }
+
+    public interface OnAliveListener {
+        void onAlive();
+    }
+
 }

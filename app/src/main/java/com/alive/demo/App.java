@@ -1,11 +1,10 @@
-package com.sogou.demo;
+package com.alive.demo;
 
 import android.app.ActivityManager;
 import android.app.Application;
 import android.content.Context;
 
 import com.bossy.KeepAlive;
-import com.sogou.bgstart.BgStart;
 
 public class App extends Application {
     @Override
@@ -14,12 +13,12 @@ public class App extends Application {
 //        if (isMainProcess()) {
 //            BgStart.init(this);
 //        }
-        KeepAlive.attachBaseContext(this, NotifyResidentService.class);
     }
 
     @Override
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
+        KeepAlive.attachBaseContext(this);
     }
 
     public boolean isMainProcess() {

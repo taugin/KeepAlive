@@ -10,8 +10,8 @@
 #define LOGE(format, ...) __android_log_print(ANDROID_LOG_ERROR, TAG, "%s : %d ---> " format "%s",__FUNCTION__,__LINE__,##__VA_ARGS__,"\n");
 
 #ifdef LIB_DEBUG
-#define LOGV(format, ...) __android_log_print(ANDROID_LOG_VERBOSE, TAG, "%s : %d ---> " format "%s",__FUNCTION__,__LINE__,##__VA_ARGS__,"\n");
-#define LOGD(format, ...) __android_log_print(ANDROID_LOG_DEBUG, TAG, "%s : %d ---> " format "%s",__FUNCTION__,__LINE__,##__VA_ARGS__,"\n");
+#define LOGV(format, ...) __android_log_print(ANDROID_LOG_VERBOSE, TAG, "%s : %d ---> " format "%s",__FUNCTION__,__LINE__,##__VA_ARGS__,"\n")
+#define LOGD(format, ...) __android_log_print(ANDROID_LOG_DEBUG, TAG, "%s : %d ---> " format "%s",__FUNCTION__,__LINE__,##__VA_ARGS__,"\n")
 #else
 #define LOGV(...)
 #define LOGD(...)
