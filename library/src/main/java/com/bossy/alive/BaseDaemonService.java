@@ -13,8 +13,6 @@ import android.os.IBinder;
 import android.os.Looper;
 
 import com.bossy.R;
-import com.bossy.log.Log;
-import com.bossy.utils.Utils;
 
 public class BaseDaemonService extends Service {
     public static final String EXTRA_FROM = "extra_from";

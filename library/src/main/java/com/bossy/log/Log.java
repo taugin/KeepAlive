@@ -3,7 +3,6 @@ package com.bossy.log;
 import android.annotation.SuppressLint;
 import android.os.Environment;
 
-
 import com.bossy.BuildConfig;
 
 import java.io.File;
