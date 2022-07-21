@@ -15,16 +15,31 @@
 #define JNIREG_CLASS "com/bossy/alive/KANative"//指定要注册的类
 
 extern "C" {
-bool observe_file(const char *file1, const char *file2) {
-    if (open(file1, 0) == -1) {
-        open(file1, O_CREAT, S_IRUSR | S_IWUSR);
+
+/**
+ * function name : create_and_wait_file
+ * 创建file3文件，并且循环等待file4文件创建成功，创建成功后移除file2
+ * @param file3
+ * @param file4
+ * @return
+ */
+bool create_and_wait_file(const char *file3, const char *file4) {
+    if (open(file3, 0) == -1) {
+        open(file3, O_CREAT, S_IRUSR | S_IWUSR);
     }
-    while (open(file2, 0) == -1) {
+    while (open(file4, 0) == -1) {
         usleep(0x3E8u);
     }
-    remove(file2);
+    remove(file4);
     return LOGD("Watched >>>>OBSERVER<<<< has been ready2...");
 }
+
+/**
+ * function name : lock_file
+ * 打开文件，并且使用排斥锁给文件加锁,此操作为使进程处于阻塞状态
+ * @param file
+ * @return
+ */
 bool lock_file(const char *file) {
     LOGD("start try to lock file : %s", file);
     int fd = open(file, 0);
@@ -38,6 +53,13 @@ bool lock_file(const char *file) {
     LOGD("lock file success : %s", file);
     return 1;
 }
+
+/**
+ * function name : notify_process_dead
+ * 进程已经死亡，通知java层，并且
+ * @param env
+ * @return
+ */
 bool notify_process_dead(JNIEnv *env) {
     LOGD("java callback start");
     jclass processClass = env->FindClass(JNIREG_CLASS);
@@ -45,11 +67,24 @@ bool notify_process_dead(JNIEnv *env) {
                                                         "()V");
     env->CallStaticVoidMethod(processClass, notifyDeadMethod);
     LOGD("java callback end");
-    int result = getpid();
-    if ((int) result >= 1)
-        return killpg(result, 15);
-    return result;
+    int pid = getpid();
+    if ((int) pid >= 1) {
+        // 向pid为首的进程组发送结束进程信号
+        return killpg(pid, SIGTERM/*15*/);
+    }
+    return pid;
 }
+
+/**
+ * function name : lock_and_monitor
+ * 锁定file1文件，并在file2文件上等待另一个进程的文件锁
+ * @param env
+ * @param file1
+ * @param file2
+ * @param file3
+ * @param file4
+ * @return
+ */
 bool lock_and_monitor(JNIEnv *env, const char *file1, const char *file2, const char *file3,
                       const char *file4) {
     // 锁定file1文件，如果失败，则尝试2次
@@ -59,7 +94,8 @@ bool lock_and_monitor(JNIEnv *env, const char *file1, const char *file2, const c
         || (lock_file(file1) || (LOGD("Persistent lock myself failed and try again as 2 times")
             , usleep(0x2710u)
             , lock_file(file1)))) {
-        observe_file(file3, file4);
+        create_and_wait_file(file3, file4);
+        // 尝试给file2文件加锁，并且阻塞进程
         int result = lock_file(file2);
         if (result) {
             LOGD("Watch >>>>DAEMON<<<<< Daed !!");
@@ -73,6 +109,19 @@ bool lock_and_monitor(JNIEnv *env, const char *file1, const char *file2, const c
     }
     return 0;
 }
+
+/**
+ * function name : monitor
+ * JNI函数，每个进程调用次函数启动进程监控功能
+ * @param env
+ * @param jobj
+ * @param file1
+ * @param file2
+ * @param file3
+ * @param file4
+ * @param sub_process_name
+ * @return
+ */
 bool monitor(JNIEnv *env, jclass jobj, jstring file1, jstring file2, jstring file3, jstring file4,
              jstring sub_process_name) {
     if (!file1 || !file2 || !file3 || !file4) {
@@ -93,6 +142,7 @@ bool monitor(JNIEnv *env, jclass jobj, jstring file1, jstring file2, jstring fil
     str_file4 = env->GetStringUTFChars(file4, 0);
 
     int fork_pid = fork();
+
     if ((fork_pid & 0x80000000) != 0) {
         exit(0);
     }
@@ -162,6 +212,7 @@ bool monitor(JNIEnv *env, jclass jobj, jstring file1, jstring file2, jstring fil
 static JNINativeMethod gMethods[] = {
         {"nativeMonitor", "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Z", (void *) monitor}
 };
+
 static int registerNativeMethods(JNIEnv *env, const char *className,
                                  JNINativeMethod *gMethods, int numMethods) {
     jclass clazz;
@@ -175,7 +226,6 @@ static int registerNativeMethods(JNIEnv *env, const char *className,
 
     return JNI_TRUE;
 }
-
 
 static int registerNatives(JNIEnv *env) {
     const char *jni_class_name = JNIREG_CLASS;
