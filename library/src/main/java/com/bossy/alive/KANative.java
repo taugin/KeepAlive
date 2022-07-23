@@ -37,6 +37,7 @@ public class KANative {
 
     private static Context sContext;
 
+    @SuppressWarnings("JavaJniMissingFunction")
     public static native boolean nativeMonitor(String file1, String file2, String file3, String file4, String processName);
 
     public static void notifyDead() {
