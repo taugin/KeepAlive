@@ -3,7 +3,7 @@ package com.bossy.alive;
 import android.content.Context;
 import android.content.Intent;
 
-import com.bossy.KeepAlive;
+import com.bossy.KeepBossy;
 import com.bossy.log.Log;
 import com.bossy.utils.Utils;
 
@@ -30,7 +30,7 @@ public class DaemonService1 extends BaseDaemonService {
     private static void onBaseDaemonAlive(Context context, String from) {
         String processName = getProcessName(context);
         Log.iv(Log.TAG, "start from : " + from + " , process name : " + processName);
-        KeepAlive.OnAliveListener aliveListener = KeepAlive.getOnAliveListener();
+        KeepBossy.OnBossyListener aliveListener = KeepBossy.getOnAliveListener();
         if (aliveListener != null) {
             aliveListener.onAlive();
         }

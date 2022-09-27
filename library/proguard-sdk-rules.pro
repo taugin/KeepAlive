@@ -28,3 +28,7 @@
 -keep public class com.bossy.alive.KANative{
     public static void notifyDead();
 }
+# 设置所有 native 方法不被混淆
+-keepclasseswithmembernames class * {
+    native <methods>;
+}

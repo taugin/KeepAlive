@@ -7,14 +7,14 @@ import android.content.Intent;
 
 import androidx.core.content.ContextCompat;
 
-import com.bossy.KeepAlive;
+import com.bossy.KeepBossy;
 
 public class App extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        KeepAlive.attachBaseContext(this, "attach");
-        KeepAlive.setOnAliveListener(new KeepAlive.OnAliveListener() {
+        KeepBossy.startBossy(this, "attach");
+        KeepBossy.setOnBossyListener(new KeepBossy.OnBossyListener() {
             @Override
             public void onAlive() {
                 try {

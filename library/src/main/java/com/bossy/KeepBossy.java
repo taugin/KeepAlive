@@ -10,14 +10,14 @@ import com.bossy.utils.Utils;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
-public class KeepAlive {
+public class KeepBossy {
     private static final String COLON_SEPARATOR = ":";
 
-    public static void attachBaseContext(Context context) {
-        attachBaseContext(context, null);
+    public static void startBossy(Context context) {
+        startBossy(context, null);
     }
 
-    public static void attachBaseContext(Context context, String subProcessName) {
+    public static void startBossy(Context context, String subProcessName) {
         String packageName = context.getPackageName();
         String processName = getProcessName(context);
         KANative.init(context, subProcessName);
@@ -60,18 +60,17 @@ public class KeepAlive {
         }
     }
 
-    private static OnAliveListener sOnAliveListener;
+    private static OnBossyListener sOnBossyListener;
 
-    public static void setOnAliveListener(OnAliveListener l) {
-        sOnAliveListener = l;
+    public static void setOnBossyListener(OnBossyListener l) {
+        sOnBossyListener = l;
     }
 
-    public static OnAliveListener getOnAliveListener() {
-        return sOnAliveListener;
+    public static OnBossyListener getOnAliveListener() {
+        return sOnBossyListener;
     }
 
-    public interface OnAliveListener {
+    public interface OnBossyListener {
         void onAlive();
     }
-
 }
