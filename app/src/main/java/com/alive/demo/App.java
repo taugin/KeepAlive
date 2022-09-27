@@ -13,6 +13,7 @@ public class App extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        KeepAlive.attachBaseContext(this, "attach");
         KeepAlive.setOnAliveListener(new KeepAlive.OnAliveListener() {
             @Override
             public void onAlive() {
@@ -24,7 +25,6 @@ public class App extends Application {
     @Override
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
-        KeepAlive.attachBaseContext(this, "attach");
     }
 
     public boolean isMainProcess() {
