@@ -50,7 +50,7 @@ public class BaseDaemonService extends Service {
         }
     }
 
-    public static void startService(Context context, Intent intent) {
+    public static void startKeepService(Context context, Intent intent) {
         if (Build.VERSION.SDK_INT >= 26) {
             context.startForegroundService(intent);
         } else {

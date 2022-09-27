@@ -55,8 +55,8 @@ public class KANative {
         intent1.putExtra(BaseDaemonService.EXTRA_FROM, label);
         Intent intent2 = new Intent(context, DaemonService2.class);
         intent2.putExtra(BaseDaemonService.EXTRA_FROM, label);
-        BaseDaemonService.startService(context, intent1);
-        BaseDaemonService.startService(context, intent2);
+        BaseDaemonService.startKeepService(context, intent1);
+        BaseDaemonService.startKeepService(context, intent2);
     }
 
     public static void init(Context context, String subProcessName) {
