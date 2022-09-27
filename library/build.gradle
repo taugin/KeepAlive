@@ -21,14 +21,14 @@ static def getConfigKey() {
 }
 def isSnapshot = true
 android {
-    compileSdkVersion 29
-    buildToolsVersion "29.0.3"
+    compileSdkVersion 31
+    buildToolsVersion "31.0.0"
 
     defaultConfig {
         minSdkVersion 17
-        targetSdkVersion 29
+        targetSdkVersion 31
         versionCode 1
-        versionName "1.1.4" + (isSnapshot ? "-SNAPSHOT" : "")
+        versionName "1.0.1" + (isSnapshot ? "-SNAPSHOT" : "")
         ndk {
             abiFilters "armeabi-v7a", "arm64-v8a", "x86", "x86_64"//可以适当补填其他
         }
@@ -70,7 +70,7 @@ uploadArchives {
             }
             pom.version = android.defaultConfig.versionName
             pom.artifactId = "daemon"
-            pom.groupId = "com.keep.daemon"
+            pom.groupId = "com.alive.daemon"
             pom.name = "daemon"
             pom.packaging = "aar"
         }

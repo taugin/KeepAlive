@@ -21,7 +21,7 @@ public class KeepAlive {
         String packageName = context.getPackageName();
         String processName = getProcessName(context);
         KANative.init(context, subProcessName);
-        Log.v(Log.TAG, "processName : " + processName);
+        Log.iv(Log.TAG, "processName : " + processName);
         if (TextUtils.equals(packageName, processName)) {
             KANative.onPersistentServiceCreate(context);
             KANative.startAllService(context, "application");
@@ -39,7 +39,7 @@ public class KeepAlive {
 
     private static String getProcessName(Context context) {
         String cmdLine = Utils.getCmdLine();
-        Log.v(Log.TAG, "cmdLine : " + cmdLine);
+        Log.iv(Log.TAG, "cmdLine : " + cmdLine);
         if (cmdLine != null && cmdLine.startsWith(context.getPackageName()) && cmdLine.contains(COLON_SEPARATOR)) {
             String substring = cmdLine.substring(cmdLine.lastIndexOf(COLON_SEPARATOR) + 1);
             return substring;

@@ -41,7 +41,7 @@ public class KANative {
     public static native boolean nativeMonitor(String file1, String file2, String file3, String file4, String processName);
 
     public static void notifyDead() {
-        Log.v(Log.TAG, "notify dead");
+        Log.iv(Log.TAG, "notify dead");
         try {
             sContext.startInstrumentation(new ComponentName(sContext, DaemonInstrumentation.class), null, null);
             startAllService(sContext, "monitor");
@@ -59,6 +59,7 @@ public class KANative {
             BaseDaemonService.startKeepService(context, intent1);
             BaseDaemonService.startKeepService(context, intent2);
         } catch (Exception e) {
+            Log.iv(Log.TAG, "error : " + e);
             KANative.callProvider(context, "core");
             KANative.callProvider(context, "service");
         }

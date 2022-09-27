@@ -12,7 +12,7 @@ public class DaemonInstrumentation extends Instrumentation {
     public void onCreate(Bundle bundle) {
         super.onCreate(bundle);
         String processName = Build.VERSION.SDK_INT >= 26 ? getProcessName() : "";
-        Log.v(Log.TAG, "onCreate processName : " + processName);
+        Log.iv(Log.TAG, "onCreate processName : " + processName);
         KANative.startAllService(getContext(), "instrumentation");
     }
 }

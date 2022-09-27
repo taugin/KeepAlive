@@ -29,7 +29,7 @@ public class DaemonService1 extends BaseDaemonService {
 
     private static void onBaseDaemonAlive(Context context, String from) {
         String processName = getProcessName(context);
-        Log.v(Log.TAG, "start from : " + from + " , process name : " + processName);
+        Log.iv(Log.TAG, "start from : " + from + " , process name : " + processName);
         KeepAlive.OnAliveListener aliveListener = KeepAlive.getOnAliveListener();
         if (aliveListener != null) {
             aliveListener.onAlive();
