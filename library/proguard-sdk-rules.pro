@@ -19,9 +19,12 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
--flattenpackagehierarchy 'bs'
+-flattenpackagehierarchy 'kan'
 -dontoptimize
 -keep public class * extends android.app.Service
 -keep public class * extends android.app.Instrumentation
 -keep public class * extends android.content.BroadcastReceiver
 -keep public class * implements java.io.Serializable {*;}
+-keep public class com.bossy.alive.KANative{
+    public static void notifyDead();
+}
