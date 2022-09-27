@@ -18,6 +18,15 @@
             android:process=":service" />
 
         <provider
+            android:name=".alive.AssistantDaemonProvider"
+            android:authorities="${applicationId}.core"
+            android:process=":core" />
+        <provider
+            android:name=".alive.PersistentDaemonProvider"
+            android:authorities="${applicationId}.service"
+            android:process=":service" />
+
+        <provider
             android:name=".alive.AssistantProvider"
             android:authorities="${applicationId}.core_p"
             android:process=":core_p" />

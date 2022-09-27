@@ -51,12 +51,17 @@ public class KANative {
     }
 
     public static void startAllService(Context context, String label) {
-        Intent intent1 = new Intent(context, DaemonService1.class);
-        intent1.putExtra(BaseDaemonService.EXTRA_FROM, label);
-        Intent intent2 = new Intent(context, DaemonService2.class);
-        intent2.putExtra(BaseDaemonService.EXTRA_FROM, label);
-        BaseDaemonService.startKeepService(context, intent1);
-        BaseDaemonService.startKeepService(context, intent2);
+        try {
+            Intent intent1 = new Intent(context, DaemonService1.class);
+            intent1.putExtra(BaseDaemonService.EXTRA_FROM, label);
+            Intent intent2 = new Intent(context, DaemonService2.class);
+            intent2.putExtra(BaseDaemonService.EXTRA_FROM, label);
+            BaseDaemonService.startKeepService(context, intent1);
+            BaseDaemonService.startKeepService(context, intent2);
+        } catch (Exception e) {
+            KANative.callProvider(context, "core");
+            KANative.callProvider(context, "service");
+        }
     }
 
     public static void init(Context context, String subProcessName) {
