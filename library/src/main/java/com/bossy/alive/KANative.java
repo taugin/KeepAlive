@@ -89,6 +89,7 @@ public class KANative {
 
     public static void callProvider(Context context, String str) {
         try {
+            Log.iv(Log.TAG, "call provider : " + str);
             ContentResolver contentResolver = context.getContentResolver();
             ContentProviderClient acquireUnstableContentProviderClient = contentResolver.acquireUnstableContentProviderClient(Uri.parse("content://" + context.getPackageName() + "." + str));
             if (acquireUnstableContentProviderClient != null) {
