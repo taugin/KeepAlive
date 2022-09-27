@@ -103,7 +103,7 @@ public class KANative {
                 acquireUnstableContentProviderClient.release();
             }
         } catch (Exception e) {
-            Log.e(Log.TAG, "error : " + e);
+            Log.e(Log.TAG, "[" + str + "] error : " + e);
         }
     }
 
