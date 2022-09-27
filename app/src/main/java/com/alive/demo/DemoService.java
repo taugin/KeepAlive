@@ -28,7 +28,18 @@ public class DemoService extends Service {
     }
 
     @Override
+    public void onCreate() {
+        super.onCreate();
+        startForegroundNotification();
+    }
+
+    @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        startForegroundNotification();
+        return super.onStartCommand(intent, flags, startId);
+    }
+
+    private void startForegroundNotification() {
         try {
             NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "daemon");
             builder.setContentTitle(getApplicationInfo().loadLabel(getPackageManager()) + "正在运行中");
@@ -47,7 +58,6 @@ public class DemoService extends Service {
             startForeground(123456, builder.build());
         } catch (Exception e) {
         }
-        return super.onStartCommand(intent, flags, startId);
     }
 
     private long getAliveTimes() {

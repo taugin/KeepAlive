@@ -17,7 +17,10 @@ public class App extends Application {
         KeepAlive.setOnAliveListener(new KeepAlive.OnAliveListener() {
             @Override
             public void onAlive() {
-                ContextCompat.startForegroundService(getApplicationContext(), new Intent(getApplicationContext(), DemoService.class));
+                try {
+                    ContextCompat.startForegroundService(getApplicationContext(), new Intent(getApplicationContext(), DemoService.class));
+                } catch (Exception e) {
+                }
             }
         });
     }
