@@ -15,14 +15,25 @@ android {
         }
     }
 
+    signingConfigs {
+        config {
+            keyAlias 'taugin'
+            keyPassword '123456'
+            storeFile file('../keystore/taugin_pwd_123456.jks')
+            storePassword '123456'
+        }
+    }
+
     buildTypes {
         debug {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config
         }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config
         }
     }
 }

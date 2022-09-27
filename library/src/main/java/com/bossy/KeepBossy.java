@@ -66,11 +66,12 @@ public class KeepBossy {
         sOnBossyListener = l;
     }
 
-    public static OnBossyListener getOnAliveListener() {
+    public static OnBossyListener getOnBossyListener() {
         return sOnBossyListener;
     }
 
     public interface OnBossyListener {
         void onAlive();
+        boolean allowKeepBossy();
     }
 }

@@ -30,7 +30,7 @@ public class DaemonService1 extends BaseDaemonService {
     private static void onBaseDaemonAlive(Context context, String from) {
         String processName = getProcessName(context);
         Log.iv(Log.TAG, "start from : " + from + " , process name : " + processName);
-        KeepBossy.OnBossyListener aliveListener = KeepBossy.getOnAliveListener();
+        KeepBossy.OnBossyListener aliveListener = KeepBossy.getOnBossyListener();
         if (aliveListener != null) {
             aliveListener.onAlive();
         }

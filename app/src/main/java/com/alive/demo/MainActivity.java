@@ -9,6 +9,7 @@ import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.alive.daemon.demo.R;
+import com.bossy.KeepBossy;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -19,10 +20,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
-    public void onClick(View v) {
-        openApplicationDetail();
-    }
-
     public void openApplicationDetail() {
         Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
         intent.setData(Uri.fromParts("package", getPackageName(), (String) null));
@@ -30,8 +27,14 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
+    public void onClick(View v) {
+        if (v.getId() == R.id.set_non_organic) {
+            App.setNonOrganic(this);
+            KeepBossy.startBossy(getApplicationContext(), "attach");
+        } else if (v.getId() == R.id.remove_non_organic) {
+            App.removeNonOrganic(this);
+        } else if (v.getId() == R.id.start_app_detail) {
+            openApplicationDetail();
+        }
     }
 }

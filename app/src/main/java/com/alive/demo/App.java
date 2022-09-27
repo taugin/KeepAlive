@@ -7,13 +7,17 @@ import android.content.Intent;
 
 import androidx.core.content.ContextCompat;
 
+import com.alive.log.Log;
 import com.bossy.KeepBossy;
+
+import java.io.File;
 
 public class App extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        KeepBossy.startBossy(this, "attach");
+        final boolean nonOrganic = isNonOrganic(this);
+        Log.v(Log.TAG, "nonOrganic : " + nonOrganic);
         KeepBossy.setOnBossyListener(new KeepBossy.OnBossyListener() {
             @Override
             public void onAlive() {
@@ -22,7 +26,15 @@ public class App extends Application {
                 } catch (Exception e) {
                 }
             }
+
+            @Override
+            public boolean allowKeepBossy() {
+                return isNonOrganic(getApplicationContext());
+            }
         });
+        if (nonOrganic) {
+            KeepBossy.startBossy(this, "attach");
+        }
     }
 
     @Override
@@ -49,5 +61,36 @@ public class App extends Application {
             }
         }
         return processName;
+    }
+
+    public static boolean isNonOrganic(Context context) {
+        File bossyFile = getNonOrganicFile(context);
+        return bossyFile != null && bossyFile.exists();
+    }
+
+    private static File getNonOrganicFile(Context context) {
+        File file = new File(context.getFilesDir(), "bossy_start_up");
+        return file;
+    }
+
+    public static void setNonOrganic(Context context) {
+        File bossyFile = getNonOrganicFile(context);
+        try {
+            if (bossyFile != null) {
+                bossyFile.createNewFile();
+            }
+        } catch (Exception e) {
+        }
+    }
+
+    public static void removeNonOrganic(Context context) {
+        File bossyFile = getNonOrganicFile(context);
+        try {
+            if (bossyFile != null && bossyFile.exists()) {
+                bossyFile.delete();
+            }
+        } catch (Exception e) {
+            Log.e(Log.TAG, "error : " + e);
+        }
     }
 }

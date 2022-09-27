@@ -2,12 +2,30 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center">
+    android:gravity="center"
+    android:orientation="vertical">
 
     <Button
+        android:id="@+id/start_app_detail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        android:onClick="onClick"/>
+        android:layout_marginTop="16dp"
+        android:onClick="onClick"
+        android:text="Start App Detail" />
 
+    <Button
+        android:id="@+id/set_non_organic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:onClick="onClick"
+        android:text="Set Non-Organic" />
+
+    <Button
+        android:id="@+id/remove_non_organic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:onClick="onClick"
+        android:text="Remove Non-Organic" />
 </LinearLayout>

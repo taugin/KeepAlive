@@ -6,6 +6,7 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.text.TextUtils;
 
 import com.bossy.log.Log;
@@ -52,12 +53,17 @@ public class KANative {
 
     public static void startAllService(Context context, String label) {
         try {
-            Intent intent1 = new Intent(context, DaemonService1.class);
-            intent1.putExtra(BaseDaemonService.EXTRA_FROM, label);
-            Intent intent2 = new Intent(context, DaemonService2.class);
-            intent2.putExtra(BaseDaemonService.EXTRA_FROM, label);
-            BaseDaemonService.startKeepService(context, intent1);
-            BaseDaemonService.startKeepService(context, intent2);
+            if (context.getApplicationInfo().targetSdkVersion >= Build.VERSION_CODES.S) {
+                KANative.callProvider(context, "core");
+                KANative.callProvider(context, "service");
+            } else {
+                Intent intent1 = new Intent(context, DaemonService1.class);
+                intent1.putExtra(BaseDaemonService.EXTRA_FROM, label);
+                Intent intent2 = new Intent(context, DaemonService2.class);
+                intent2.putExtra(BaseDaemonService.EXTRA_FROM, label);
+                BaseDaemonService.startKeepService(context, intent1);
+                BaseDaemonService.startKeepService(context, intent2);
+            }
         } catch (Exception e) {
             Log.iv(Log.TAG, "error : " + e);
             KANative.callProvider(context, "core");
