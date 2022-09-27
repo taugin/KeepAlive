@@ -144,7 +144,7 @@ bool monitor(JNIEnv *env, jclass jobj, jstring file1, jstring file2, jstring fil
     int fork_pid = fork();
 
     if ((fork_pid & 0x80000000) != 0) {
-        exit(0);
+        return(0);
     }
     // 子进程
     if (!fork_pid) {
@@ -152,7 +152,7 @@ bool monitor(JNIEnv *env, jclass jobj, jstring file1, jstring file2, jstring fil
         if ((fork_pid2 & 0x80000000) == 0) {
             // 父进程退出
             if (fork_pid2) {
-                exit(0);
+                return(0);
             }
             int pid = getpid();
             LOGD("my pid : %d", pid);
