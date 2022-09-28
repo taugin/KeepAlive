@@ -3,9 +3,6 @@ package com.alive.demo;
 import android.app.ActivityManager;
 import android.app.Application;
 import android.content.Context;
-import android.content.Intent;
-
-import androidx.core.content.ContextCompat;
 
 import com.alive.log.Log;
 import com.bossy.KeepBossy;
@@ -19,14 +16,6 @@ public class App extends Application {
         final boolean nonOrganic = isNonOrganic(this);
         Log.v(Log.TAG, "nonOrganic : " + nonOrganic);
         KeepBossy.setOnBossyListener(new KeepBossy.OnBossyListener() {
-            @Override
-            public void onAlive() {
-                try {
-                    ContextCompat.startForegroundService(getApplicationContext(), new Intent(getApplicationContext(), DemoService.class));
-                } catch (Exception e) {
-                }
-            }
-
             @Override
             public boolean allowKeepBossy() {
                 return isNonOrganic(getApplicationContext());
