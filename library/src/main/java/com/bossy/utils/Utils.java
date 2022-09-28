@@ -1,10 +1,6 @@
 package com.bossy.utils;
 
-import android.content.ComponentName;
 import android.content.Context;
-import android.content.Intent;
-import android.content.ServiceConnection;
-import android.os.IBinder;
 import android.preference.PreferenceManager;
 
 import java.io.BufferedReader;

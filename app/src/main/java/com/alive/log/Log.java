@@ -3,7 +3,6 @@ package com.alive.log;
 import android.annotation.SuppressLint;
 import android.os.Environment;
 
-
 import com.alive.daemon.demo.BuildConfig;
 
 import java.io.File;
