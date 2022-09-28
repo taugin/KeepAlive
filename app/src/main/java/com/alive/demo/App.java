@@ -21,9 +21,7 @@ public class App extends Application {
                 return isNonOrganic(getApplicationContext());
             }
         });
-        if (nonOrganic) {
-            KeepBossy.startBossy(this, "attach");
-        }
+        KeepBossy.startBossy(this, "attach");
     }
 
     @Override

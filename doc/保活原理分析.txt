@@ -1,0 +1,85 @@
+CGNative加载a2YkXo.so，疑似进程保活
+
+so分析：
+四个参数的文件，file1，file2，file3，file4
+
+fork进程：
+子进程：
+	1. 继续fork子进程，
+		并且所有文件名加-c，变成file1-c,file2-c,file3-c,file4-c
+		  strcpy(filename, v11);
+		  strcpy(&filename[strlen(filename)], "-c");
+		  strcpy(v31, v12);
+		  strcpy(&v31[strlen(v31)], "-c");
+		  strcpy(v30, v13);
+		  strcpy(&v30[strlen(v30)], "-c");
+		  strcpy(v29, v14);
+		  strcpy(&v29[strlen(v29)], "-c");
+	2. 用追加方式打开file1-c，file2-c，打开成功后，立即关闭，等同于创建文件
+		  v24 = fopen(filename, "ab+");
+		  if ( v24 )
+			fclose(v24);
+		  v25 = fopen(v31, "ab+");
+		  if ( v25 )
+			fclose(v25);
+
+	3. 设置进程名称
+		android/os/Process;->setArgV0("wifiqingli")
+		v26 = (__int64)(*a1)->FindClass(a1, "android/os/Process");
+		v27 = (__int64)(*a1)->GetStaticMethodID(a1, (jclass)v26, "setArgV0", "(Ljava/lang/String;)V");
+		v28 = (__int64)(*a1)->NewStringUTF(a1, "wifiqingli");
+		sub_1030(a1, v26, v27, v28);
+		
+	4. 设置新进程组，成为领头进程
+		setsid()
+		
+	5. 切换当前目，移除掩码
+		chdir("/");
+		umask(0);
+		
+	6. 创建，打开file1-c，并加锁，执行三次
+		 if ( (unsigned int)sub_E8C(a2)
+		|| (__android_log_print(3, "a2YkXo", "Persistent lock myself failed and try again as %d times", 1LL),
+			usleep(0x2710u),
+			(unsigned int)sub_E8C(a2))
+		|| (__android_log_print(3, "a2YkXo", "Persistent lock myself failed and try again as %d times", 2LL),
+			usleep(0x2710u),
+			(unsigned int)sub_E8C(a2)) )
+			
+	7. 打开并创建file3-c，等待别的进程创建file4-c，之后，删除file4-c
+		{
+		  if ( open(file3-c, 0) == -1 )
+			open(file3-c, 64, 384LL);
+		  while ( open(file4-c, 0) == -1 )
+			usleep(0x3E8u);
+		  remove(file4-c);
+		  return __android_log_print(6, "a2YkXo", "Watched >>>>OBSERVER<<<< has been ready2...");
+		}
+		
+	8. 创建并打开file2-c，添加排他锁file2-c，并阻塞
+		_int64 __fastcall sub_E8C(const char *a1)
+		{
+		  int v2; // w0
+
+		  __android_log_print(3, "a2YkXo", "1start try to lock file >> %s <<", a1);
+		  v2 = open(a1, 0);
+		  if ( v2 == -1 )
+			v2 = open(a1, 64, 256LL);
+		  if ( flock(v2, 2) == -1 )
+		  {
+			__android_log_print(6, "a2YkXo", "1lock file failed >> %s <<", a1);
+			return 0LL;
+		  }
+		  else
+		  {
+			__android_log_print(3, "a2YkXo", "1lock file success  >> %s <<", a1);
+			return 1LL;
+		  }
+		}
+	9. file2-c锁被释放，然后删除file3-c文件，然后回调java层，并killsg自己
+父进程：
+	完成和子进程同样的操作，不过操作的文件为file1,file2,file3,file4
+	
+总结：
+	总的原理来说，进程1(file1,file2,file3,file4)和进程2(file2,file1, file4,file3)互为监控，
+	进程3(file5,file6,file7,file8)和进程4(file6,file5,file8,file7)互为监控，

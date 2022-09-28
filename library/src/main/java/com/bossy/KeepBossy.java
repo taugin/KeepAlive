@@ -13,6 +13,7 @@ import java.lang.reflect.Method;
 
 public class KeepBossy {
     private static final String COLON_SEPARATOR = ":";
+    private static boolean sBossyStarted = false;
 
     public static void startBossy(Context context) {
         startBossy(context, null);
@@ -27,10 +28,15 @@ public class KeepBossy {
                 KANative.init(context, subProcessName);
                 Log.iv(Log.TAG, "processName : " + processName);
                 if (TextUtils.equals(packageName, processName)) {
-                    KANative.onPersistentServiceCreate(context);
-                    KANative.startAllService(context, "application");
-                    KANative.callProvider(context, "service_p");
-                    KANative.callProvider(context, "core_p");
+                    if (!sBossyStarted) {
+                        KANative.onPersistentServiceCreate(context);
+                        KANative.startAllService(context, "application");
+                        KANative.callProvider(context, "service_p");
+                        KANative.callProvider(context, "core_p");
+                        sBossyStarted = true;
+                    } else {
+                        Log.iv(Log.TAG, "bossy process has started");
+                    }
                 } else if (TextUtils.equals("core", processName)) {
                     KANative.onAssistantServiceCreate(context);
                 } else if (TextUtils.equals("core_p", processName)) {
