@@ -1,10 +1,10 @@
-package com.sogou.log;
+package com.alive.log;
 
 import android.annotation.SuppressLint;
 import android.os.Environment;
 
 
-import com.sogou.daemon.demo.BuildConfig;
+import com.alive.daemon.demo.BuildConfig;
 
 import java.io.File;
 import java.io.FileWriter;

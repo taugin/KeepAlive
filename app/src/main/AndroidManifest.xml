@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    package="com.sogou.daemon.demo">
+    package="com.alive.daemon.demo">
 
-    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.REORDER_TASKS" />
+
     <application
-        android:name="com.sogou.demo.App"
+        android:name="com.alive.demo.App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.sogou.demo.MainActivity">
+        <activity
+            android:name="com.alive.demo.MainActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -21,28 +22,13 @@
         </activity>
 
         <service
-            android:name="com.sogou.demo.NotifyResidentService"
-            android:process=":resident">
+            android:name="com.alive.demo.NotifyResidentService"
+            android:process=":resident"
+            android:exported="true">
             <intent-filter>
                 <action android:name="com.sogou.demo.NotifyResidentService" />
             </intent-filter>
         </service>
-
-        <activity
-            android:name="com.sogou.bgstart.ScreenActivity"
-            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
-            android:excludeFromRecents="true"
-            android:label=""
-            android:launchMode="singleTask"
-            android:hardwareAccelerated="true"
-            android:taskAffinity=":ScreenActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme_Locker_Activity_Locker"
-            tools:ignore="LockedOrientationActivity">
-            <intent-filter>
-                <action android:name="${applicationId}.action.MATCH_DOING" />
-            </intent-filter>
-        </activity>
     </application>
-<!--    <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT" />-->
+    <!--    <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT" />-->
 </manifest>

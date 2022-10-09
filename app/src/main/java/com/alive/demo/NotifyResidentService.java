@@ -1,4 +1,4 @@
-package com.sogou.demo;
+package com.alive.demo;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -14,7 +14,7 @@ import androidx.core.app.NotificationManagerCompat;
 
 import com.shrewd.cmp.DaemonBaseService;
 import com.shrewd.utils.Utils;
-import com.sogou.log.Log;
+import com.alive.log.Log;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
