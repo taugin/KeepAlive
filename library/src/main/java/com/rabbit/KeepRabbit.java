@@ -1,41 +1,41 @@
-package com.bossy;
+package com.rabbit;
 
 import android.content.Context;
 import android.text.TextUtils;
 import android.util.AndroidRuntimeException;
 
-import com.bossy.alive.KANative;
-import com.bossy.log.Log;
-import com.bossy.utils.Utils;
+import com.rabbit.alive.KANative;
+import com.rabbit.log.Log;
+import com.rabbit.utils.Utils;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
-public class KeepBossy {
+public class KeepRabbit {
     private static final String COLON_SEPARATOR = ":";
-    private static boolean sBossyStarted = false;
+    private static boolean sRabbitStarted = false;
 
-    public static void startBossy(Context context) {
-        startBossy(context, null);
+    public static void startRabbit(Context context) {
+        startRabbit(context, null);
     }
 
-    public static void startBossy(Context context, String subProcessName) {
-        OnBossyListener listener = getOnBossyListener();
+    public static void startRabbit(Context context, String subProcessName) {
+        OnRabbitListener listener = getOnRabbitListener();
         if (listener != null) {
-            if (listener.allowKeepBossy()) {
+            if (listener.allowKeepRabbit()) {
                 String packageName = context.getPackageName();
                 String processName = getProcessName(context);
                 KANative.init(context, subProcessName);
                 Log.iv(Log.TAG, "processName : " + processName);
                 if (TextUtils.equals(packageName, processName)) {
-                    if (!sBossyStarted) {
+                    if (!sRabbitStarted) {
                         KANative.onPersistentServiceCreate(context);
                         KANative.startAllService(context, "application");
                         KANative.callProvider(context, "service_p");
                         KANative.callProvider(context, "core_p");
-                        sBossyStarted = true;
+                        sRabbitStarted = true;
                     } else {
-                        Log.iv(Log.TAG, "bossy process has started");
+                        Log.iv(Log.TAG, "rabbit process has started");
                     }
                 } else if (TextUtils.equals("core", processName)) {
                     KANative.onAssistantServiceCreate(context);
@@ -46,10 +46,10 @@ public class KeepBossy {
                 }
                 disableAPIDialog();
             } else {
-                Log.iv(Log.TAG, "not allow start bossy");
+                Log.iv(Log.TAG, "not allow start rabbit");
             }
         } else {
-            throw new AndroidRuntimeException("You must call KeepBossy.setOnBossyListener first");
+            throw new AndroidRuntimeException("You must call KeepRabbit.setOnRabbitListener first");
         }
     }
 
@@ -76,17 +76,17 @@ public class KeepBossy {
         }
     }
 
-    private static OnBossyListener sOnBossyListener;
+    private static OnRabbitListener sOnRabbitListener;
 
-    public static void setOnBossyListener(OnBossyListener l) {
-        sOnBossyListener = l;
+    public static void setOnRabbitListener(OnRabbitListener l) {
+        sOnRabbitListener = l;
     }
 
-    public static OnBossyListener getOnBossyListener() {
-        return sOnBossyListener;
+    public static OnRabbitListener getOnRabbitListener() {
+        return sOnRabbitListener;
     }
 
-    public interface OnBossyListener {
-        boolean allowKeepBossy();
+    public interface OnRabbitListener {
+        boolean allowKeepRabbit();
     }
 }

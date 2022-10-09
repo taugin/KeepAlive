@@ -1,4 +1,4 @@
-package com.bossy.utils;
+package com.rabbit.utils;
 
 import android.content.Context;
 import android.preference.PreferenceManager;

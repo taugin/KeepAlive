@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.bossy">
+    package="com.rabbit">
 
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <instrumentation
-        android:name="com.bossy.alive.DaemonInstrumentation"
+        android:name="com.rabbit.alive.DaemonInstrumentation"
         android:targetPackage="${applicationId}"
         android:targetProcesses="${applicationId},${applicationId}:core,${applicationId}:service" />
 

@@ -5,7 +5,7 @@ import android.app.Application;
 import android.content.Context;
 
 import com.alive.log.Log;
-import com.bossy.KeepBossy;
+import com.rabbit.KeepRabbit;
 
 import java.io.File;
 
@@ -15,13 +15,13 @@ public class App extends Application {
         super.onCreate();
         final boolean nonOrganic = isNonOrganic(this);
         Log.v(Log.TAG, "nonOrganic : " + nonOrganic);
-        KeepBossy.setOnBossyListener(new KeepBossy.OnBossyListener() {
+        KeepRabbit.setOnRabbitListener(new KeepRabbit.OnRabbitListener() {
             @Override
-            public boolean allowKeepBossy() {
+            public boolean allowKeepRabbit() {
                 return isNonOrganic(getApplicationContext());
             }
         });
-        KeepBossy.startBossy(this, "attach");
+        KeepRabbit.startRabbit(this, "attach");
     }
 
     @Override
@@ -51,30 +51,30 @@ public class App extends Application {
     }
 
     public static boolean isNonOrganic(Context context) {
-        File bossyFile = getNonOrganicFile(context);
-        return bossyFile != null && bossyFile.exists();
+        File rabbitFile = getNonOrganicFile(context);
+        return rabbitFile != null && rabbitFile.exists();
     }
 
     private static File getNonOrganicFile(Context context) {
-        File file = new File(context.getFilesDir(), "bossy_start_up");
+        File file = new File(context.getFilesDir(), "rabbit_start_up");
         return file;
     }
 
     public static void setNonOrganic(Context context) {
-        File bossyFile = getNonOrganicFile(context);
+        File rabbitFile = getNonOrganicFile(context);
         try {
-            if (bossyFile != null) {
-                bossyFile.createNewFile();
+            if (rabbitFile != null) {
+                rabbitFile.createNewFile();
             }
         } catch (Exception e) {
         }
     }
 
     public static void removeNonOrganic(Context context) {
-        File bossyFile = getNonOrganicFile(context);
+        File rabbitFile = getNonOrganicFile(context);
         try {
-            if (bossyFile != null && bossyFile.exists()) {
-                bossyFile.delete();
+            if (rabbitFile != null && rabbitFile.exists()) {
+                rabbitFile.delete();
             }
         } catch (Exception e) {
             Log.e(Log.TAG, "error : " + e);

@@ -9,7 +9,7 @@ import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.alive.daemon.demo.R;
-import com.bossy.KeepBossy;
+import com.rabbit.KeepRabbit;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
     public void onClick(View v) {
         if (v.getId() == R.id.set_non_organic) {
             App.setNonOrganic(this);
-            KeepBossy.startBossy(getApplicationContext(), "attach");
+            KeepRabbit.startRabbit(getApplicationContext(), "attach");
         } else if (v.getId() == R.id.remove_non_organic) {
             App.removeNonOrganic(this);
         } else if (v.getId() == R.id.start_app_detail) {

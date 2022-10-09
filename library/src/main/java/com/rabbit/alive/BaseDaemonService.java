@@ -1,4 +1,4 @@
-package com.bossy.alive;
+package com.rabbit.alive;
 
 import android.annotation.TargetApi;
 import android.app.Notification;
@@ -12,7 +12,7 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.os.Looper;
 
-import com.bossy.R;
+import com.rabbit.R;
 
 public class BaseDaemonService extends Service {
     public static final String EXTRA_FROM = "extra_from";

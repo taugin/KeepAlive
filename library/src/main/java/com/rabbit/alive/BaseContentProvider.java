@@ -1,4 +1,4 @@
-package com.bossy.alive;
+package com.rabbit.alive;
 
 import android.content.ContentProvider;
 import android.content.ContentValues;

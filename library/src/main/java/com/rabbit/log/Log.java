@@ -1,9 +1,9 @@
-package com.bossy.log;
+package com.rabbit.log;
 
 import android.annotation.SuppressLint;
 import android.os.Environment;
 
-import com.bossy.BuildConfig;
+import com.rabbit.BuildConfig;
 
 import java.io.File;
 import java.io.FileWriter;

@@ -1,10 +1,10 @@
-package com.bossy.alive;
+package com.rabbit.alive;
 
 import android.content.Context;
 import android.content.Intent;
 
-import com.bossy.log.Log;
-import com.bossy.utils.Utils;
+import com.rabbit.log.Log;
+import com.rabbit.utils.Utils;
 
 public class DaemonService1 extends BaseDaemonService {
     @Override

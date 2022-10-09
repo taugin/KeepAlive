@@ -1,4 +1,4 @@
-package com.bossy.alive;
+package com.rabbit.alive;
 
 import android.content.ComponentName;
 import android.content.ContentProviderClient;
@@ -9,14 +9,14 @@ import android.net.Uri;
 import android.os.Build;
 import android.text.TextUtils;
 
-import com.bossy.log.Log;
+import com.rabbit.log.Log;
 
 import java.io.File;
 
 public class KANative {
     static {
         try {
-            System.loadLibrary("bossy_daemon");
+            System.loadLibrary("rabbit_daemon");
         } catch (Exception e2) {
             e2.printStackTrace();
         }

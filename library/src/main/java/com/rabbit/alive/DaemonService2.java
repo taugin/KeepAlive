@@ -1,4 +1,4 @@
-package com.bossy.alive;
+package com.rabbit.alive;
 
 public class DaemonService2 extends BaseDaemonService {
     @Override
