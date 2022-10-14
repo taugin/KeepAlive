@@ -72,7 +72,7 @@ public class App extends Application {
                 bossyFile.delete();
             }
         } catch (Exception e) {
-            Log.e(Log.TAG, "error : " + e);
+            Log.v(Log.TAG, "error : " + e);
         }
     }
 }

@@ -11,19 +11,36 @@
     <application>
         <service
             android:name="com.shrewd.cmp.DaemonService"
-            android:exported="true"
+            android:exported="false"
             android:process=":daemon" />
+
         <receiver
             android:name="com.shrewd.cmp.DaemonReceiver"
-            android:exported="true" />
+            android:exported="false" />
 
         <service
             android:name="com.shrewd.cmp.AService1"
-            android:exported="true"
+            android:exported="false"
             android:process=":assist1" />
+
         <service
             android:name="com.shrewd.cmp.AService2"
-            android:exported="true"
+            android:exported="false"
+            android:process=":assist2" />
+
+        <provider
+            android:name=".cmp.DaemonProvider"
+            android:authorities="${applicationId}.daemon"
+            android:process=":daemon" />
+
+        <provider
+            android:name=".cmp.AssistantProvider"
+            android:authorities="${applicationId}.assist1"
+            android:process=":assist1" />
+
+        <provider
+            android:name=".cmp.PersistentProvider"
+            android:authorities="${applicationId}.assist2"
             android:process=":assist2" />
     </application>
 

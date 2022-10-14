@@ -1,8 +1,11 @@
 package com.shrewd.daemon;
 
+import android.content.ContentProviderClient;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
+import android.net.Uri;
 
 import com.shrewd.cmp.DaemonMain;
 import com.shrewd.env.DaemonEnv;
@@ -13,11 +16,11 @@ import java.util.ArrayList;
 
 public class JavaDaemon {
     private static final String COLON_SEPARATOR = ":";
-    private static JavaDaemon a = new JavaDaemon();
+    private static JavaDaemon sInstance = new JavaDaemon();
     private DaemonEnv daemonEnv;
 
     public static JavaDaemon getInstance() {
-        return a;
+        return sInstance;
     }
 
     public DaemonEnv getDaemonEnv() {
@@ -65,6 +68,20 @@ public class JavaDaemon {
                 }
                 new AppProcessThread(context, strArr2, /*"daemon"*/substring).start();
             }
+        }
+    }
+
+    public void callProvider(Context context, String str) {
+        try {
+            Log.iv(Log.TAG, "call provider : " + str);
+            ContentResolver contentResolver = context.getContentResolver();
+            ContentProviderClient acquireUnstableContentProviderClient = contentResolver.acquireUnstableContentProviderClient(Uri.parse("content://" + context.getPackageName() + "." + str));
+            if (acquireUnstableContentProviderClient != null) {
+                acquireUnstableContentProviderClient.call("start", null, null);
+                acquireUnstableContentProviderClient.release();
+            }
+        } catch (Exception | Error e) {
+            Log.iv(Log.TAG, "[" + str + "] error : " + e);
         }
     }
 }

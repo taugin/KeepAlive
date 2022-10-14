@@ -48,7 +48,7 @@ public class NotifyResidentService extends DaemonBaseService {
             }
             startForeground(123456, builder.build());
         } catch (Exception e) {
-            Log.e(Log.TAG, "error : " + e);
+            Log.iv(Log.TAG, "error : " + e);
         }
         return super.onStartCommand(intent, flags, startId);
     }

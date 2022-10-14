@@ -18,14 +18,14 @@ public class IBinderManager {
             declaredField.setAccessible(true);
             return declaredField.getInt(cls);
         } catch (Exception unused) {
-            Log.e(Log.TAG, "error : " + unused);
+            Log.iv(Log.TAG, "error : " + unused);
             try {
                 Class<?> cls2 = Class.forName("android.app.IActivityManager");
                 Field declaredField2 = cls2.getDeclaredField(str2);
                 declaredField2.setAccessible(true);
                 return declaredField2.getInt(cls2);
             } catch (Exception unused2) {
-                Log.e(Log.TAG, "error : " + unused2);
+                Log.iv(Log.TAG, "error : " + unused2);
                 return -1;
             }
         }

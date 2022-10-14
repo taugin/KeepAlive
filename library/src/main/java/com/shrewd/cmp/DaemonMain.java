@@ -15,6 +15,11 @@ import java.io.Serializable;
 import java.lang.reflect.Field;
 
 public class DaemonMain implements Serializable {
+
+    public static final String PROCESS_DAEMON = "daemon";
+    public static final String PROCESS_ASSIST1 = "assist1";
+    public static final String PROCESS_ASSIST2 = "assist2";
+
     public static native void lockFile(String str);
 
     public static native void nativeSetSid();
@@ -26,7 +31,7 @@ public class DaemonMain implements Serializable {
             // System.setProperty("REGISTER_CLASS_PATH", DaemonMain.class.getName().replaceAll(".", "/"));
             System.loadLibrary("shrewd");
         } catch (Exception e) {
-            Log.e(Log.TAG, "error : " + e, e);
+            Log.iv(Log.TAG, "error : " + e);
         }
     }
 
@@ -61,7 +66,7 @@ public class DaemonMain implements Serializable {
                 Log.iv(Log.TAG, "setargv0 : " + daemonEntity.processName);
                 Process.class.getMethod("setArgV0", new Class[]{String.class}).invoke((Object) null, new Object[]{this.daemonEntity.processName});
             } catch (Exception e2) {
-                Log.e(Log.TAG, "error : " + e2);
+                Log.iv(Log.TAG, "error : " + e2);
             }
             for (int i = 1; i < daemonEntity.daemonPath.length; i++) {
                 new DaemonThread(i).start();
@@ -74,7 +79,7 @@ public class DaemonMain implements Serializable {
             startInstrumentation();
             Log.iv(Log.TAG, "start android finish");
         } catch (Exception e3) {
-            Log.e(Log.TAG, "error : " + e3);
+            Log.iv(Log.TAG, "error : " + e3);
             mBinderManager.b(e3);
         }
     }
@@ -85,7 +90,7 @@ public class DaemonMain implements Serializable {
             try {
                 this.mBinder.transact(this.mBinderManager.getInstrumentationTransaction(), this.mInstrumentParcel, (Parcel) null, 1);
             } catch (Exception e2) {
-                Log.e(Log.TAG, "error : " + e2);
+                Log.iv(Log.TAG, "error : " + e2);
                 mBinderManager.b(e2);
             }
         }
@@ -97,7 +102,7 @@ public class DaemonMain implements Serializable {
             try {
                 this.mBinder.transact(this.mBinderManager.getBroadcastTransaction(), this.mBroadcastParcel, (Parcel) null, 1);
             } catch (Exception e2) {
-                Log.e(Log.TAG, "error : " + e2);
+                Log.iv(Log.TAG, "error : " + e2);
                 mBinderManager.b(e2);
             }
         }
@@ -109,7 +114,7 @@ public class DaemonMain implements Serializable {
             try {
                 this.mBinder.transact(this.mBinderManager.getStartServiceTransaction(), this.mServiceParcel, (Parcel) null, 1);
             } catch (Exception e2) {
-                Log.e(Log.TAG, "error : " + e2);
+                Log.iv(Log.TAG, "error : " + e2);
                 mBinderManager.b(e2);
             }
         }
@@ -190,7 +195,7 @@ public class DaemonMain implements Serializable {
             IBinder iBinder = (IBinder) Class.forName("android.os.ServiceManager").getMethod("getService", new Class[]{String.class}).invoke((Object) null, new Object[]{"activity"});
             Log.iv(Log.TAG, "initAmsBinder: mRemote == iBinder " + this.mBinder);
         } catch (Throwable th) {
-            Log.e(Log.TAG, "error : " + th);
+            Log.iv(Log.TAG, "error : " + th);
             mBinderManager.b(th);
         }
     }

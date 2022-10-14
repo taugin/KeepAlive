@@ -46,7 +46,7 @@ public class ShellExecutor {
             try {
                 process = processBuilder.start();
             } catch (IOException e) {
-                Log.e(Log.TAG, "error : " + e);
+                Log.iv(Log.TAG, "error : " + e);
             }
             try {
                 OutputStream outputStream = process.getOutputStream();
@@ -63,9 +63,9 @@ public class ShellExecutor {
                 process.waitFor();
                 readResult(bufferedReader);
             } catch (IOException e2) {
-                Log.e(Log.TAG, "error : " + e2);
+                Log.iv(Log.TAG, "error : " + e2);
             } catch (InterruptedException e3) {
-                Log.e(Log.TAG, "error : " + e3);
+                Log.iv(Log.TAG, "error : " + e3);
             }
         }
     }

@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.IBinder;
 
+import com.shrewd.KeepAlive;
+import com.shrewd.daemon.JavaDaemon;
 import com.shrewd.utils.Utils;
 import com.shrewd.log.Log;
 
@@ -22,13 +24,22 @@ public class DaemonService extends Service {
             intent.setClassName(getPackageName(), className);
             Utils.startService(this, intent);
         } catch (Exception e) {
-            Log.e(Log.TAG, "error : " + e);
+            Log.iv(Log.TAG, "error : " + e);
+            JavaDaemon.getInstance().callProvider(this, DaemonMain.PROCESS_DAEMON);
         }
-        Intent intent2 = new Intent();
-        intent2.setClassName(getPackageName(), AService1.class.getName());
-        Intent intent3 = new Intent();
-        intent3.setClassName(getPackageName(), AService2.class.getName());
-        startService(intent2);
-        startService(intent3);
+        Intent service1Intent = new Intent();
+        service1Intent.setClassName(getPackageName(), AService1.class.getName());
+        Intent service2Intent = new Intent();
+        service2Intent.setClassName(getPackageName(), AService2.class.getName());
+        try {
+            startService(service1Intent);
+        } catch (Exception | Error e) {
+            JavaDaemon.getInstance().callProvider(this, DaemonMain.PROCESS_ASSIST1);
+        }
+        try {
+            startService(service2Intent);
+        } catch (Exception | Error e) {
+            JavaDaemon.getInstance().callProvider(this, DaemonMain.PROCESS_ASSIST2);
+        }
     }
 }
