@@ -23,9 +23,9 @@ static def getConfigKey() {
 
 def isSnapshot = true
 
-def PROCESS1 = "assist1"
-def PROCESS2 = "assist2"
-def PROCESS_DAEMON = "daemon"
+def PROCESS1 = "a1"
+def PROCESS2 = "a2"
+def PROCESS_DAEMON = "d"
 
 android {
     compileSdkVersion 31
