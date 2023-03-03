@@ -14,12 +14,19 @@ stringfog {
     // 指定需加密的代码包路径，可配置多个，未指定将默认全部加密。
     // fogPackages = ['com.xxx.xxx']
 }
+
 static def getConfigKey() {
     def date = new Date()
     def formattedDate = date.format('yyyyMMdd')
     return String.valueOf(("n-alive-" + formattedDate).hashCode())
 }
+
 def isSnapshot = true
+
+def PROCESS1 = "assist1"
+def PROCESS2 = "assist2"
+def PROCESS_DAEMON = "daemon"
+
 android {
     compileSdkVersion 31
     buildToolsVersion "31.0.0"
@@ -32,6 +39,14 @@ android {
         ndk {
             abiFilters "armeabi-v7a", "arm64-v8a", "x86", "x86_64"//可以适当补填其他
         }
+        buildConfigField "String", "PROCESS1", "\"" + PROCESS1 + "\""
+        buildConfigField "String", "PROCESS2", "\"" + PROCESS2 + "\""
+        buildConfigField "String", "PROCESS_DAEMON", "\"" + PROCESS_DAEMON + "\""
+        manifestPlaceholders = [
+                PROCESS1: PROCESS1,
+                PROCESS2: PROCESS2,
+                PROCESS_DAEMON : PROCESS_DAEMON
+        ]
         consumerProguardFiles 'proguard-sdk-rules.pro'
         externalNativeBuild {
             cmake {

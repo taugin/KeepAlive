@@ -6,7 +6,7 @@ import android.os.IBinder;
 import android.os.Parcel;
 import android.os.Process;
 
-
+import com.shrewd.BuildConfig;
 import com.shrewd.daemon.IBinderManager;
 import com.shrewd.env.DaemonEntity;
 import com.shrewd.log.Log;
@@ -16,9 +16,9 @@ import java.lang.reflect.Field;
 
 public class DaemonMain implements Serializable {
 
-    public static final String PROCESS_DAEMON = "daemon";
-    public static final String PROCESS_ASSIST1 = "assist1";
-    public static final String PROCESS_ASSIST2 = "assist2";
+    public static final String PROCESS_DAEMON = BuildConfig.PROCESS_DAEMON;
+    public static final String PROCESS_ASSIST1 = BuildConfig.PROCESS1;
+    public static final String PROCESS_ASSIST2 = BuildConfig.PROCESS2;
 
     public static native void lockFile(String str);
 
