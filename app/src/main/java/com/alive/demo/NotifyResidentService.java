@@ -36,7 +36,7 @@ public class NotifyResidentService extends DaemonBaseService {
             builder.setContentTitle(getApplicationInfo().loadLabel(getPackageManager()) + "正在运行中");
             builder.setContentText("App已经被复活" + getAliveTimes() + "次 : " + new SimpleDateFormat("MM/dd HH:mm:ss").format(new Date()));
             builder.setSmallIcon(getApplicationInfo().icon);
-            PendingIntent pendingIntent = PendingIntent.getActivity(this, (int) System.currentTimeMillis(), getSettingsDetail(), PendingIntent.FLAG_UPDATE_CURRENT);
+            PendingIntent pendingIntent = PendingIntent.getActivity(this, (int) System.currentTimeMillis(), getSettingsDetail(), PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
             builder.setContentIntent(pendingIntent);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 NotificationChannel notificationChannel = new NotificationChannel("daemon", "daemon", NotificationManager.IMPORTANCE_LOW);
