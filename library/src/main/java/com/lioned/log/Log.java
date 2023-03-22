@@ -1,10 +1,10 @@
-package com.shrewd.log;
+package com.lioned.log;
 
 import android.annotation.SuppressLint;
 import android.os.Environment;
 
 
-import com.shrewd.BuildConfig;
+import com.lioned.BuildConfig;
 
 import java.io.File;
 import java.io.FileWriter;

@@ -1,4 +1,4 @@
-package com.shrewd.utils;
+package com.lioned.utils;
 
 import android.app.ActivityManager;
 import android.content.ComponentName;
@@ -11,7 +11,7 @@ import android.os.IBinder;
 import android.preference.PreferenceManager;
 import android.text.TextUtils;
 
-import com.shrewd.log.Log;
+import com.lioned.log.Log;
 
 import java.io.BufferedReader;
 import java.io.File;

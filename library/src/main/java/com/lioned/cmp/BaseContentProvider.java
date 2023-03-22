@@ -1,4 +1,4 @@
-package com.shrewd.cmp;
+package com.lioned.cmp;
 
 import android.content.ContentProvider;
 import android.content.ContentValues;

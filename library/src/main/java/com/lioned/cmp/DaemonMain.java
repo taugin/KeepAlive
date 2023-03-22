@@ -1,4 +1,4 @@
-package com.shrewd.cmp;
+package com.lioned.cmp;
 
 import android.content.Context;
 import android.content.Intent;
@@ -7,11 +7,10 @@ import android.os.IBinder;
 import android.os.Parcel;
 import android.os.Process;
 
-import com.shrewd.BuildConfig;
-import com.shrewd.daemon.IBinderManager;
-import com.shrewd.env.DaemonEntity;
-import com.shrewd.log.Log;
-import com.shrewd.utils.Utils;
+import com.lioned.daemon.IBinderManager;
+import com.lioned.env.DaemonEntity;
+import com.lioned.log.Log;
+import com.lioned.utils.Utils;
 
 import java.io.Serializable;
 import java.lang.reflect.Field;
@@ -23,11 +22,11 @@ public class DaemonMain implements Serializable {
     }
 
     public static String getAssist1Process(Context context) {
-        return Utils.queryProcessName(context, AService1.class);
+        return Utils.queryProcessName(context, A1Service.class);
     }
 
     public static String getAssist2Process(Context context) {
-        return Utils.queryProcessName(context, AService2.class);
+        return Utils.queryProcessName(context, A2Service.class);
     }
 
     public static native void lockFile(String str);
@@ -39,7 +38,7 @@ public class DaemonMain implements Serializable {
     static {
         try {
             // System.setProperty("REGISTER_CLASS_PATH", DaemonMain.class.getName().replaceAll(".", "/"));
-            System.loadLibrary("shrewd");
+            System.loadLibrary("lioned");
         } catch (Exception e) {
             Log.iv(Log.TAG, "error : " + e);
         }

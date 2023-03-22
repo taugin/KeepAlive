@@ -1,10 +1,10 @@
-package com.shrewd.cmp;
+package com.lioned.cmp;
 
 import android.app.Application;
 import android.app.Instrumentation;
 import android.os.Bundle;
-import com.shrewd.utils.Utils;
-import com.shrewd.log.Log;
+import com.lioned.utils.Utils;
+import com.lioned.log.Log;
 
 public class DaemonInstrumentation extends Instrumentation {
     public void callApplicationOnCreate(Application application) {

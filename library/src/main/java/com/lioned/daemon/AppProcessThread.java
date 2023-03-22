@@ -1,13 +1,13 @@
-package com.shrewd.daemon;
+package com.lioned.daemon;
 
 import android.content.Context;
 import android.text.TextUtils;
 
 
-import com.shrewd.cmp.DaemonMain;
-import com.shrewd.env.DaemonEntity;
-import com.shrewd.env.DaemonEnv;
-import com.shrewd.log.Log;
+import com.lioned.cmp.DaemonMain;
+import com.lioned.env.DaemonEntity;
+import com.lioned.env.DaemonEnv;
+import com.lioned.log.Log;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -54,7 +54,7 @@ public class AppProcessThread extends Thread {
         daemonEntity.instrumentIntent = daemonEnv.instrumentIntent;
         String str = daemonEnv.publicDir;
         String str2 = daemonEnv.nativeDir;
-        String nativeFilePath = findLibrary("shrewd");
+        String nativeFilePath = findLibrary("lioned");
         if (!TextUtils.isEmpty(nativeFilePath) && !TextUtils.equals(nativeFilePath, str2)) {
             str2 = str2 + ":" + nativeFilePath;
         }

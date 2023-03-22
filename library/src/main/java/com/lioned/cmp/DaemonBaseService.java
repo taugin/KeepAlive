@@ -1,18 +1,17 @@
-package com.shrewd.cmp;
+package com.lioned.cmp;
 
 import android.app.Service;
 import android.content.Intent;
 
-import com.shrewd.KeepAlive;
-import com.shrewd.daemon.JavaDaemon;
+import com.lioned.daemon.JavaDaemon;
 
 public abstract class DaemonBaseService extends Service {
     public void onCreate() {
         super.onCreate();
         Intent service1Intent = new Intent();
-        service1Intent.setClassName(getPackageName(), AService1.class.getName());
+        service1Intent.setClassName(getPackageName(), A1Service.class.getName());
         Intent service2Intent = new Intent();
-        service2Intent.setClassName(getPackageName(), AService2.class.getName());
+        service2Intent.setClassName(getPackageName(), A2Service.class.getName());
         Intent daemonIntent = new Intent();
         daemonIntent.setClassName(getPackageName(), DaemonService.class.getName());
         try {

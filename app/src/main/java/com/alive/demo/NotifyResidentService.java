@@ -12,8 +12,8 @@ import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
-import com.shrewd.cmp.DaemonBaseService;
-import com.shrewd.utils.Utils;
+import com.lioned.cmp.DaemonBaseService;
+import com.lioned.utils.Utils;
 import com.alive.log.Log;
 
 import java.text.SimpleDateFormat;

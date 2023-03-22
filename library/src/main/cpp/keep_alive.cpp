@@ -76,7 +76,7 @@ native_lockFile(JNIEnv *env, jclass jobj,
     lock_file(lock_file_path);
 }
 
-#define JNIREG_CLASS "com/shrewd/cmp/DaemonMain"//指定要注册的类
+#define JNIREG_CLASS "com/lioned/cmp/DaemonMain"//指定要注册的类
 
 static jstring findJniRegClass(JNIEnv *env) {
     jclass clazz = env->FindClass("java/lang/System");

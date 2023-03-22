@@ -1,12 +1,12 @@
-package com.shrewd.cmp;
+package com.lioned.cmp;
 
 import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
 
-import com.shrewd.daemon.JavaDaemon;
-import com.shrewd.log.Log;
-import com.shrewd.utils.Utils;
+import com.lioned.daemon.JavaDaemon;
+import com.lioned.log.Log;
+import com.lioned.utils.Utils;
 
 public class DaemonService extends Service {
     public IBinder onBind(Intent intent) {
@@ -26,9 +26,9 @@ public class DaemonService extends Service {
             JavaDaemon.getInstance().callProvider(this, DaemonMain.getDaemonProcess(this));
         }
         Intent service1Intent = new Intent();
-        service1Intent.setClassName(getPackageName(), AService1.class.getName());
+        service1Intent.setClassName(getPackageName(), A1Service.class.getName());
         Intent service2Intent = new Intent();
-        service2Intent.setClassName(getPackageName(), AService2.class.getName());
+        service2Intent.setClassName(getPackageName(), A2Service.class.getName());
         try {
             startService(service1Intent);
         } catch (Exception | Error e) {

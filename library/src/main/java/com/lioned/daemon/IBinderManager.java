@@ -1,6 +1,6 @@
-package com.shrewd.daemon;
+package com.lioned.daemon;
 
-import com.shrewd.log.Log;
+import com.lioned.log.Log;
 
 import java.lang.reflect.Field;
 

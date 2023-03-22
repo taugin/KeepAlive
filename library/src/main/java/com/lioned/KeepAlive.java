@@ -1,20 +1,17 @@
-package com.shrewd;
+package com.lioned;
 
 import android.app.Service;
-import android.content.ContentProviderClient;
-import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Build;
 
-import com.shrewd.cmp.DaemonInstrumentation;
-import com.shrewd.cmp.DaemonMain;
-import com.shrewd.cmp.DaemonReceiver;
-import com.shrewd.cmp.DaemonService;
-import com.shrewd.daemon.JavaDaemon;
-import com.shrewd.log.Log;
-import com.shrewd.utils.Utils;
+import com.lioned.cmp.DaemonInstrumentation;
+import com.lioned.cmp.DaemonMain;
+import com.lioned.cmp.DaemonReceiver;
+import com.lioned.cmp.DaemonService;
+import com.lioned.daemon.JavaDaemon;
+import com.lioned.log.Log;
+import com.lioned.utils.Utils;
 
 public class KeepAlive {
     public static void attachBaseContext(Context context, Class<?> service) {

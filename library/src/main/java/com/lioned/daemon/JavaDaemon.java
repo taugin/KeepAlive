@@ -1,4 +1,4 @@
-package com.shrewd.daemon;
+package com.lioned.daemon;
 
 import android.content.ContentProviderClient;
 import android.content.ContentResolver;
@@ -7,10 +7,10 @@ import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.net.Uri;
 
-import com.shrewd.cmp.DaemonMain;
-import com.shrewd.env.DaemonEnv;
-import com.shrewd.log.Log;
-import com.shrewd.utils.Utils;
+import com.lioned.cmp.DaemonMain;
+import com.lioned.env.DaemonEnv;
+import com.lioned.log.Log;
+import com.lioned.utils.Utils;
 
 import java.util.ArrayList;
 
