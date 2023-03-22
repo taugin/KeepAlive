@@ -18,17 +18,17 @@ public abstract class DaemonBaseService extends Service {
         try {
             startService(service1Intent);
         } catch (Exception | Error e) {
-            JavaDaemon.getInstance().callProvider(this, DaemonMain.PROCESS_ASSIST1);
+            JavaDaemon.getInstance().callProvider(this, DaemonMain.getAssist1Process(this));
         }
         try {
             startService(service2Intent);
         } catch (Exception | Error e) {
-            JavaDaemon.getInstance().callProvider(this, DaemonMain.PROCESS_ASSIST2);
+            JavaDaemon.getInstance().callProvider(this, DaemonMain.getAssist2Process(this));
         }
         try {
             startService(daemonIntent);
         } catch (Exception | Error e) {
-            JavaDaemon.getInstance().callProvider(this, DaemonMain.PROCESS_DAEMON);
+            JavaDaemon.getInstance().callProvider(this, DaemonMain.getDaemonProcess(this));
         }
     }
 }

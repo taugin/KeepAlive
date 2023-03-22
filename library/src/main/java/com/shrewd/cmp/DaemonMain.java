@@ -1,5 +1,6 @@
 package com.shrewd.cmp;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.IBinder;
@@ -10,15 +11,24 @@ import com.shrewd.BuildConfig;
 import com.shrewd.daemon.IBinderManager;
 import com.shrewd.env.DaemonEntity;
 import com.shrewd.log.Log;
+import com.shrewd.utils.Utils;
 
 import java.io.Serializable;
 import java.lang.reflect.Field;
 
 public class DaemonMain implements Serializable {
 
-    public static final String PROCESS_DAEMON = BuildConfig.PROCESS_DAEMON;
-    public static final String PROCESS_ASSIST1 = BuildConfig.PROCESS1;
-    public static final String PROCESS_ASSIST2 = BuildConfig.PROCESS2;
+    public static String getDaemonProcess(Context context) {
+        return Utils.queryProcessName(context, DaemonService.class);
+    }
+
+    public static String getAssist1Process(Context context) {
+        return Utils.queryProcessName(context, AService1.class);
+    }
+
+    public static String getAssist2Process(Context context) {
+        return Utils.queryProcessName(context, AService2.class);
+    }
 
     public static native void lockFile(String str);
 

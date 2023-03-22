@@ -5,6 +5,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.content.pm.ServiceInfo;
 import android.os.Build;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
@@ -99,5 +100,15 @@ public class Utils {
         } catch (Exception e) {
         }
         return -1;
+    }
+
+    public static String queryProcessName(Context context, Class<?> className) {
+        try {
+            ServiceInfo serviceInfo = context.getPackageManager().getServiceInfo(new ComponentName(context, className), 0);
+            return serviceInfo.processName.replace(context.getPackageName() + ":", "");
+        } catch (Exception e) {
+            Log.e(Log.TAG, "error : " + e);
+        }
+        return null;
     }
 }

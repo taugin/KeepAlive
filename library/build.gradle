@@ -23,10 +23,6 @@ static def getConfigKey() {
 
 def isSnapshot = true
 
-def PROCESS1 = "a1"
-def PROCESS2 = "a2"
-def PROCESS_DAEMON = "d"
-
 android {
     compileSdkVersion 31
     buildToolsVersion "31.0.0"
@@ -39,14 +35,6 @@ android {
         ndk {
             abiFilters "armeabi-v7a", "arm64-v8a", "x86", "x86_64"//可以适当补填其他
         }
-        buildConfigField "String", "PROCESS1", "\"" + PROCESS1 + "\""
-        buildConfigField "String", "PROCESS2", "\"" + PROCESS2 + "\""
-        buildConfigField "String", "PROCESS_DAEMON", "\"" + PROCESS_DAEMON + "\""
-        manifestPlaceholders = [
-                PROCESS1: PROCESS1,
-                PROCESS2: PROCESS2,
-                PROCESS_DAEMON : PROCESS_DAEMON
-        ]
         consumerProguardFiles 'proguard-sdk-rules.pro'
         externalNativeBuild {
             cmake {

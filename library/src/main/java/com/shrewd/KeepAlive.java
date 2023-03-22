@@ -22,7 +22,7 @@ public class KeepAlive {
             Utils.putString(context, Service.class.getName() + "_Name", service.getName());
         }
         JavaDaemon.getInstance().init(context, new Intent(context, DaemonService.class), new Intent(context, DaemonReceiver.class), new Intent(context, DaemonInstrumentation.class));
-        JavaDaemon.getInstance().startAppLock(context, new String[]{DaemonMain.PROCESS_DAEMON, DaemonMain.PROCESS_ASSIST1, DaemonMain.PROCESS_ASSIST2});
+        JavaDaemon.getInstance().startAppLock(context, new String[]{DaemonMain.getDaemonProcess(context), DaemonMain.getAssist1Process(context), DaemonMain.getAssist2Process(context)});
     }
 
     public static void startService(Context context, Class<?> service) {
@@ -35,9 +35,9 @@ public class KeepAlive {
             }
         } catch (Exception e) {
             Log.iv(Log.TAG, "error : " + e);
-            JavaDaemon.getInstance().callProvider(context, DaemonMain.PROCESS_DAEMON);
-            JavaDaemon.getInstance().callProvider(context, DaemonMain.PROCESS_ASSIST1);
-            JavaDaemon.getInstance().callProvider(context, DaemonMain.PROCESS_ASSIST2);
+            JavaDaemon.getInstance().callProvider(context, DaemonMain.getDaemonProcess(context));
+            JavaDaemon.getInstance().callProvider(context, DaemonMain.getAssist1Process(context));
+            JavaDaemon.getInstance().callProvider(context, DaemonMain.getAssist2Process(context));
         }
     }
 }
