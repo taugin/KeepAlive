@@ -12,7 +12,7 @@ import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
-import com.lioned.cmp.DaemonBaseService;
+import com.lioned.cmp.DBService;
 import com.lioned.utils.Utils;
 import com.alive.log.Log;
 
@@ -20,7 +20,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 
-public class NotifyResidentService extends DaemonBaseService {
+public class NotifyResidentService extends DBService {
     private static Object sObject = null;
 
     @Nullable

@@ -15,18 +15,18 @@ import com.lioned.utils.Utils;
 import java.io.Serializable;
 import java.lang.reflect.Field;
 
-public class DaemonMain implements Serializable {
+public class DMain implements Serializable {
 
     public static String getDaemonProcess(Context context) {
-        return Utils.queryProcessName(context, DaemonService.class);
+        return Utils.queryProcessName(context, DCService.class);
     }
 
     public static String getAssist1Process(Context context) {
-        return Utils.queryProcessName(context, A1Service.class);
+        return Utils.queryProcessName(context, ACService.class);
     }
 
     public static String getAssist2Process(Context context) {
-        return Utils.queryProcessName(context, A2Service.class);
+        return Utils.queryProcessName(context, ABService.class);
     }
 
     public static native void lockFile(String str);
@@ -54,14 +54,14 @@ public class DaemonMain implements Serializable {
     private Parcel mInstrumentParcel;
     private IBinder mBinder;
 
-    public DaemonMain(DaemonEntity daemonEntity) {
+    public DMain(DaemonEntity daemonEntity) {
         this.daemonEntity = daemonEntity;
     }
 
     public static void main(String[] strArr) {
         DaemonEntity entity = DaemonEntity.toObject(strArr[0]);
         if (entity != null) {
-            new DaemonMain(entity).run();
+            new DMain(entity).run();
         }
         Process.killProcess(Process.myPid());
     }
@@ -70,7 +70,7 @@ public class DaemonMain implements Serializable {
         try {
             setBinder();
             fillAllParcel();
-            DaemonMain.nativeSetSid();
+            DMain.nativeSetSid();
             try {
                 Log.iv(Log.TAG, "setargv0 : " + daemonEntity.processName);
                 Process.class.getMethod("setArgV0", new Class[]{String.class}).invoke((Object) null, new Object[]{this.daemonEntity.processName});
@@ -81,7 +81,7 @@ public class DaemonMain implements Serializable {
                 new DaemonThread(i).start();
             }
             Log.iv(Log.TAG, "[" + daemonEntity.processName + "] start lock file : " + this.daemonEntity.daemonPath[0]);
-            DaemonMain.waitFileLock(daemonEntity.daemonPath[0]);
+            DMain.waitFileLock(daemonEntity.daemonPath[0]);
             Log.iv(Log.TAG, "lock file finish");
             startService();
             sendBroadcast();
@@ -218,11 +218,11 @@ public class DaemonMain implements Serializable {
 
         public void run() {
             setPriority(10);
-            DaemonMain.waitFileLock(DaemonMain.this.daemonEntity.daemonPath[this.mIndex]);
+            DMain.waitFileLock(DMain.this.daemonEntity.daemonPath[this.mIndex]);
             Log.iv(Log.TAG, "Thread lock File finish");
-            DaemonMain.this.startService();
-            DaemonMain.this.sendBroadcast();
-            DaemonMain.this.startInstrumentation();
+            DMain.this.startService();
+            DMain.this.sendBroadcast();
+            DMain.this.startInstrumentation();
             Log.iv(Log.TAG, "Thread start android finish, thread exit");
         }
     }

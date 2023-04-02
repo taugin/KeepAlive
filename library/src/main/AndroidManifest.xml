@@ -4,42 +4,42 @@
 
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <instrumentation
-        android:name="com.lioned.cmp.DaemonInstrumentation"
+        android:name="com.lioned.cmp.DInstrumentation"
         android:targetPackage="${applicationId}"
-        android:targetProcesses="${applicationId},${applicationId}:resident,${applicationId}:${PROCESS_DAEMON},${applicationId}:${PROCESS1},${applicationId}:${PROCESS2}" />
+        android:targetProcesses="${applicationId},${applicationId}:${PROCESS_DAEMON},${applicationId}:${PROCESS1},${applicationId}:${PROCESS2}" />
 
     <application>
         <service
-            android:name="com.lioned.cmp.DaemonService"
+            android:name="com.lioned.cmp.DCService"
             android:exported="false"
             android:process=":${PROCESS_DAEMON}" />
 
         <receiver
-            android:name="com.lioned.cmp.DaemonReceiver"
+            android:name="com.lioned.cmp.DReceiver"
             android:exported="false" />
 
         <service
-            android:name="com.lioned.cmp.A1Service"
+            android:name="com.lioned.cmp.ACService"
             android:exported="false"
             android:process=":${PROCESS1}" />
 
         <service
-            android:name="com.lioned.cmp.A2Service"
+            android:name="com.lioned.cmp.ABService"
             android:exported="false"
             android:process=":${PROCESS2}" />
 
         <provider
-            android:name="com.lioned.cmp.DaemonProvider"
+            android:name="com.lioned.cmp.DProvider"
             android:authorities="${applicationId}.${PROCESS_DAEMON}"
             android:process=":${PROCESS_DAEMON}" />
 
         <provider
-            android:name="com.lioned.cmp.AssistantProvider"
+            android:name="com.lioned.cmp.AProvider"
             android:authorities="${applicationId}.${PROCESS1}"
             android:process=":${PROCESS1}" />
 
         <provider
-            android:name="com.lioned.cmp.PersistentProvider"
+            android:name="com.lioned.cmp.PProvider"
             android:authorities="${applicationId}.${PROCESS2}"
             android:process=":${PROCESS2}" />
     </application>

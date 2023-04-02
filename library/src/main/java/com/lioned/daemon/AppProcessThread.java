@@ -4,7 +4,7 @@ import android.content.Context;
 import android.text.TextUtils;
 
 
-import com.lioned.cmp.DaemonMain;
+import com.lioned.cmp.DMain;
 import com.lioned.env.DaemonEntity;
 import com.lioned.env.DaemonEnv;
 import com.lioned.log.Log;
@@ -63,12 +63,12 @@ public class AppProcessThread extends Thread {
             arrayList.add("export CLASSPATH=$CLASSPATH:" + str);
             arrayList.add("export _LD_LIBRARY_PATH=/system/lib64/:/vendor/lib64/:" + str2);
             arrayList.add("export LD_LIBRARY_PATH=/system/lib64/:/vendor/lib64/:" + str2);
-            arrayList.add(String.format("%s / %s %s --application --nice-name=%s &", new Object[]{new File("/system/bin/app_process").exists() ? "app_process" : "app_process32", DaemonMain.class.getName(), daemonEntity.toString(), this.processName}));
+            arrayList.add(String.format("%s / %s %s --application --nice-name=%s &", new Object[]{new File("/system/bin/app_process").exists() ? "app_process" : "app_process32", DMain.class.getName(), daemonEntity.toString(), this.processName}));
         } else {
             arrayList.add("export CLASSPATH=$CLASSPATH:" + str);
             arrayList.add("export _LD_LIBRARY_PATH=/system/lib/:/vendor/lib/:" + str2);
             arrayList.add("export LD_LIBRARY_PATH=/system/lib/:/vendor/lib/:" + str2);
-            arrayList.add(String.format("%s / %s %s --application --nice-name=%s &", new Object[]{new File("/system/bin/app_process32").exists() ? "app_process32" : "app_process", DaemonMain.class.getName(), daemonEntity.toString(), this.processName}));
+            arrayList.add(String.format("%s / %s %s --application --nice-name=%s &", new Object[]{new File("/system/bin/app_process32").exists() ? "app_process32" : "app_process", DMain.class.getName(), daemonEntity.toString(), this.processName}));
         }
         File file = new File("/");
         String[] strArr = new String[arrayList.size()];

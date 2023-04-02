@@ -6,7 +6,7 @@ import android.content.Intent;
 
 import com.lioned.log.Log;
 
-public class DaemonReceiver extends BroadcastReceiver {
+public class DReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         Log.iv(Log.TAG, "onReceiver");
     }

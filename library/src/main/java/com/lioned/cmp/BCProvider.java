@@ -6,7 +6,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 
-public class BaseContentProvider extends ContentProvider {
+public class BCProvider extends ContentProvider {
     public Bundle call(String str, String str2, Bundle bundle) {
         return super.call(str, str2, bundle);
     }

@@ -6,7 +6,7 @@ import android.os.IBinder;
 
 import com.lioned.log.Log;
 
-public class A2Service extends Service {
+public class ACService extends Service {
     public IBinder onBind(Intent intent) {
         return null;
     }
