@@ -19,9 +19,8 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
--flattenpackagehierarchy 'androidx'
 -dontoptimize
--keep public class * extends android.app.Service
--keep public class * extends android.app.Instrumentation
--keep public class * extends android.content.BroadcastReceiver
+-keep public class * extends android.app.Service {public *;}
+-keep public class * extends android.app.Instrumentation {public *;}
+-keep public class * extends android.content.BroadcastReceiver {public *;}
 -keep public class * implements java.io.Serializable {*;}
