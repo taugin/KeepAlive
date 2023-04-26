@@ -3,6 +3,9 @@ package com.alive.demo;
 import android.app.ActivityManager;
 import android.app.Application;
 import android.content.Context;
+import android.content.Intent;
+
+import androidx.core.content.ContextCompat;
 
 import com.alive.log.Log;
 import com.rabbit.KeepRabbit;
@@ -22,6 +25,7 @@ public class App extends Application {
             }
         });
         KeepRabbit.startRabbit(this, "attach");
+        ContextCompat.startForegroundService(this, new Intent(this, DemoService.class));
     }
 
     @Override
