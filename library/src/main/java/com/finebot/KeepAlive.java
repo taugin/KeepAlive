@@ -11,7 +11,7 @@ import com.finebot.utils.Utils;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
-public class FineBot {
+public class KeepAlive {
     private static final String COLON_SEPARATOR = ":";
     private static boolean sAliveStarted = false;
 

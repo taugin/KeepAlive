@@ -8,7 +8,7 @@ import android.content.Intent;
 import androidx.core.content.ContextCompat;
 
 import com.alive.log.Log;
-import com.finebot.FineBot;
+import com.finebot.KeepAlive;
 
 import java.io.File;
 
@@ -18,13 +18,13 @@ public class App extends Application {
         super.onCreate();
         final boolean nonOrganic = isNonOrganic(this);
         Log.v(Log.TAG, "nonOrganic : " + nonOrganic);
-        FineBot.setOnAliveListener(new FineBot.OnAliveListener() {
+        KeepAlive.setOnAliveListener(new KeepAlive.OnAliveListener() {
             @Override
             public boolean allowKeepAlive() {
                 return isNonOrganic(getApplicationContext());
             }
         });
-        FineBot.startKeepAlive(this, "attach");
+        KeepAlive.startKeepAlive(this, "attach");
         ContextCompat.startForegroundService(this, new Intent(this, DemoService.class));
     }
 
