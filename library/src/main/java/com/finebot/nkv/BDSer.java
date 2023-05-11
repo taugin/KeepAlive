@@ -1,4 +1,4 @@
-package com.rabbit.alive;
+package com.finebot.nkv;
 
 import android.annotation.TargetApi;
 import android.app.Notification;
@@ -12,9 +12,9 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.os.Looper;
 
-import com.rabbit.R;
+import com.finebot.R;
 
-public class BaseDaemonService extends Service {
+public class BDSer extends Service {
     public static final String EXTRA_FROM = "extra_from";
     private static Handler mHandler = new Handler(Looper.getMainLooper());
 

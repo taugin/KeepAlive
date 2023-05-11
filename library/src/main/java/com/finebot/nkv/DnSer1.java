@@ -1,12 +1,12 @@
-package com.rabbit.alive;
+package com.finebot.nkv;
 
 import android.content.Context;
 import android.content.Intent;
 
-import com.rabbit.log.Log;
-import com.rabbit.utils.Utils;
+import com.finebot.log.Log;
+import com.finebot.utils.Utils;
 
-public class DaemonService1 extends BaseDaemonService {
+public class DnSer1 extends BDSer {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         int result = super.onStartCommand(intent, flags, startId);

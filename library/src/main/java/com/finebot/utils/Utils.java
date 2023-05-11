@@ -1,4 +1,4 @@
-package com.rabbit.utils;
+package com.finebot.utils;
 
 import android.content.Context;
 import android.preference.PreferenceManager;

@@ -14,7 +14,7 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
 import com.alive.log.Log;
-import com.rabbit.utils.Utils;
+import com.finebot.utils.Utils;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

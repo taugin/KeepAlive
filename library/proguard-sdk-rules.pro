@@ -25,7 +25,7 @@
 -keep public class * extends android.app.Instrumentation
 -keep public class * extends android.content.BroadcastReceiver
 -keep public class * implements java.io.Serializable {*;}
--keep public class com.rabbit.alive.KANative{
+-keep public class com.finebot.nkv.KANative{
     public static void notifyDead();
 }
 # 设置所有 native 方法不被混淆

@@ -1,9 +1,9 @@
-package com.rabbit.log;
+package com.finebot.log;
 
 import android.annotation.SuppressLint;
 import android.os.Environment;
 
-import com.rabbit.BuildConfig;
+import com.finebot.BuildConfig;
 
 import java.io.File;
 import java.io.FileWriter;

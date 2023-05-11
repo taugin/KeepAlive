@@ -20,4 +20,4 @@
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
 -include proguard-sdk-rules.pro
--keep class com.rabbit.KeepRabbit {*;}
+-keep class com.finebot.FineBot {*;}

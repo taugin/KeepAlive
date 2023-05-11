@@ -1,4 +1,4 @@
-package com.rabbit.alive;
+package com.finebot.nkv;
 
 import android.content.ComponentName;
 import android.content.ContentProviderClient;
@@ -9,14 +9,14 @@ import android.net.Uri;
 import android.os.Build;
 import android.text.TextUtils;
 
-import com.rabbit.log.Log;
+import com.finebot.log.Log;
 
 import java.io.File;
 
 public class KANative {
     static {
         try {
-            System.loadLibrary("rabbit_daemon");
+            System.loadLibrary("finebot");
         } catch (Exception e2) {
             e2.printStackTrace();
         }
@@ -44,7 +44,7 @@ public class KANative {
     public static void notifyDead() {
         Log.iv(Log.TAG, "notify dead");
         try {
-            sContext.startInstrumentation(new ComponentName(sContext, DaemonInstrumentation.class), null, null);
+            sContext.startInstrumentation(new ComponentName(sContext, DnIns.class), null, null);
             startAllService(sContext, "monitor");
             android.os.Process.killProcess(android.os.Process.myPid());
         } catch (Exception e) {
@@ -57,12 +57,12 @@ public class KANative {
                 KANative.callProvider(context, "core");
                 KANative.callProvider(context, "service");
             } else {
-                Intent intent1 = new Intent(context, DaemonService1.class);
-                intent1.putExtra(BaseDaemonService.EXTRA_FROM, label);
-                Intent intent2 = new Intent(context, DaemonService2.class);
-                intent2.putExtra(BaseDaemonService.EXTRA_FROM, label);
-                BaseDaemonService.startKeepService(context, intent1);
-                BaseDaemonService.startKeepService(context, intent2);
+                Intent intent1 = new Intent(context, DnSer1.class);
+                intent1.putExtra(BDSer.EXTRA_FROM, label);
+                Intent intent2 = new Intent(context, DnSer2.class);
+                intent2.putExtra(BDSer.EXTRA_FROM, label);
+                BDSer.startKeepService(context, intent1);
+                BDSer.startKeepService(context, intent2);
             }
         } catch (Exception e) {
             Log.iv(Log.TAG, "error : " + e);

@@ -12,7 +12,7 @@
 #include <fcntl.h>
 #include "common.h"
 
-#define JNIREG_CLASS "com/rabbit/alive/KANative"//指定要注册的类
+#define JNIREG_CLASS "com/finebot/nkv/KANative"//指定要注册的类
 
 extern "C" {
 

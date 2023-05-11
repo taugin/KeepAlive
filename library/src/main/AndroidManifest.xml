@@ -1,37 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.rabbit">
+    package="com.finebot">
 
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <instrumentation
-        android:name="com.rabbit.alive.DaemonInstrumentation"
+        android:name="com.finebot.nkv.DnIns"
         android:targetPackage="${applicationId}"
         android:targetProcesses="${applicationId},${applicationId}:core,${applicationId}:service" />
 
     <application>
 
         <service
-            android:name=".alive.DaemonService1"
+            android:name="com.finebot.nkv.DnSer1"
             android:process=":core" />
         <service
-            android:name=".alive.DaemonService2"
+            android:name="com.finebot.nkv.DnSer2"
             android:process=":service" />
 
         <provider
-            android:name=".alive.AssistantDaemonProvider"
+            android:name="com.finebot.nkv.ADPro"
             android:authorities="${applicationId}.core"
             android:process=":core" />
         <provider
-            android:name=".alive.PersistentDaemonProvider"
+            android:name="com.finebot.nkv.PDPro"
             android:authorities="${applicationId}.service"
             android:process=":service" />
 
         <provider
-            android:name=".alive.AssistantProvider"
+            android:name="com.finebot.nkv.AtPro"
             android:authorities="${applicationId}.core_p"
             android:process=":core_p" />
         <provider
-            android:name=".alive.PersistentProvider"
+            android:name="com.finebot.nkv.PtPro"
             android:authorities="${applicationId}.service_p"
             android:process=":service_p" />
     </application>

@@ -69,7 +69,7 @@ uploadArchives {
                 authentication(userName: nexus_user, password: nexus_password)
             }
             pom.version = android.defaultConfig.versionName
-            pom.artifactId = "daemon"
+            pom.artifactId = "finebot"
             pom.groupId = "com.alive.daemon"
             pom.name = "daemon"
             pom.packaging = "aar"
