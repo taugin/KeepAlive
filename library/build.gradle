@@ -28,7 +28,7 @@ android {
         minSdkVersion 17
         targetSdkVersion 31
         versionCode 1
-        versionName "1.0.4" + (isSnapshot ? "-SNAPSHOT" : "")
+        versionName "1.0.5" + (isSnapshot ? "-SNAPSHOT" : "")
         ndk {
             abiFilters "armeabi-v7a", "arm64-v8a", "x86", "x86_64"//可以适当补填其他
         }
@@ -60,18 +60,20 @@ dependencies {
     implementation 'com.github.megatronking.stringfog:xor:1.1.0'
 }
 
-
 apply plugin: 'maven'
 uploadArchives {
     repositories {
         mavenDeployer {
-            repository(url: isSnapshot ? nexus_url_snapshot : nexus_url) {
-                authentication(userName: nexus_user, password: nexus_password)
+            def url_release = "https://packages.aliyun.com/maven/repository/2017289-release-sRvHjt/"
+            def url_snapshot = "https://packages.aliyun.com/maven/repository/2017289-snapshot-sJZcRc/"
+            def username = "5ef3647994513bd170c627be"
+            def password = "xcgJSde4Zuo4"
+            repository(url: isSnapshot ? url_snapshot : url_release) {
+                authentication(userName: username, password: password)
             }
             pom.version = android.defaultConfig.versionName
             pom.artifactId = "finebot"
-            pom.groupId = "com.alive.daemon"
-            pom.name = "daemon"
+            pom.groupId = "com.hauyu"
             pom.packaging = "aar"
         }
     }
