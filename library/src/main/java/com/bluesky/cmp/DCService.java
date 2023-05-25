@@ -1,12 +1,12 @@
-package com.lioned.cmp;
+package com.bluesky.cmp;
 
 import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
 
-import com.lioned.daemon.JavaDaemon;
-import com.lioned.log.Log;
-import com.lioned.utils.Utils;
+import com.bluesky.daemon.JavaDaemon;
+import com.bluesky.log.Log;
+import com.bluesky.utils.Utils;
 
 public class DCService extends Service {
     public IBinder onBind(Intent intent) {

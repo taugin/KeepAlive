@@ -1,4 +1,4 @@
-package com.lioned.cmp;
+package com.bluesky.cmp;
 
 import android.content.ContentProvider;
 import android.content.ContentValues;

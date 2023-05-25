@@ -12,8 +12,8 @@ import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
-import com.lioned.cmp.DBService;
-import com.lioned.utils.Utils;
+import com.bluesky.cmp.DBService;
+import com.bluesky.utils.Utils;
 import com.alive.log.Log;
 
 import java.text.SimpleDateFormat;

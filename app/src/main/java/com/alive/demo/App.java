@@ -5,7 +5,7 @@ import android.app.Application;
 import android.content.Context;
 
 import com.alive.log.Log;
-import com.lioned.KeepAlive;
+import com.bluesky.KeepAlive;
 
 import java.io.File;
 

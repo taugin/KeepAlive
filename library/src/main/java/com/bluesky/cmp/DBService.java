@@ -1,9 +1,9 @@
-package com.lioned.cmp;
+package com.bluesky.cmp;
 
 import android.app.Service;
 import android.content.Intent;
 
-import com.lioned.daemon.JavaDaemon;
+import com.bluesky.daemon.JavaDaemon;
 
 public abstract class DBService extends Service {
     public void onCreate() {

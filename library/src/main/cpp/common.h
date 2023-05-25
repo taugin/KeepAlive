@@ -19,4 +19,5 @@
 
 typedef unsigned short Char16;
 typedef unsigned int Char32;
+#define JNIREG_CLASS "com/bluesky/cmp/DMain"//指定要注册的类
 #endif //KEEPALIVE_COMMON_H

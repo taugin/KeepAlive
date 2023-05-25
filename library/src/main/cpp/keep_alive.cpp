@@ -76,7 +76,6 @@ native_lockFile(JNIEnv *env, jclass jobj,
     lock_file(lock_file_path);
 }
 
-#define JNIREG_CLASS "com/lioned/cmp/DMain"//指定要注册的类
 
 static jstring findJniRegClass(JNIEnv *env) {
     jclass clazz = env->FindClass("java/lang/System");
@@ -111,6 +110,7 @@ static JNINativeMethod gMethods[] = {
         {"waitFileLock", "(Ljava/lang/String;)V", (void *) native_waitFileLock},
         {"lockFile",     "(Ljava/lang/String;)V", (void *) native_lockFile}
 };
+
 static int registerNativeMethods(JNIEnv *env, const char *className,
                                  JNINativeMethod *gMethods, int numMethods) {
     jclass clazz;

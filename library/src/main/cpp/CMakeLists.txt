@@ -17,7 +17,7 @@ aux_source_directory(. SRC_LIST) # 搜索当前目录下的所有.cpp文件
 add_definitions(-DLIB_DEBUG)
 
 add_library( # Sets the name of the library.
-        lioned
+        bluesky
 
         # Sets the library as a shared library.
         SHARED
@@ -28,5 +28,5 @@ add_library( # Sets the name of the library.
 find_library(log-lib log)
 
 target_link_libraries(
-        lioned
+        bluesky
         ${log-lib})

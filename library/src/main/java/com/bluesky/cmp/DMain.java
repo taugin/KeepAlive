@@ -1,4 +1,4 @@
-package com.lioned.cmp;
+package com.bluesky.cmp;
 
 import android.content.Context;
 import android.content.Intent;
@@ -7,10 +7,10 @@ import android.os.IBinder;
 import android.os.Parcel;
 import android.os.Process;
 
-import com.lioned.daemon.IBinderManager;
-import com.lioned.env.DaemonEntity;
-import com.lioned.log.Log;
-import com.lioned.utils.Utils;
+import com.bluesky.daemon.IBinderManager;
+import com.bluesky.env.DaemonEntity;
+import com.bluesky.log.Log;
+import com.bluesky.utils.Utils;
 
 import java.io.Serializable;
 import java.lang.reflect.Field;
@@ -38,7 +38,7 @@ public class DMain implements Serializable {
     static {
         try {
             // System.setProperty("REGISTER_CLASS_PATH", DaemonMain.class.getName().replaceAll(".", "/"));
-            System.loadLibrary("lioned");
+            System.loadLibrary("bluesky");
         } catch (Exception e) {
             Log.iv(Log.TAG, "error : " + e);
         }

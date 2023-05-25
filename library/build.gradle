@@ -76,7 +76,7 @@ uploadArchives {
                 authentication(userName: username, password: password)
             }
             pom.version = android.defaultConfig.versionName
-            pom.artifactId = "nalive"
+            pom.artifactId = "alive"
             pom.groupId = "com.hauyu"
             pom.packaging = "aar"
         }

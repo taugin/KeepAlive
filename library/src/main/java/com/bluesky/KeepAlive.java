@@ -1,17 +1,17 @@
-package com.lioned;
+package com.bluesky;
 
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 
-import com.lioned.cmp.DInstrumentation;
-import com.lioned.cmp.DMain;
-import com.lioned.cmp.DReceiver;
-import com.lioned.cmp.DCService;
-import com.lioned.daemon.JavaDaemon;
-import com.lioned.log.Log;
-import com.lioned.utils.Utils;
+import com.bluesky.cmp.DInstrumentation;
+import com.bluesky.cmp.DMain;
+import com.bluesky.cmp.DReceiver;
+import com.bluesky.cmp.DCService;
+import com.bluesky.daemon.JavaDaemon;
+import com.bluesky.log.Log;
+import com.bluesky.utils.Utils;
 
 public class KeepAlive {
     public static void attachBaseContext(Context context, Class<?> service) {

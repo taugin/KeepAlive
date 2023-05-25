@@ -1,4 +1,4 @@
-package com.lioned.daemon;
+package com.bluesky.daemon;
 
 import android.content.ContentProviderClient;
 import android.content.ContentResolver;
@@ -7,10 +7,10 @@ import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.net.Uri;
 
-import com.lioned.cmp.DMain;
-import com.lioned.env.DaemonEnv;
-import com.lioned.log.Log;
-import com.lioned.utils.Utils;
+import com.bluesky.cmp.DMain;
+import com.bluesky.env.DaemonEnv;
+import com.bluesky.log.Log;
+import com.bluesky.utils.Utils;
 
 import java.util.ArrayList;
 

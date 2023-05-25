@@ -1,10 +1,10 @@
-package com.lioned.cmp;
+package com.bluesky.cmp;
 
 import android.app.Application;
 import android.app.Instrumentation;
 import android.os.Bundle;
-import com.lioned.utils.Utils;
-import com.lioned.log.Log;
+import com.bluesky.utils.Utils;
+import com.bluesky.log.Log;
 
 public class DInstrumentation extends Instrumentation {
     public void callApplicationOnCreate(Application application) {

@@ -1,13 +1,13 @@
-package com.lioned.daemon;
+package com.bluesky.daemon;
 
 import android.content.Context;
 import android.text.TextUtils;
 
 
-import com.lioned.cmp.DMain;
-import com.lioned.env.DaemonEntity;
-import com.lioned.env.DaemonEnv;
-import com.lioned.log.Log;
+import com.bluesky.cmp.DMain;
+import com.bluesky.env.DaemonEntity;
+import com.bluesky.env.DaemonEnv;
+import com.bluesky.log.Log;
 
 import java.io.File;
 import java.util.ArrayList;
