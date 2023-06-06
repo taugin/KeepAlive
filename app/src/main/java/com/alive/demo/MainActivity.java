@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import com.alive.daemon.demo.R;
+import com.bluesky.KeepAlive;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -30,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
     public void onClick(View v) {
         if (v.getId() == R.id.set_non_organic) {
             App.setNonOrganic(this);
-            ContextCompat.startForegroundService(this, new Intent(this, NotifyResidentService.class));
+            KeepAlive.startService(this, NotifyResidentService.class);
         } else if (v.getId() == R.id.remove_non_organic) {
             App.removeNonOrganic(this);
         } else if (v.getId() == R.id.start_app_detail) {

@@ -13,6 +13,9 @@ public class App extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        if (isNonOrganic(this)) {
+            KeepAlive.startService(this, NotifyResidentService.class);
+        }
     }
 
     @Override
