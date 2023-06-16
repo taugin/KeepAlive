@@ -7,10 +7,9 @@ import android.provider.Settings;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 
 import com.alive.daemon.demo.R;
-import com.bluesky.KeepAlive;
+import com.ocean.KeepAlive;
 
 
 public class MainActivity extends AppCompatActivity {

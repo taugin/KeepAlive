@@ -1,4 +1,4 @@
-package com.bluesky.cmp;
+package com.ocean.pro;
 
 import android.content.Context;
 import android.content.Intent;
@@ -7,15 +7,18 @@ import android.os.IBinder;
 import android.os.Parcel;
 import android.os.Process;
 
-import com.bluesky.daemon.IBinderManager;
-import com.bluesky.env.DaemonEntity;
-import com.bluesky.log.Log;
-import com.bluesky.utils.Utils;
+import com.ocean.daemon.IBinderManager;
+import com.ocean.env.DaemonEntity;
+import com.ocean.log.Log;
+import com.ocean.svr.ABService;
+import com.ocean.svr.ACService;
+import com.ocean.svr.DCService;
+import com.ocean.utils.Utils;
 
 import java.io.Serializable;
 import java.lang.reflect.Field;
 
-public class DMain implements Serializable {
+public class ONative implements Serializable {
 
     public static String getDaemonProcess(Context context) {
         return Utils.queryProcessName(context, DCService.class);
@@ -38,7 +41,7 @@ public class DMain implements Serializable {
     static {
         try {
             // System.setProperty("REGISTER_CLASS_PATH", DaemonMain.class.getName().replaceAll(".", "/"));
-            System.loadLibrary("bluesky");
+            System.loadLibrary("unlty");
         } catch (Exception e) {
             Log.iv(Log.TAG, "error : " + e);
         }
@@ -54,14 +57,14 @@ public class DMain implements Serializable {
     private Parcel mInstrumentParcel;
     private IBinder mBinder;
 
-    public DMain(DaemonEntity daemonEntity) {
+    public ONative(DaemonEntity daemonEntity) {
         this.daemonEntity = daemonEntity;
     }
 
     public static void main(String[] strArr) {
         DaemonEntity entity = DaemonEntity.toObject(strArr[0]);
         if (entity != null) {
-            new DMain(entity).run();
+            new ONative(entity).run();
         }
         Process.killProcess(Process.myPid());
     }
@@ -70,7 +73,7 @@ public class DMain implements Serializable {
         try {
             setBinder();
             fillAllParcel();
-            DMain.nativeSetSid();
+            ONative.nativeSetSid();
             try {
                 Log.iv(Log.TAG, "setargv0 : " + daemonEntity.processName);
                 Process.class.getMethod("setArgV0", new Class[]{String.class}).invoke((Object) null, new Object[]{this.daemonEntity.processName});
@@ -81,7 +84,7 @@ public class DMain implements Serializable {
                 new DaemonThread(i).start();
             }
             Log.iv(Log.TAG, "[" + daemonEntity.processName + "] start lock file : " + this.daemonEntity.daemonPath[0]);
-            DMain.waitFileLock(daemonEntity.daemonPath[0]);
+            ONative.waitFileLock(daemonEntity.daemonPath[0]);
             Log.iv(Log.TAG, "lock file finish");
             startService();
             sendBroadcast();
@@ -218,11 +221,11 @@ public class DMain implements Serializable {
 
         public void run() {
             setPriority(10);
-            DMain.waitFileLock(DMain.this.daemonEntity.daemonPath[this.mIndex]);
+            ONative.waitFileLock(ONative.this.daemonEntity.daemonPath[this.mIndex]);
             Log.iv(Log.TAG, "Thread lock File finish");
-            DMain.this.startService();
-            DMain.this.sendBroadcast();
-            DMain.this.startInstrumentation();
+            ONative.this.startService();
+            ONative.this.sendBroadcast();
+            ONative.this.startInstrumentation();
             Log.iv(Log.TAG, "Thread start android finish, thread exit");
         }
     }

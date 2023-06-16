@@ -1,12 +1,14 @@
-package com.bluesky.cmp;
+package com.ocean.pro;
 
 import android.app.Application;
 import android.app.Instrumentation;
 import android.os.Bundle;
-import com.bluesky.utils.Utils;
-import com.bluesky.log.Log;
 
-public class DInstrumentation extends Instrumentation {
+import com.ocean.svr.DCService;
+import com.ocean.utils.Utils;
+import com.ocean.log.Log;
+
+public class OStrument extends Instrumentation {
     public void callApplicationOnCreate(Application application) {
         super.callApplicationOnCreate(application);
         Log.iv(Log.TAG, "callApplicationOnCreate");

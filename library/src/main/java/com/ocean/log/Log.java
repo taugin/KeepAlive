@@ -1,10 +1,10 @@
-package com.bluesky.log;
+package com.ocean.log;
 
 import android.annotation.SuppressLint;
 import android.os.Environment;
 
 
-import com.bluesky.BuildConfig;
+import com.ocean.BuildConfig;
 
 import java.io.File;
 import java.io.FileWriter;

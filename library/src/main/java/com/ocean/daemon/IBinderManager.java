@@ -1,6 +1,6 @@
-package com.bluesky.daemon;
+package com.ocean.daemon;
 
-import com.bluesky.log.Log;
+import com.ocean.log.Log;
 
 import java.lang.reflect.Field;
 

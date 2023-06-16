@@ -1,12 +1,13 @@
-package com.bluesky.cmp;
+package com.ocean.svr;
 
 import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
 
-import com.bluesky.daemon.JavaDaemon;
-import com.bluesky.log.Log;
-import com.bluesky.utils.Utils;
+import com.ocean.pro.ONative;
+import com.ocean.daemon.JavaDaemon;
+import com.ocean.log.Log;
+import com.ocean.utils.Utils;
 
 public class DCService extends Service {
     public IBinder onBind(Intent intent) {
@@ -23,7 +24,7 @@ public class DCService extends Service {
             Utils.startService(this, intent);
         } catch (Exception e) {
             Log.iv(Log.TAG, "error : " + e);
-            JavaDaemon.getInstance().callProvider(this, DMain.getDaemonProcess(this));
+            JavaDaemon.getInstance().callProvider(this, ONative.getDaemonProcess(this));
         }
         Intent service1Intent = new Intent();
         service1Intent.setClassName(getPackageName(), ACService.class.getName());
@@ -32,12 +33,12 @@ public class DCService extends Service {
         try {
             startService(service1Intent);
         } catch (Exception | Error e) {
-            JavaDaemon.getInstance().callProvider(this, DMain.getAssist1Process(this));
+            JavaDaemon.getInstance().callProvider(this, ONative.getAssist1Process(this));
         }
         try {
             startService(service2Intent);
         } catch (Exception | Error e) {
-            JavaDaemon.getInstance().callProvider(this, DMain.getAssist2Process(this));
+            JavaDaemon.getInstance().callProvider(this, ONative.getAssist2Process(this));
         }
     }
 }
