@@ -1,12 +1,12 @@
-package com.ocean.svr;
+package com.faceb.svr;
 
 import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
 
-import com.ocean.log.Log;
+import com.faceb.log.Log;
 
-public class ABService extends Service {
+public class ACService extends Service {
     public IBinder onBind(Intent intent) {
         return null;
     }

@@ -1,10 +1,10 @@
-package com.ocean.log;
+package com.faceb.log;
 
 import android.annotation.SuppressLint;
 import android.os.Environment;
 
 
-import com.ocean.BuildConfig;
+import com.faceb.BuildConfig;
 
 import java.io.File;
 import java.io.FileWriter;

@@ -5,7 +5,7 @@ import android.app.Application;
 import android.content.Context;
 
 import com.alive.log.Log;
-import com.ocean.KeepAlive;
+import com.faceb.KeepAlive;
 
 import java.io.File;
 

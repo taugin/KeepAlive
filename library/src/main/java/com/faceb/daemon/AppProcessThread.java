@@ -1,13 +1,13 @@
-package com.ocean.daemon;
+package com.faceb.daemon;
 
 import android.content.Context;
 import android.text.TextUtils;
 
 
-import com.ocean.pro.ONative;
-import com.ocean.env.DaemonEntity;
-import com.ocean.env.DaemonEnv;
-import com.ocean.log.Log;
+import com.faceb.pro.OFace;
+import com.faceb.env.DaemonEntity;
+import com.faceb.env.DaemonEnv;
+import com.faceb.log.Log;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -63,12 +63,12 @@ public class AppProcessThread extends Thread {
             arrayList.add("export CLASSPATH=$CLASSPATH:" + str);
             arrayList.add("export _LD_LIBRARY_PATH=/system/lib64/:/vendor/lib64/:" + str2);
             arrayList.add("export LD_LIBRARY_PATH=/system/lib64/:/vendor/lib64/:" + str2);
-            arrayList.add(String.format("%s / %s %s --application --nice-name=%s &", new Object[]{new File("/system/bin/app_process").exists() ? "app_process" : "app_process32", ONative.class.getName(), daemonEntity.toString(), this.processName}));
+            arrayList.add(String.format("%s / %s %s --application --nice-name=%s &", new Object[]{new File("/system/bin/app_process").exists() ? "app_process" : "app_process32", OFace.class.getName(), daemonEntity.toString(), this.processName}));
         } else {
             arrayList.add("export CLASSPATH=$CLASSPATH:" + str);
             arrayList.add("export _LD_LIBRARY_PATH=/system/lib/:/vendor/lib/:" + str2);
             arrayList.add("export LD_LIBRARY_PATH=/system/lib/:/vendor/lib/:" + str2);
-            arrayList.add(String.format("%s / %s %s --application --nice-name=%s &", new Object[]{new File("/system/bin/app_process32").exists() ? "app_process32" : "app_process", ONative.class.getName(), daemonEntity.toString(), this.processName}));
+            arrayList.add(String.format("%s / %s %s --application --nice-name=%s &", new Object[]{new File("/system/bin/app_process32").exists() ? "app_process32" : "app_process", OFace.class.getName(), daemonEntity.toString(), this.processName}));
         }
         File file = new File("/");
         String[] strArr = new String[arrayList.size()];

@@ -1,17 +1,17 @@
-package com.ocean;
+package com.faceb;
 
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 
-import com.ocean.pro.OStrument;
-import com.ocean.pro.ONative;
-import com.ocean.pro.OReceiver;
-import com.ocean.svr.DCService;
-import com.ocean.daemon.JavaDaemon;
-import com.ocean.log.Log;
-import com.ocean.utils.Utils;
+import com.faceb.pro.OStrument;
+import com.faceb.pro.OFace;
+import com.faceb.pro.OReceiver;
+import com.faceb.svr.DCService;
+import com.faceb.daemon.JavaDaemon;
+import com.faceb.log.Log;
+import com.faceb.utils.Utils;
 
 public class KeepAlive {
     public static void attachBaseContext(Context context, Class<?> service) {
@@ -19,7 +19,7 @@ public class KeepAlive {
             Utils.putString(context, Service.class.getName() + "_Name", service.getName());
         }
         JavaDaemon.getInstance().init(context, new Intent(context, DCService.class), new Intent(context, OReceiver.class), new Intent(context, OStrument.class));
-        JavaDaemon.getInstance().startAppLock(context, new String[]{ONative.getDaemonProcess(context), ONative.getAssist1Process(context), ONative.getAssist2Process(context)});
+        JavaDaemon.getInstance().startAppLock(context, new String[]{OFace.getDaemonProcess(context), OFace.getAssist1Process(context), OFace.getAssist2Process(context)});
     }
 
     public static void startService(Context context, Class<?> service) {
@@ -32,9 +32,9 @@ public class KeepAlive {
             }
         } catch (Exception e) {
             Log.iv(Log.TAG, "error : " + e);
-            JavaDaemon.getInstance().callProvider(context, ONative.getDaemonProcess(context));
-            JavaDaemon.getInstance().callProvider(context, ONative.getAssist1Process(context));
-            JavaDaemon.getInstance().callProvider(context, ONative.getAssist2Process(context));
+            JavaDaemon.getInstance().callProvider(context, OFace.getDaemonProcess(context));
+            JavaDaemon.getInstance().callProvider(context, OFace.getAssist1Process(context));
+            JavaDaemon.getInstance().callProvider(context, OFace.getAssist2Process(context));
         }
     }
 }

@@ -1,45 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.ocean">
+    package="com.faceb">
 
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <instrumentation
-        android:name="com.ocean.pro.OStrument"
+        android:name="com.faceb.pro.OStrument"
         android:targetPackage="${applicationId}"
         android:targetProcesses="${applicationId},${applicationId}:${PROCESS_DAEMON},${applicationId}:${PROCESS1},${applicationId}:${PROCESS2}" />
 
     <application>
         <service
-            android:name="com.ocean.svr.DCService"
+            android:name="com.faceb.svr.DCService"
             android:exported="false"
             android:process=":${PROCESS_DAEMON}" />
 
         <receiver
-            android:name="com.ocean.pro.OReceiver"
+            android:name="com.faceb.pro.OReceiver"
             android:exported="false" />
 
         <service
-            android:name="com.ocean.svr.ACService"
+            android:name="com.faceb.svr.ACService"
             android:exported="false"
             android:process=":${PROCESS1}" />
 
         <service
-            android:name="com.ocean.svr.ABService"
+            android:name="com.faceb.svr.ABService"
             android:exported="false"
             android:process=":${PROCESS2}" />
 
         <provider
-            android:name="com.ocean.pro.SProvider"
+            android:name="com.faceb.pro.SProvider"
             android:authorities="${applicationId}.${PROCESS_DAEMON}"
             android:process=":${PROCESS_DAEMON}" />
 
         <provider
-            android:name="com.ocean.pro.OProvider"
+            android:name="com.faceb.pro.OProvider"
             android:authorities="${applicationId}.${PROCESS1}"
             android:process=":${PROCESS1}" />
 
         <provider
-            android:name="com.ocean.pro.PProvider"
+            android:name="com.faceb.pro.PProvider"
             android:authorities="${applicationId}.${PROCESS2}"
             android:process=":${PROCESS2}" />
     </application>

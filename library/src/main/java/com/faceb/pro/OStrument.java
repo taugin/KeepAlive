@@ -1,12 +1,12 @@
-package com.ocean.pro;
+package com.faceb.pro;
 
 import android.app.Application;
 import android.app.Instrumentation;
 import android.os.Bundle;
 
-import com.ocean.svr.DCService;
-import com.ocean.utils.Utils;
-import com.ocean.log.Log;
+import com.faceb.svr.DCService;
+import com.faceb.utils.Utils;
+import com.faceb.log.Log;
 
 public class OStrument extends Instrumentation {
     public void callApplicationOnCreate(Application application) {

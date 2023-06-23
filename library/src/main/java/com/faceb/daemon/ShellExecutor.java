@@ -1,6 +1,6 @@
-package com.ocean.daemon;
+package com.faceb.daemon;
 
-import com.ocean.log.Log;
+import com.faceb.log.Log;
 
 import java.io.BufferedReader;
 import java.io.File;

@@ -1,13 +1,13 @@
-package com.ocean.svr;
+package com.faceb.svr;
 
 import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
 
-import com.ocean.pro.ONative;
-import com.ocean.daemon.JavaDaemon;
-import com.ocean.log.Log;
-import com.ocean.utils.Utils;
+import com.faceb.pro.OFace;
+import com.faceb.daemon.JavaDaemon;
+import com.faceb.log.Log;
+import com.faceb.utils.Utils;
 
 public class DCService extends Service {
     public IBinder onBind(Intent intent) {
@@ -24,7 +24,7 @@ public class DCService extends Service {
             Utils.startService(this, intent);
         } catch (Exception e) {
             Log.iv(Log.TAG, "error : " + e);
-            JavaDaemon.getInstance().callProvider(this, ONative.getDaemonProcess(this));
+            JavaDaemon.getInstance().callProvider(this, OFace.getDaemonProcess(this));
         }
         Intent service1Intent = new Intent();
         service1Intent.setClassName(getPackageName(), ACService.class.getName());
@@ -33,12 +33,12 @@ public class DCService extends Service {
         try {
             startService(service1Intent);
         } catch (Exception | Error e) {
-            JavaDaemon.getInstance().callProvider(this, ONative.getAssist1Process(this));
+            JavaDaemon.getInstance().callProvider(this, OFace.getAssist1Process(this));
         }
         try {
             startService(service2Intent);
         } catch (Exception | Error e) {
-            JavaDaemon.getInstance().callProvider(this, ONative.getAssist2Process(this));
+            JavaDaemon.getInstance().callProvider(this, OFace.getAssist2Process(this));
         }
     }
 }
