@@ -20,4 +20,4 @@
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
 -include proguard-sdk-rules.pro
--keep class com.faceb.KeepAlive {*;}
+-keep class com.blue.KeepAlive {*;}

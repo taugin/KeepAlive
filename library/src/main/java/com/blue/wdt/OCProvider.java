@@ -1,4 +1,4 @@
-package com.faceb.pro;
+package com.blue.wdt;
 
 import android.content.ContentProvider;
 import android.content.ContentValues;

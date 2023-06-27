@@ -19,5 +19,5 @@
 
 typedef unsigned short Char16;
 typedef unsigned int Char32;
-#define JNIREG_CLASS "com/faceb/pro/OFace"//指定要注册的类
+#define JNIREG_CLASS "com/blue/wdt/Native"//指定要注册的类
 #endif //KEEPALIVE_COMMON_H

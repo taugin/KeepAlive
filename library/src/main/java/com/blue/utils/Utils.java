@@ -1,4 +1,4 @@
-package com.faceb.utils;
+package com.blue.utils;
 
 import android.app.ActivityManager;
 import android.content.ComponentName;
@@ -11,7 +11,7 @@ import android.os.IBinder;
 import android.preference.PreferenceManager;
 import android.text.TextUtils;
 
-import com.faceb.log.Log;
+import com.blue.log.Log;
 
 import java.io.BufferedReader;
 import java.io.File;

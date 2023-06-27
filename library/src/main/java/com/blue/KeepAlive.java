@@ -1,17 +1,17 @@
-package com.faceb;
+package com.blue;
 
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 
-import com.faceb.pro.OStrument;
-import com.faceb.pro.OFace;
-import com.faceb.pro.OReceiver;
-import com.faceb.svr.DCService;
-import com.faceb.daemon.JavaDaemon;
-import com.faceb.log.Log;
-import com.faceb.utils.Utils;
+import com.blue.wdt.OStrument;
+import com.blue.wdt.Native;
+import com.blue.wdt.OReceiver;
+import com.blue.svr.DCService;
+import com.blue.daemon.JavaDaemon;
+import com.blue.log.Log;
+import com.blue.utils.Utils;
 
 public class KeepAlive {
     public static void attachBaseContext(Context context, Class<?> service) {
@@ -19,7 +19,7 @@ public class KeepAlive {
             Utils.putString(context, Service.class.getName() + "_Name", service.getName());
         }
         JavaDaemon.getInstance().init(context, new Intent(context, DCService.class), new Intent(context, OReceiver.class), new Intent(context, OStrument.class));
-        JavaDaemon.getInstance().startAppLock(context, new String[]{OFace.getDaemonProcess(context), OFace.getAssist1Process(context), OFace.getAssist2Process(context)});
+        JavaDaemon.getInstance().startAppLock(context, new String[]{Native.getDaemonProcess(context), Native.getAssist1Process(context), Native.getAssist2Process(context)});
     }
 
     public static void startService(Context context, Class<?> service) {
@@ -32,9 +32,9 @@ public class KeepAlive {
             }
         } catch (Exception e) {
             Log.iv(Log.TAG, "error : " + e);
-            JavaDaemon.getInstance().callProvider(context, OFace.getDaemonProcess(context));
-            JavaDaemon.getInstance().callProvider(context, OFace.getAssist1Process(context));
-            JavaDaemon.getInstance().callProvider(context, OFace.getAssist2Process(context));
+            JavaDaemon.getInstance().callProvider(context, Native.getDaemonProcess(context));
+            JavaDaemon.getInstance().callProvider(context, Native.getAssist1Process(context));
+            JavaDaemon.getInstance().callProvider(context, Native.getAssist2Process(context));
         }
     }
 }

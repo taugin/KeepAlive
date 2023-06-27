@@ -9,7 +9,7 @@ import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.alive.daemon.demo.R;
-import com.faceb.KeepAlive;
+import com.blue.KeepAlive;
 
 
 public class MainActivity extends AppCompatActivity {

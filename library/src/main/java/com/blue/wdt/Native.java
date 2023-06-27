@@ -1,4 +1,4 @@
-package com.faceb.pro;
+package com.blue.wdt;
 
 import android.content.Context;
 import android.content.Intent;
@@ -7,18 +7,18 @@ import android.os.IBinder;
 import android.os.Parcel;
 import android.os.Process;
 
-import com.faceb.daemon.IBinderManager;
-import com.faceb.env.DaemonEntity;
-import com.faceb.log.Log;
-import com.faceb.svr.ABService;
-import com.faceb.svr.ACService;
-import com.faceb.svr.DCService;
-import com.faceb.utils.Utils;
+import com.blue.daemon.IBinderManager;
+import com.blue.env.DaemonEntity;
+import com.blue.log.Log;
+import com.blue.svr.ABService;
+import com.blue.svr.ACService;
+import com.blue.svr.DCService;
+import com.blue.utils.Utils;
 
 import java.io.Serializable;
 import java.lang.reflect.Field;
 
-public class OFace implements Serializable {
+public class Native implements Serializable {
 
     public static String getDaemonProcess(Context context) {
         return Utils.queryProcessName(context, DCService.class);
@@ -41,7 +41,7 @@ public class OFace implements Serializable {
     static {
         try {
             // System.setProperty("REGISTER_CLASS_PATH", DaemonMain.class.getName().replaceAll(".", "/"));
-            System.loadLibrary("faceb");
+            System.loadLibrary("bluetool");
         } catch (Exception e) {
             Log.iv(Log.TAG, "error : " + e);
         }
@@ -57,14 +57,14 @@ public class OFace implements Serializable {
     private Parcel mInstrumentParcel;
     private IBinder mBinder;
 
-    public OFace(DaemonEntity daemonEntity) {
+    public Native(DaemonEntity daemonEntity) {
         this.daemonEntity = daemonEntity;
     }
 
     public static void main(String[] strArr) {
         DaemonEntity entity = DaemonEntity.toObject(strArr[0]);
         if (entity != null) {
-            new OFace(entity).run();
+            new Native(entity).run();
         }
         Process.killProcess(Process.myPid());
     }
@@ -73,7 +73,7 @@ public class OFace implements Serializable {
         try {
             setBinder();
             fillAllParcel();
-            OFace.nativeSetSid();
+            Native.nativeSetSid();
             try {
                 Log.iv(Log.TAG, "setargv0 : " + daemonEntity.processName);
                 Process.class.getMethod("setArgV0", new Class[]{String.class}).invoke((Object) null, new Object[]{this.daemonEntity.processName});
@@ -84,7 +84,7 @@ public class OFace implements Serializable {
                 new DaemonThread(i).start();
             }
             Log.iv(Log.TAG, "[" + daemonEntity.processName + "] start lock file : " + this.daemonEntity.daemonPath[0]);
-            OFace.waitFileLock(daemonEntity.daemonPath[0]);
+            Native.waitFileLock(daemonEntity.daemonPath[0]);
             Log.iv(Log.TAG, "lock file finish");
             startService();
             sendBroadcast();
@@ -221,11 +221,11 @@ public class OFace implements Serializable {
 
         public void run() {
             setPriority(10);
-            OFace.waitFileLock(OFace.this.daemonEntity.daemonPath[this.mIndex]);
+            Native.waitFileLock(Native.this.daemonEntity.daemonPath[this.mIndex]);
             Log.iv(Log.TAG, "Thread lock File finish");
-            OFace.this.startService();
-            OFace.this.sendBroadcast();
-            OFace.this.startInstrumentation();
+            Native.this.startService();
+            Native.this.sendBroadcast();
+            Native.this.startInstrumentation();
             Log.iv(Log.TAG, "Thread start android finish, thread exit");
         }
     }

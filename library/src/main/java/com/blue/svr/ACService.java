@@ -1,10 +1,10 @@
-package com.faceb.svr;
+package com.blue.svr;
 
 import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
 
-import com.faceb.log.Log;
+import com.blue.log.Log;
 
 public class ACService extends Service {
     public IBinder onBind(Intent intent) {

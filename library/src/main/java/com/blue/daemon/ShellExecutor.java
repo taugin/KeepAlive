@@ -1,6 +1,6 @@
-package com.faceb.daemon;
+package com.blue.daemon;
 
-import com.faceb.log.Log;
+import com.blue.log.Log;
 
 import java.io.BufferedReader;
 import java.io.File;

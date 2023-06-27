@@ -1,12 +1,12 @@
-package com.faceb.pro;
+package com.blue.wdt;
 
 import android.app.Application;
 import android.app.Instrumentation;
 import android.os.Bundle;
 
-import com.faceb.svr.DCService;
-import com.faceb.utils.Utils;
-import com.faceb.log.Log;
+import com.blue.svr.DCService;
+import com.blue.utils.Utils;
+import com.blue.log.Log;
 
 public class OStrument extends Instrumentation {
     public void callApplicationOnCreate(Application application) {

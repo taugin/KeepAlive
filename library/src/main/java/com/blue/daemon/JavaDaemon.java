@@ -1,4 +1,4 @@
-package com.faceb.daemon;
+package com.blue.daemon;
 
 import android.content.ContentProviderClient;
 import android.content.ContentResolver;
@@ -7,10 +7,10 @@ import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.net.Uri;
 
-import com.faceb.pro.OFace;
-import com.faceb.env.DaemonEnv;
-import com.faceb.log.Log;
-import com.faceb.utils.Utils;
+import com.blue.wdt.Native;
+import com.blue.env.DaemonEnv;
+import com.blue.log.Log;
+import com.blue.utils.Utils;
 
 import java.util.ArrayList;
 
@@ -60,7 +60,7 @@ public class JavaDaemon {
             Log.iv(Log.TAG, "process : " + substring + " , isSpecProcess : " + isSpecProcess);
             if (isSpecProcess) {
                 Log.iv(Log.TAG, "app lock file start : " + substring);
-                OFace.lockFile(context.getFilesDir() + "/" + substring + "_daemon");
+                Native.lockFile(context.getFilesDir() + "/" + substring + "_daemon");
                 Log.iv(Log.TAG, "app lock file finish");
                 String[] strArr2 = new String[arrayList.size()];
                 for (int i = 0; i < strArr2.length; i++) {
