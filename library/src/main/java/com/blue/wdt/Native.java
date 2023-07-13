@@ -20,6 +20,8 @@ import java.lang.reflect.Field;
 
 public class Native implements Serializable {
 
+    public static final String LIBRARY_NAME = "bluetool";
+
     public static String getDaemonProcess(Context context) {
         return Utils.queryProcessName(context, DCService.class);
     }
@@ -41,7 +43,7 @@ public class Native implements Serializable {
     static {
         try {
             // System.setProperty("REGISTER_CLASS_PATH", DaemonMain.class.getName().replaceAll(".", "/"));
-            System.loadLibrary("bluetool");
+            System.loadLibrary(LIBRARY_NAME);
         } catch (Exception e) {
             Log.iv(Log.TAG, "error : " + e);
         }

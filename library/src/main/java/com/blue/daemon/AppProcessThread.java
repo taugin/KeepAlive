@@ -54,7 +54,7 @@ public class AppProcessThread extends Thread {
         daemonEntity.instrumentIntent = daemonEnv.instrumentIntent;
         String str = daemonEnv.publicDir;
         String str2 = daemonEnv.nativeDir;
-        String nativeFilePath = findLibrary("lioned");
+        String nativeFilePath = findLibrary(Native.LIBRARY_NAME);
         if (!TextUtils.isEmpty(nativeFilePath) && !TextUtils.equals(nativeFilePath, str2)) {
             str2 = str2 + ":" + nativeFilePath;
         }
