@@ -81,26 +81,26 @@ void vd_show(JNIEnv *env, jclass jclazz, jobject context, jobject displayManager
         return;
     }
 
-    jclass Presentation = env->FindClass("android/app/Presentation");
-    if (Presentation == NULL) {
-        LOGE("Presentation is null");
+    jclass presentation_class = env->FindClass("android/app/Presentation");
+    if (presentation_class == NULL) {
+        LOGE("presentation_class is null");
         return;
     }
 
-    jmethodID newPresentation = env->GetMethodID(Presentation, "<init>",
+    jmethodID newPresentation = env->GetMethodID(presentation_class, "<init>",
                                                  "(Landroid/content/Context;Landroid/view/Display;)V");
     if (newPresentation == NULL) {
         LOGE("newPresentation is null");
         return;
     }
 
-    jobject presentation = env->NewObject(Presentation, newPresentation, context, display);
+    jobject presentation = env->NewObject(presentation_class, newPresentation, context, display);
     if (presentation == NULL) {
         LOGE("presentation is null");
         return;
     }
 
-    jmethodID show = env->GetMethodID(Presentation, "show", "()V");
+    jmethodID show = env->GetMethodID(presentation_class, "show", "()V");
     if (show == NULL) {
         LOGE("show is null");
         return;
