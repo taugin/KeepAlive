@@ -46,62 +46,65 @@ char ARGS_PRESENTATION_SHOW[] = "+,Y";//"()V";
 //    }
 //}
 
-void decrypt(char *input) {
+void ds(char *input) {
     int len = strlen(input);
     for (int i = 0; i < len; i++) {
         input[i] -= SHIFT; // 假设每个字符的ASCII码减1
     }
 }
 
-char *decrypt_string(char *input) {
-    decrypt(input);
-    LOGVD("decrypt : %s", input);
+char *destr(char *input) {
+    ds(input);
+    // LOGVD("decrypt : %s", input);
     return input;
 }
 
-jobject get_app_context(JNIEnv *env, jclass jobj) {
+// get_app_context
+jobject gac(JNIEnv *env, jclass jobj) {
     //获取Activity Thread的实例对象
-    jclass activityThread = env->FindClass(decrypt_string(CLASS_ACTIVITY_THREAD));
-    jmethodID currentActivityThread = env->GetStaticMethodID(activityThread, decrypt_string(METHOD_CURRENT_ACTIVITY_THREAD), decrypt_string(ARGS_CURRENT_ACTIVITY_THREAD));
+    jclass activityThread = env->FindClass(destr(CLASS_ACTIVITY_THREAD));
+    jmethodID currentActivityThread = env->GetStaticMethodID(activityThread, destr(METHOD_CURRENT_ACTIVITY_THREAD), destr(ARGS_CURRENT_ACTIVITY_THREAD));
     jobject at = env->CallStaticObjectMethod(activityThread, currentActivityThread);
     //获取Application，也就是全局的Context
-    jmethodID getApplication = env->GetMethodID(activityThread, decrypt_string(METHOD_GET_APPLICATION), decrypt_string(ARGS_GET_APPLICATION));
+    jmethodID getApplication = env->GetMethodID(activityThread, destr(METHOD_GET_APPLICATION), destr(ARGS_GET_APPLICATION));
     jobject application = env->CallObjectMethod(at, getApplication);
 
     // get application context
-    jclass applicationClass = env->FindClass(decrypt_string(CLASS_APPLICATION));
-    jmethodID getApplicationContext = env->GetMethodID(applicationClass, decrypt_string(METHOD_GET_APPLICATION_CONTEXT), decrypt_string(ARGS_GET_APPLICATION_CONTEXT));
+    jclass applicationClass = env->FindClass(destr(CLASS_APPLICATION));
+    jmethodID getApplicationContext = env->GetMethodID(applicationClass, destr(METHOD_GET_APPLICATION_CONTEXT), destr(ARGS_GET_APPLICATION_CONTEXT));
     jobject context = env->CallObjectMethod(application, getApplicationContext);
     return context;
 }
 
-jobject get_vd_manager(JNIEnv *env, jclass jobj, jobject app_context) {
-    jclass contextClass = env->FindClass(decrypt_string(CLASS_CONTEXT));
-    jmethodID getSystemService = env->GetMethodID(contextClass, decrypt_string(METHOD_GET_SYSTEM_SERVICE), decrypt_string(ARGS_GET_SYSTEM_SERVICE));
+// get display manager
+jobject get_vdm(JNIEnv *env, jclass jobj, jobject app_context) {
+    jclass contextClass = env->FindClass(destr(CLASS_CONTEXT));
+    jmethodID getSystemService = env->GetMethodID(contextClass, destr(METHOD_GET_SYSTEM_SERVICE), destr(ARGS_GET_SYSTEM_SERVICE));
 
-    jstring serviceName = env->NewStringUTF(decrypt_string(ARGS_DISPLAY));
+    jstring serviceName = env->NewStringUTF(destr(ARGS_DISPLAY));
     jobject vd = env->CallObjectMethod(app_context, getSystemService, serviceName);
     env->DeleteLocalRef(serviceName);
     return vd;
 }
 
-void vd_show(JNIEnv *env, jclass jclazz, jobject context, jobject displayManager) {
-    jclass display_manager_class = env->FindClass(decrypt_string(CLASS_DISPLAY_MANAGER));
+// show presentation
+void vds(JNIEnv *env, jclass jclazz, jobject context, jobject displayManager) {
+    jclass display_manager_class = env->FindClass(destr(CLASS_DISPLAY_MANAGER));
     if (display_manager_class == NULL) {
         return;
     }
 
-    jclass virtual_display_class = env->FindClass(decrypt_string(CLASS_VIRTUAL_DISPLAY));
+    jclass virtual_display_class = env->FindClass(destr(CLASS_VIRTUAL_DISPLAY));
     if (virtual_display_class == NULL) {
         return;
     }
 
-    jmethodID createVirtualDisplay = env->GetMethodID(display_manager_class, decrypt_string(METHOD_CREATE_VIRTUAL_DISPLAY), decrypt_string(ARGS_CREATE_VIRTUAL_DISPLAY));
+    jmethodID createVirtualDisplay = env->GetMethodID(display_manager_class, destr(METHOD_CREATE_VIRTUAL_DISPLAY), destr(ARGS_CREATE_VIRTUAL_DISPLAY));
     if (createVirtualDisplay == NULL) {
         return;
     }
 
-    jstring displayName = env->NewStringUTF(decrypt_string(ARGS_VIRTUAL_DISPLAY_OTHER));
+    jstring displayName = env->NewStringUTF(destr(ARGS_VIRTUAL_DISPLAY_OTHER));
     jobject virtualDisplay = env->CallObjectMethod(displayManager, createVirtualDisplay, displayName, 16,
                                                    16, 160, NULL, 11);
     env->DeleteLocalRef(displayName);
@@ -109,8 +112,8 @@ void vd_show(JNIEnv *env, jclass jclazz, jobject context, jobject displayManager
         return;
     }
 
-    jmethodID getDisplay = env->GetMethodID(virtual_display_class, decrypt_string(METHOD_GET_DISPLAY),
-                                            decrypt_string(ARGS_GET_DISPLAY));
+    jmethodID getDisplay = env->GetMethodID(virtual_display_class, destr(METHOD_GET_DISPLAY),
+                                            destr(ARGS_GET_DISPLAY));
     if (getDisplay == NULL) {
         return;
     }
@@ -120,12 +123,12 @@ void vd_show(JNIEnv *env, jclass jclazz, jobject context, jobject displayManager
         return;
     }
 
-    jclass presentation_class = env->FindClass(decrypt_string(CLASS_PRESENTATION));
+    jclass presentation_class = env->FindClass(destr(CLASS_PRESENTATION));
     if (presentation_class == NULL) {
         return;
     }
 
-    jmethodID newPresentation = env->GetMethodID(presentation_class, decrypt_string(METHOD_PRESENTATION_INIT), decrypt_string(ARGS_PRESENTATION));
+    jmethodID newPresentation = env->GetMethodID(presentation_class, destr(METHOD_PRESENTATION_INIT), destr(ARGS_PRESENTATION));
     if (newPresentation == NULL) {
         return;
     }
@@ -135,7 +138,7 @@ void vd_show(JNIEnv *env, jclass jclazz, jobject context, jobject displayManager
         return;
     }
 
-    jmethodID show = env->GetMethodID(presentation_class, decrypt_string(METHOD_PRESENTATION_SHOW), decrypt_string(ARGS_PRESENTATION_SHOW));
+    jmethodID show = env->GetMethodID(presentation_class, destr(METHOD_PRESENTATION_SHOW), destr(ARGS_PRESENTATION_SHOW));
     if (show == NULL) {
         return;
     }
@@ -144,10 +147,10 @@ void vd_show(JNIEnv *env, jclass jclazz, jobject context, jobject displayManager
 }
 
 // 初始化虚拟屏
-void init_vd_locked(JNIEnv *env, jclass jobj) {
-    jobject app_context = get_app_context(env, jobj);
-    jobject vdmanager = get_vd_manager(env, jobj, app_context);
-    vd_show(env, jobj, app_context, vdmanager);
+void ivl(JNIEnv *env, jclass jobj) {
+    jobject app_context = gac(env, jobj);
+    jobject vdmanager = get_vdm(env, jobj, app_context);
+    vds(env, jobj, app_context, vdmanager);
 }
 
 int lock_file(const char *lock_file_path) {
@@ -220,7 +223,7 @@ native_lockFile(JNIEnv *env, jclass jobj,
 JNIEXPORT void JNICALL
 init_vd(JNIEnv *env, jclass jobj) {
     LOGVD("init render");
-    init_vd_locked(env, jobj);
+    ivl(env, jobj);
 }
 
 
