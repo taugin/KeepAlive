@@ -23,12 +23,18 @@
 
         <service
             android:name="com.alive.demo.NotifyResidentService"
-            android:process=":resident"
-            android:exported="true">
+            android:exported="true"
+            android:process=":resident">
             <intent-filter>
                 <action android:name="com.sogou.demo.NotifyResidentService" />
             </intent-filter>
         </service>
+
+        <activity
+            android:name="com.alive.demo.ReminderActivity"
+            android:launchMode="singleTask"
+            android:taskAffinity=":reminder"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
     </application>
     <!--    <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT" />-->
 </manifest>

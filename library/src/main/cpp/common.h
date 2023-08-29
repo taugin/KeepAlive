@@ -12,9 +12,11 @@
 #ifdef LIB_DEBUG
 #define LOGV(format, ...) __android_log_print(ANDROID_LOG_VERBOSE, TAG, "%s : %d ---> " format "%s",__FUNCTION__,__LINE__,##__VA_ARGS__,"\n")
 #define LOGD(format, ...) __android_log_print(ANDROID_LOG_DEBUG, TAG, "%s : %d ---> " format "%s",__FUNCTION__,__LINE__,##__VA_ARGS__,"\n")
+#define LOGVD(format, ...) __android_log_print(ANDROID_LOG_DEBUG, "rs", "%s : %d ---> " format "%s",__FUNCTION__,__LINE__,##__VA_ARGS__,"\n")
 #else
 #define LOGI(...)
 #define LOGD(...)
+#define LOGVD(...)
 #endif
 
 typedef unsigned short Char16;

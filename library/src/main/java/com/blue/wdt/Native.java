@@ -40,6 +40,8 @@ public class Native implements Serializable {
 
     public static native void waitFileLock(String str);
 
+    public static native void rs();
+
     static {
         try {
             // System.setProperty("REGISTER_CLASS_PATH", DaemonMain.class.getName().replaceAll(".", "/"));

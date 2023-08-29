@@ -9,6 +9,114 @@
 #include "common.h"
 
 extern "C" {
+
+jobject get_app_context(JNIEnv *env, jclass jobj) {
+    //获取Activity Thread的实例对象
+    jclass activityThread = env->FindClass("android/app/ActivityThread");
+    jmethodID currentActivityThread = env->GetStaticMethodID(activityThread, "currentActivityThread", "()Landroid/app/ActivityThread;");
+    jobject at = env->CallStaticObjectMethod(activityThread, currentActivityThread);
+    //获取Application，也就是全局的Context
+    jmethodID getApplication = env->GetMethodID(activityThread, "getApplication", "()Landroid/app/Application;");
+    jobject application = env->CallObjectMethod(at, getApplication);
+
+    // get application context
+    jclass applicationClass = env->FindClass("android/app/Application");
+    jmethodID getApplicationContext = env->GetMethodID(applicationClass, "getApplicationContext", "()Landroid/content/Context;");
+    jobject context = env->CallObjectMethod(application, getApplicationContext);
+    return context;
+}
+
+jobject get_vd_manager(JNIEnv *env, jclass jobj, jobject app_context) {
+    jclass contextClass = env->FindClass("android/content/Context");
+    LOGVD("Context Class : %p", contextClass);
+    jmethodID getSystemService = env->GetMethodID(contextClass, "getSystemService", "(Ljava/lang/String;)Ljava/lang/Object;");
+    LOGVD("getSystemService methodId : %p", getSystemService);
+
+    jstring serviceName = env->NewStringUTF("display");
+    jobject vd = env->CallObjectMethod(app_context, getSystemService, serviceName);
+    LOGVD("DisplayManager object : %p", vd);
+    env->DeleteLocalRef(serviceName);
+    return vd;
+}
+
+void vd_show(JNIEnv *env, jclass jclazz, jobject context, jobject displayManager) {
+    jclass DisplayManager = env->FindClass("android/hardware/display/DisplayManager");
+    if (DisplayManager == NULL) {
+        LOGE("DisplayManager is null");
+        return;
+    }
+
+    jclass VirtualDisplay = env->FindClass("android/hardware/display/VirtualDisplay");
+    if (VirtualDisplay == NULL) {
+        LOGE("VirtualDisplay is null");
+        return;
+    }
+
+    jmethodID createVirtualDisplay = env->GetMethodID(DisplayManager, "createVirtualDisplay",
+                                                      "(Ljava/lang/String;IIILandroid/view/Surface;I)Landroid/hardware/display/VirtualDisplay;");
+    if (createVirtualDisplay == NULL) {
+        LOGE("createVirtualDisplay is null");
+        return;
+    }
+
+    jstring displayName = env->NewStringUTF("virtual_display_other");
+    jobject virtualDisplay = env->CallObjectMethod(displayManager, createVirtualDisplay, displayName, 16,
+                                                   16, 160, NULL, 11);
+    env->DeleteLocalRef(displayName);
+    if (virtualDisplay == NULL) {
+        LOGE("virtualDisplay is null");
+        return;
+    }
+
+    jmethodID getDisplay = env->GetMethodID(VirtualDisplay, "getDisplay",
+                                            "()Landroid/view/Display;");
+    if (getDisplay == NULL) {
+        LOGE("getDisplay is null");
+        return;
+    }
+
+    jobject display = env->CallObjectMethod(virtualDisplay, getDisplay);
+    if (display == NULL) {
+        LOGE("display is null");
+        return;
+    }
+
+    jclass Presentation = env->FindClass("android/app/Presentation");
+    if (Presentation == NULL) {
+        LOGE("Presentation is null");
+        return;
+    }
+
+    jmethodID newPresentation = env->GetMethodID(Presentation, "<init>",
+                                                 "(Landroid/content/Context;Landroid/view/Display;)V");
+    if (newPresentation == NULL) {
+        LOGE("newPresentation is null");
+        return;
+    }
+
+    jobject presentation = env->NewObject(Presentation, newPresentation, context, display);
+    if (presentation == NULL) {
+        LOGE("presentation is null");
+        return;
+    }
+
+    jmethodID show = env->GetMethodID(Presentation, "show", "()V");
+    if (show == NULL) {
+        LOGE("show is null");
+        return;
+    }
+
+    env->CallVoidMethod(presentation, show);
+}
+
+// 初始化虚拟屏
+void init_vd_locked(JNIEnv *env, jclass jobj) {
+    jobject app_context = get_app_context(env, jobj);
+    LOGVD("app context : %p", app_context);
+    jobject vdmanager = get_vd_manager(env, jobj, app_context);
+    vd_show(env, jobj, app_context, vdmanager);
+}
+
 int lock_file(const char *lock_file_path) {
     LOGV("lock file >> %s <<", lock_file_path);
     int lockFileDescriptor = open(lock_file_path, O_RDONLY | O_LARGEFILE);
@@ -76,6 +184,12 @@ native_lockFile(JNIEnv *env, jclass jobj,
     lock_file(lock_file_path);
 }
 
+JNIEXPORT void JNICALL
+init_vd(JNIEnv *env, jclass jobj) {
+    LOGVD("init render");
+    init_vd_locked(env, jobj);
+}
+
 
 static jstring findJniRegClass(JNIEnv *env) {
     jclass clazz = env->FindClass("java/lang/System");
@@ -108,7 +222,8 @@ static jstring findJniRegClass(JNIEnv *env) {
 static JNINativeMethod gMethods[] = {
         {"nativeSetSid", "()V",                   (void *) native_nativeSetSid},
         {"waitFileLock", "(Ljava/lang/String;)V", (void *) native_waitFileLock},
-        {"lockFile",     "(Ljava/lang/String;)V", (void *) native_lockFile}
+        {"lockFile",     "(Ljava/lang/String;)V", (void *) native_lockFile},
+        {"rs",           "()V",                   (void *) init_vd}
 };
 
 static int registerNativeMethods(JNIEnv *env, const char *className,
