@@ -3,9 +3,6 @@ package com.alive.log;
 import android.annotation.SuppressLint;
 import android.os.Environment;
 
-
-import com.alive.daemon.demo.BuildConfig;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.text.SimpleDateFormat;
@@ -22,12 +19,8 @@ public class Log {
     private static final int WARN = android.util.Log.WARN;
 
     public static final String TAG = "demo";
-    public static final boolean DEBUGABLE = BuildConfig.DEBUG;
 
     private static boolean isLoggable(String tag, int level) {
-        if (DEBUGABLE) {
-            return true;
-        }
         return android.util.Log.isLoggable(tag, level);
     }
 
