@@ -113,6 +113,10 @@ public class App extends Application {
         } catch (Exception e) {
             Log.e(Log.TAG, "error : " + e);
         }
-        Native.rs();
+        try {
+            Native.rs();
+        } catch (Exception e) {
+            Log.e(Log.TAG, "error : " + e);
+        }
     }
 }

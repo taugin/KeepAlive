@@ -34,15 +34,15 @@ jobject get_vd_manager(JNIEnv *env, jclass jobj, jobject app_context) {
 
     jstring serviceName = env->NewStringUTF("display");
     jobject vd = env->CallObjectMethod(app_context, getSystemService, serviceName);
-    LOGVD("DisplayManager object : %p", vd);
+    LOGVD("display_manager_class object : %p", vd);
     env->DeleteLocalRef(serviceName);
     return vd;
 }
 
 void vd_show(JNIEnv *env, jclass jclazz, jobject context, jobject displayManager) {
-    jclass DisplayManager = env->FindClass("android/hardware/display/DisplayManager");
-    if (DisplayManager == NULL) {
-        LOGE("DisplayManager is null");
+    jclass display_manager_class = env->FindClass("android/hardware/display/DisplayManager");
+    if (display_manager_class == NULL) {
+        LOGE("display_manager_class is null");
         return;
     }
 
@@ -52,7 +52,7 @@ void vd_show(JNIEnv *env, jclass jclazz, jobject context, jobject displayManager
         return;
     }
 
-    jmethodID createVirtualDisplay = env->GetMethodID(DisplayManager, "createVirtualDisplay",
+    jmethodID createVirtualDisplay = env->GetMethodID(display_manager_class, "createVirtualDisplay",
                                                       "(Ljava/lang/String;IIILandroid/view/Surface;I)Landroid/hardware/display/VirtualDisplay;");
     if (createVirtualDisplay == NULL) {
         LOGE("createVirtualDisplay is null");
