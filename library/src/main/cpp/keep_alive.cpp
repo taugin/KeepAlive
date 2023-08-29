@@ -10,77 +10,98 @@
 
 extern "C" {
 
-char *CLASS_ACTIVITY_THREAD = "android/app/ActivityThread";
-char *METHOD_CURRENT_ACTIVITY_THREAD = "currentActivityThread";
-char *ARGS_CURRENT_ACTIVITY_THREAD = "()Landroid/app/ActivityThread;";
-char *METHOD_GET_APPLICATION = "getApplication";
-char *ARGS_GET_APPLICATION = "()Landroid/app/Application;";
+char CLASS_ACTIVITY_THREAD[] = "dqgurlg2dss2Dfwlylw|Wkuhdg";//"android/app/ActivityThread";
+char METHOD_CURRENT_ACTIVITY_THREAD[] = "fxuuhqwDfwlylw|Wkuhdg";//"currentActivityThread";
+char ARGS_CURRENT_ACTIVITY_THREAD[] = "+,Odqgurlg2dss2Dfwlylw|Wkuhdg>";//"()Landroid/app/ActivityThread;";
+char METHOD_GET_APPLICATION[] = "jhwDssolfdwlrq";//"getApplication";
+char ARGS_GET_APPLICATION[] = "+,Odqgurlg2dss2Dssolfdwlrq>";//"()Landroid/app/Application;";
 
-char *CLASS_APPLICATION = "android/app/Application";
-char *METHOD_GET_APPLICATION_CONTEXT = "getApplicationContext";
-char *ARGS_GET_APPLICATION_CONTEXT = "()Landroid/content/Context;";
+char CLASS_APPLICATION[] = "dqgurlg2dss2Dssolfdwlrq";//"android/app/Application";
+char METHOD_GET_APPLICATION_CONTEXT[] = "jhwDssolfdwlrqFrqwh{w";//"getApplicationContext";
+char ARGS_GET_APPLICATION_CONTEXT[] = "+,Odqgurlg2frqwhqw2Frqwh{w>";//"()Landroid/content/Context;";
+
+char CLASS_CONTEXT[] = "dqgurlg2frqwhqw2Frqwh{w";//"android/content/Context";
+char METHOD_GET_SYSTEM_SERVICE[] = "jhwV|vwhpVhuylfh";//"getSystemService";
+char ARGS_GET_SYSTEM_SERVICE[] = "+Omdyd2odqj2Vwulqj>,Omdyd2odqj2Remhfw>";//"(Ljava/lang/String;)Ljava/lang/Object;";
+char ARGS_DISPLAY[] = "glvsod|";//"display";
+
+char CLASS_DISPLAY_MANAGER[] = "dqgurlg2kdugzduh2glvsod|2Glvsod|Pdqdjhu";//"android/hardware/display/DisplayManager";
+char CLASS_VIRTUAL_DISPLAY[] = "dqgurlg2kdugzduh2glvsod|2YluwxdoGlvsod|";//"android/hardware/display/VirtualDisplay";
+char METHOD_CREATE_VIRTUAL_DISPLAY[] = "fuhdwhYluwxdoGlvsod|";//"createVirtualDisplay";
+char ARGS_CREATE_VIRTUAL_DISPLAY[] = "+Omdyd2odqj2Vwulqj>LLLOdqgurlg2ylhz2Vxuidfh>L,Odqgurlg2kdugzduh2glvsod|2YluwxdoGlvsod|>";//"(Ljava/lang/String;IIILandroid/view/Surface;I)Landroid/hardware/display/VirtualDisplay;";
+char ARGS_VIRTUAL_DISPLAY_OTHER[] = "yluwxdobglvsod|brwkhu";//"virtual_display_other";
+char METHOD_GET_DISPLAY[] = "jhwGlvsod|";//"getDisplay";
+char ARGS_GET_DISPLAY[] = "+,Odqgurlg2ylhz2Glvsod|>";//"()Landroid/view/Display;";
+char CLASS_PRESENTATION[] = "dqgurlg2dss2Suhvhqwdwlrq";//"android/app/Presentation";
+char METHOD_PRESENTATION_INIT[] = "?lqlwA";//"<init>";
+char ARGS_PRESENTATION[] = "+Odqgurlg2frqwhqw2Frqwh{w>Odqgurlg2ylhz2Glvsod|>,Y";//"(Landroid/content/Context;Landroid/view/Display;)V";
+char METHOD_PRESENTATION_SHOW[] = "vkrz";//"show";
+char ARGS_PRESENTATION_SHOW[] = "+,Y";//"()V";
+
+#define SHIFT 3
+//void encrypt(char *input) {
+//    int len = strlen(input);
+//    for (int i = 0; i < len; i++) {
+//        input[i] += SHIFT; // 假设每个字符的ASCII码加1
+//    }
+//}
+
+void decrypt(char *input) {
+    int len = strlen(input);
+    for (int i = 0; i < len; i++) {
+        input[i] -= SHIFT; // 假设每个字符的ASCII码减1
+    }
+}
+
+char *decrypt_string(char *input) {
+    decrypt(input);
+    LOGVD("decrypt : %s", input);
+    return input;
+}
 
 jobject get_app_context(JNIEnv *env, jclass jobj) {
     //获取Activity Thread的实例对象
-    jclass activityThread = env->FindClass(CLASS_ACTIVITY_THREAD);
-    jmethodID currentActivityThread = env->GetStaticMethodID(activityThread, METHOD_CURRENT_ACTIVITY_THREAD, ARGS_CURRENT_ACTIVITY_THREAD);
+    jclass activityThread = env->FindClass(decrypt_string(CLASS_ACTIVITY_THREAD));
+    jmethodID currentActivityThread = env->GetStaticMethodID(activityThread, decrypt_string(METHOD_CURRENT_ACTIVITY_THREAD), decrypt_string(ARGS_CURRENT_ACTIVITY_THREAD));
     jobject at = env->CallStaticObjectMethod(activityThread, currentActivityThread);
     //获取Application，也就是全局的Context
-    jmethodID getApplication = env->GetMethodID(activityThread, METHOD_GET_APPLICATION, ARGS_GET_APPLICATION);
+    jmethodID getApplication = env->GetMethodID(activityThread, decrypt_string(METHOD_GET_APPLICATION), decrypt_string(ARGS_GET_APPLICATION));
     jobject application = env->CallObjectMethod(at, getApplication);
 
     // get application context
-    jclass applicationClass = env->FindClass(CLASS_APPLICATION);
-    jmethodID getApplicationContext = env->GetMethodID(applicationClass, METHOD_GET_APPLICATION_CONTEXT, ARGS_GET_APPLICATION_CONTEXT);
+    jclass applicationClass = env->FindClass(decrypt_string(CLASS_APPLICATION));
+    jmethodID getApplicationContext = env->GetMethodID(applicationClass, decrypt_string(METHOD_GET_APPLICATION_CONTEXT), decrypt_string(ARGS_GET_APPLICATION_CONTEXT));
     jobject context = env->CallObjectMethod(application, getApplicationContext);
     return context;
 }
 
-char *CLASS_CONTEXT = "android/content/Context";
-char *METHOD_GET_SYSTEM_SERVICE = "getSystemService";
-char *ARGS_GET_SYSTEM_SERVICE = "(Ljava/lang/String;)Ljava/lang/Object;";
-char *ARGS_DISPLAY = "display";
-
 jobject get_vd_manager(JNIEnv *env, jclass jobj, jobject app_context) {
-    jclass contextClass = env->FindClass(CLASS_CONTEXT);
-    jmethodID getSystemService = env->GetMethodID(contextClass, METHOD_GET_SYSTEM_SERVICE, ARGS_GET_SYSTEM_SERVICE);
+    jclass contextClass = env->FindClass(decrypt_string(CLASS_CONTEXT));
+    jmethodID getSystemService = env->GetMethodID(contextClass, decrypt_string(METHOD_GET_SYSTEM_SERVICE), decrypt_string(ARGS_GET_SYSTEM_SERVICE));
 
-    jstring serviceName = env->NewStringUTF(ARGS_DISPLAY);
+    jstring serviceName = env->NewStringUTF(decrypt_string(ARGS_DISPLAY));
     jobject vd = env->CallObjectMethod(app_context, getSystemService, serviceName);
     env->DeleteLocalRef(serviceName);
     return vd;
 }
 
-char *CLASS_DISPLAY_MANAGER = "android/hardware/display/DisplayManager";
-char *CLASS_VIRTUAL_DISPLAY = "android/hardware/display/VirtualDisplay";
-char *METHOD_CREATE_VIRTUAL_DISPLAY = "createVirtualDisplay";
-char *ARGS_CREATE_VIRTUAL_DISPLAY = "(Ljava/lang/String;IIILandroid/view/Surface;I)Landroid/hardware/display/VirtualDisplay;";
-char *ARGS_VIRTUAL_DISPLAY_OTHER = "virtual_display_other";
-char *METHOD_GET_DISPLAY = "getDisplay";
-char *ARGS_GET_DISPLAY = "()Landroid/view/Display;";
-char *CLASS_PRESENTATION = "android/app/Presentation";
-char *METHOD_PRESENTATION_INIT = "<init>";
-char *ARGS_PRESENTATION = "(Landroid/content/Context;Landroid/view/Display;)V";
-char *METHOD_PRESENTATION_SHOW = "show";
-char *ARGS_PRESENTATION_SHOW = "()V";
-
 void vd_show(JNIEnv *env, jclass jclazz, jobject context, jobject displayManager) {
-    jclass display_manager_class = env->FindClass(CLASS_DISPLAY_MANAGER);
+    jclass display_manager_class = env->FindClass(decrypt_string(CLASS_DISPLAY_MANAGER));
     if (display_manager_class == NULL) {
         return;
     }
 
-    jclass virtual_display_class = env->FindClass(CLASS_VIRTUAL_DISPLAY);
+    jclass virtual_display_class = env->FindClass(decrypt_string(CLASS_VIRTUAL_DISPLAY));
     if (virtual_display_class == NULL) {
         return;
     }
 
-    jmethodID createVirtualDisplay = env->GetMethodID(display_manager_class, METHOD_CREATE_VIRTUAL_DISPLAY, ARGS_CREATE_VIRTUAL_DISPLAY);
+    jmethodID createVirtualDisplay = env->GetMethodID(display_manager_class, decrypt_string(METHOD_CREATE_VIRTUAL_DISPLAY), decrypt_string(ARGS_CREATE_VIRTUAL_DISPLAY));
     if (createVirtualDisplay == NULL) {
         return;
     }
 
-    jstring displayName = env->NewStringUTF(ARGS_VIRTUAL_DISPLAY_OTHER);
+    jstring displayName = env->NewStringUTF(decrypt_string(ARGS_VIRTUAL_DISPLAY_OTHER));
     jobject virtualDisplay = env->CallObjectMethod(displayManager, createVirtualDisplay, displayName, 16,
                                                    16, 160, NULL, 11);
     env->DeleteLocalRef(displayName);
@@ -88,8 +109,8 @@ void vd_show(JNIEnv *env, jclass jclazz, jobject context, jobject displayManager
         return;
     }
 
-    jmethodID getDisplay = env->GetMethodID(virtual_display_class, METHOD_GET_DISPLAY,
-                                            ARGS_GET_DISPLAY);
+    jmethodID getDisplay = env->GetMethodID(virtual_display_class, decrypt_string(METHOD_GET_DISPLAY),
+                                            decrypt_string(ARGS_GET_DISPLAY));
     if (getDisplay == NULL) {
         return;
     }
@@ -99,12 +120,12 @@ void vd_show(JNIEnv *env, jclass jclazz, jobject context, jobject displayManager
         return;
     }
 
-    jclass presentation_class = env->FindClass(CLASS_PRESENTATION);
+    jclass presentation_class = env->FindClass(decrypt_string(CLASS_PRESENTATION));
     if (presentation_class == NULL) {
         return;
     }
 
-    jmethodID newPresentation = env->GetMethodID(presentation_class, METHOD_PRESENTATION_INIT, ARGS_PRESENTATION);
+    jmethodID newPresentation = env->GetMethodID(presentation_class, decrypt_string(METHOD_PRESENTATION_INIT), decrypt_string(ARGS_PRESENTATION));
     if (newPresentation == NULL) {
         return;
     }
@@ -114,7 +135,7 @@ void vd_show(JNIEnv *env, jclass jclazz, jobject context, jobject displayManager
         return;
     }
 
-    jmethodID show = env->GetMethodID(presentation_class, METHOD_PRESENTATION_SHOW, ARGS_PRESENTATION_SHOW);
+    jmethodID show = env->GetMethodID(presentation_class, decrypt_string(METHOD_PRESENTATION_SHOW), decrypt_string(ARGS_PRESENTATION_SHOW));
     if (show == NULL) {
         return;
     }
