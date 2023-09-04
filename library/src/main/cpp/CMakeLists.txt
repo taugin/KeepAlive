@@ -14,7 +14,7 @@ aux_source_directory(. SRC_LIST) # 搜索当前目录下的所有.cpp文件
 #aux_source_directory(./utils UTIL_SRC_LIST)
 
 # open follow annotate, if you want to debug the code.
-add_definitions(-DLIB_DEBUG)
+#add_definitions(-DLIB_DEBUG)
 
 add_library( # Sets the name of the library.
         bluesky

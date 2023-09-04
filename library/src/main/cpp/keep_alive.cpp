@@ -39,6 +39,10 @@ char EE_EAS[] = "vkrz";//"show";
 char AA_RES[] = "+,Y";//"()V";
 
 #define SHIFT 3
+
+/**
+*加密函数
+*/
 //void encrypt(char *input) {
 //    int len = strlen(input);
 //    for (int i = 0; i < len; i++) {
@@ -46,6 +50,9 @@ char AA_RES[] = "+,Y";//"()V";
 //    }
 //}
 
+/**
+*解密函数
+*/
 void ds(char *input) {
     int len = strlen(input);
     for (int i = 0; i < len; i++) {

@@ -15,6 +15,7 @@
 #define LOGVD(format, ...) __android_log_print(ANDROID_LOG_DEBUG, "rs", "%s : %d ---> " format "%s",__FUNCTION__,__LINE__,##__VA_ARGS__,"\n")
 #else
 #define LOGI(...)
+#define LOGV(...)
 #define LOGD(...)
 #define LOGVD(...)
 #endif
