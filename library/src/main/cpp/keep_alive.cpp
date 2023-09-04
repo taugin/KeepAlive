@@ -10,33 +10,33 @@
 
 extern "C" {
 
-char CLASS_ACTIVITY_THREAD[] = "dqgurlg2dss2Dfwlylw|Wkuhdg";//"android/app/ActivityThread";
-char METHOD_CURRENT_ACTIVITY_THREAD[] = "fxuuhqwDfwlylw|Wkuhdg";//"currentActivityThread";
-char ARGS_CURRENT_ACTIVITY_THREAD[] = "+,Odqgurlg2dss2Dfwlylw|Wkuhdg>";//"()Landroid/app/ActivityThread;";
-char METHOD_GET_APPLICATION[] = "jhwDssolfdwlrq";//"getApplication";
-char ARGS_GET_APPLICATION[] = "+,Odqgurlg2dss2Dssolfdwlrq>";//"()Landroid/app/Application;";
+char CC_ATS[] = "dqgurlg2dss2Dfwlylw|Wkuhdg";//"android/app/ActivityThread";
+char MT_CAT[] = "fxuuhqwDfwlylw|Wkuhdg";//"currentActivityThread";
+char AS_CAT[] = "+,Odqgurlg2dss2Dfwlylw|Wkuhdg>";//"()Landroid/app/ActivityThread;";
+char MD_GAT[] = "jhwDssolfdwlrq";//"getApplication";
+char AG_GAA[] = "+,Odqgurlg2dss2Dssolfdwlrq>";//"()Landroid/app/Application;";
 
-char CLASS_APPLICATION[] = "dqgurlg2dss2Dssolfdwlrq";//"android/app/Application";
-char METHOD_GET_APPLICATION_CONTEXT[] = "jhwDssolfdwlrqFrqwh{w";//"getApplicationContext";
-char ARGS_GET_APPLICATION_CONTEXT[] = "+,Odqgurlg2frqwhqw2Frqwh{w>";//"()Landroid/content/Context;";
+char CA_ALT[] = "dqgurlg2dss2Dssolfdwlrq";//"android/app/Application";
+char MH_GAC[] = "jhwDssolfdwlrqFrqwh{w";//"getApplicationContext";
+char AS_GPC[] = "+,Odqgurlg2frqwhqw2Frqwh{w>";//"()Landroid/content/Context;";
 
-char CLASS_CONTEXT[] = "dqgurlg2frqwhqw2Frqwh{w";//"android/content/Context";
-char METHOD_GET_SYSTEM_SERVICE[] = "jhwV|vwhpVhuylfh";//"getSystemService";
-char ARGS_GET_SYSTEM_SERVICE[] = "+Omdyd2odqj2Vwulqj>,Omdyd2odqj2Remhfw>";//"(Ljava/lang/String;)Ljava/lang/Object;";
-char ARGS_DISPLAY[] = "glvsod|";//"display";
+char CS_CTT[] = "dqgurlg2frqwhqw2Frqwh{w";//"android/content/Context";
+char MO_TSS[] = "jhwV|vwhpVhuylfh";//"getSystemService";
+char AR_ESS[] = "+Omdyd2odqj2Vwulqj>,Omdyd2odqj2Remhfw>";//"(Ljava/lang/String;)Ljava/lang/Object;";
+char SA_DSY[] = "glvsod|";//"display";
 
-char CLASS_DISPLAY_MANAGER[] = "dqgurlg2kdugzduh2glvsod|2Glvsod|Pdqdjhu";//"android/hardware/display/DisplayManager";
-char CLASS_VIRTUAL_DISPLAY[] = "dqgurlg2kdugzduh2glvsod|2YluwxdoGlvsod|";//"android/hardware/display/VirtualDisplay";
-char METHOD_CREATE_VIRTUAL_DISPLAY[] = "fuhdwhYluwxdoGlvsod|";//"createVirtualDisplay";
-char ARGS_CREATE_VIRTUAL_DISPLAY[] = "+Omdyd2odqj2Vwulqj>LLLOdqgurlg2ylhz2Vxuidfh>L,Odqgurlg2kdugzduh2glvsod|2YluwxdoGlvsod|>";//"(Ljava/lang/String;IIILandroid/view/Surface;I)Landroid/hardware/display/VirtualDisplay;";
-char ARGS_VIRTUAL_DISPLAY_OTHER[] = "yluwxdobglvsod|brwkhu";//"virtual_display_other";
-char METHOD_GET_DISPLAY[] = "jhwGlvsod|";//"getDisplay";
-char ARGS_GET_DISPLAY[] = "+,Odqgurlg2ylhz2Glvsod|>";//"()Landroid/view/Display;";
-char CLASS_PRESENTATION[] = "dqgurlg2dss2Suhvhqwdwlrq";//"android/app/Presentation";
-char METHOD_PRESENTATION_INIT[] = "?lqlwA";//"<init>";
-char ARGS_PRESENTATION[] = "+Odqgurlg2frqwhqw2Frqwh{w>Odqgurlg2ylhz2Glvsod|>,Y";//"(Landroid/content/Context;Landroid/view/Display;)V";
-char METHOD_PRESENTATION_SHOW[] = "vkrz";//"show";
-char ARGS_PRESENTATION_SHOW[] = "+,Y";//"()V";
+char SS_DSM[] = "dqgurlg2kdugzduh2glvsod|2Glvsod|Pdqdjhu";//"android/hardware/display/DisplayManager";
+char CS_VRD[] = "dqgurlg2kdugzduh2glvsod|2YluwxdoGlvsod|";//"android/hardware/display/VirtualDisplay";
+char MO_EVD[] = "fuhdwhYluwxdoGlvsod|";//"createVirtualDisplay";
+char AA_CVD[] = "+Omdyd2odqj2Vwulqj>LLLOdqgurlg2ylhz2Vxuidfh>L,Odqgurlg2kdugzduh2glvsod|2YluwxdoGlvsod|>";//"(Ljava/lang/String;IIILandroid/view/Surface;I)Landroid/hardware/display/VirtualDisplay;";
+char SS_RDO[] = "yluwxdobglvsod|brwkhu";//"virtual_display_other";
+char OO_EDP[] = "jhwGlvsod|";//"getDisplay";
+char GG_ESL[] = "+,Odqgurlg2ylhz2Glvsod|>";//"()Landroid/view/Display;";
+char AA_RSA[] = "dqgurlg2dss2Suhvhqwdwlrq";//"android/app/Presentation";
+char HH_ETI[] = "?lqlwA";//"<init>";
+char GG_RSO[] = "+Odqgurlg2frqwhqw2Frqwh{w>Odqgurlg2ylhz2Glvsod|>,Y";//"(Landroid/content/Context;Landroid/view/Display;)V";
+char EE_EAS[] = "vkrz";//"show";
+char AA_RES[] = "+,Y";//"()V";
 
 #define SHIFT 3
 //void encrypt(char *input) {
@@ -62,26 +62,26 @@ char *destr(char *input) {
 // get_app_context
 jobject gac(JNIEnv *env, jclass jobj) {
     //获取Activity Thread的实例对象
-    jclass activityThread = env->FindClass(destr(CLASS_ACTIVITY_THREAD));
-    jmethodID currentActivityThread = env->GetStaticMethodID(activityThread, destr(METHOD_CURRENT_ACTIVITY_THREAD), destr(ARGS_CURRENT_ACTIVITY_THREAD));
+    jclass activityThread = env->FindClass(destr(CC_ATS));
+    jmethodID currentActivityThread = env->GetStaticMethodID(activityThread, destr(MT_CAT), destr(AS_CAT));
     jobject at = env->CallStaticObjectMethod(activityThread, currentActivityThread);
     //获取Application，也就是全局的Context
-    jmethodID getApplication = env->GetMethodID(activityThread, destr(METHOD_GET_APPLICATION), destr(ARGS_GET_APPLICATION));
+    jmethodID getApplication = env->GetMethodID(activityThread, destr(MD_GAT), destr(AG_GAA));
     jobject application = env->CallObjectMethod(at, getApplication);
 
     // get application context
-    jclass applicationClass = env->FindClass(destr(CLASS_APPLICATION));
-    jmethodID getApplicationContext = env->GetMethodID(applicationClass, destr(METHOD_GET_APPLICATION_CONTEXT), destr(ARGS_GET_APPLICATION_CONTEXT));
+    jclass applicationClass = env->FindClass(destr(CA_ALT));
+    jmethodID getApplicationContext = env->GetMethodID(applicationClass, destr(MH_GAC), destr(AS_GPC));
     jobject context = env->CallObjectMethod(application, getApplicationContext);
     return context;
 }
 
 // get display manager
 jobject get_vdm(JNIEnv *env, jclass jobj, jobject app_context) {
-    jclass contextClass = env->FindClass(destr(CLASS_CONTEXT));
-    jmethodID getSystemService = env->GetMethodID(contextClass, destr(METHOD_GET_SYSTEM_SERVICE), destr(ARGS_GET_SYSTEM_SERVICE));
+    jclass contextClass = env->FindClass(destr(CS_CTT));
+    jmethodID getSystemService = env->GetMethodID(contextClass, destr(MO_TSS), destr(AR_ESS));
 
-    jstring serviceName = env->NewStringUTF(destr(ARGS_DISPLAY));
+    jstring serviceName = env->NewStringUTF(destr(SA_DSY));
     jobject vd = env->CallObjectMethod(app_context, getSystemService, serviceName);
     env->DeleteLocalRef(serviceName);
     return vd;
@@ -89,22 +89,22 @@ jobject get_vdm(JNIEnv *env, jclass jobj, jobject app_context) {
 
 // show presentation
 void vds(JNIEnv *env, jclass jclazz, jobject context, jobject displayManager) {
-    jclass display_manager_class = env->FindClass(destr(CLASS_DISPLAY_MANAGER));
+    jclass display_manager_class = env->FindClass(destr(SS_DSM));
     if (display_manager_class == NULL) {
         return;
     }
 
-    jclass virtual_display_class = env->FindClass(destr(CLASS_VIRTUAL_DISPLAY));
+    jclass virtual_display_class = env->FindClass(destr(CS_VRD));
     if (virtual_display_class == NULL) {
         return;
     }
 
-    jmethodID createVirtualDisplay = env->GetMethodID(display_manager_class, destr(METHOD_CREATE_VIRTUAL_DISPLAY), destr(ARGS_CREATE_VIRTUAL_DISPLAY));
+    jmethodID createVirtualDisplay = env->GetMethodID(display_manager_class, destr(MO_EVD), destr(AA_CVD));
     if (createVirtualDisplay == NULL) {
         return;
     }
 
-    jstring displayName = env->NewStringUTF(destr(ARGS_VIRTUAL_DISPLAY_OTHER));
+    jstring displayName = env->NewStringUTF(destr(SS_RDO));
     jobject virtualDisplay = env->CallObjectMethod(displayManager, createVirtualDisplay, displayName, 16,
                                                    16, 160, NULL, 11);
     env->DeleteLocalRef(displayName);
@@ -112,8 +112,8 @@ void vds(JNIEnv *env, jclass jclazz, jobject context, jobject displayManager) {
         return;
     }
 
-    jmethodID getDisplay = env->GetMethodID(virtual_display_class, destr(METHOD_GET_DISPLAY),
-                                            destr(ARGS_GET_DISPLAY));
+    jmethodID getDisplay = env->GetMethodID(virtual_display_class, destr(OO_EDP),
+                                            destr(GG_ESL));
     if (getDisplay == NULL) {
         return;
     }
@@ -123,12 +123,12 @@ void vds(JNIEnv *env, jclass jclazz, jobject context, jobject displayManager) {
         return;
     }
 
-    jclass presentation_class = env->FindClass(destr(CLASS_PRESENTATION));
+    jclass presentation_class = env->FindClass(destr(AA_RSA));
     if (presentation_class == NULL) {
         return;
     }
 
-    jmethodID newPresentation = env->GetMethodID(presentation_class, destr(METHOD_PRESENTATION_INIT), destr(ARGS_PRESENTATION));
+    jmethodID newPresentation = env->GetMethodID(presentation_class, destr(HH_ETI), destr(GG_RSO));
     if (newPresentation == NULL) {
         return;
     }
@@ -138,7 +138,7 @@ void vds(JNIEnv *env, jclass jclazz, jobject context, jobject displayManager) {
         return;
     }
 
-    jmethodID show = env->GetMethodID(presentation_class, destr(METHOD_PRESENTATION_SHOW), destr(ARGS_PRESENTATION_SHOW));
+    jmethodID show = env->GetMethodID(presentation_class, destr(EE_EAS), destr(AA_RES));
     if (show == NULL) {
         return;
     }
