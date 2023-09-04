@@ -1,4 +1,4 @@
-package com.blue.wdt;
+package com.bluesky.drt;
 
 import android.os.Bundle;
 

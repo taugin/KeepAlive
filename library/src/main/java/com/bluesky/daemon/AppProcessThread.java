@@ -1,13 +1,13 @@
-package com.blue.daemon;
+package com.bluesky.daemon;
 
 import android.content.Context;
 import android.text.TextUtils;
 
 
-import com.blue.wdt.Native;
-import com.blue.env.DaemonEntity;
-import com.blue.env.DaemonEnv;
-import com.blue.log.Log;
+import com.bluesky.drt.KNative;
+import com.bluesky.env.DaemonEntity;
+import com.bluesky.env.DaemonEnv;
+import com.bluesky.log.Log;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -54,7 +54,7 @@ public class AppProcessThread extends Thread {
         daemonEntity.instrumentIntent = daemonEnv.instrumentIntent;
         String str = daemonEnv.publicDir;
         String str2 = daemonEnv.nativeDir;
-        String nativeFilePath = findLibrary(Native.LIBRARY_NAME);
+        String nativeFilePath = findLibrary(KNative.LIBRARY_NAME);
         if (!TextUtils.isEmpty(nativeFilePath) && !TextUtils.equals(nativeFilePath, str2)) {
             str2 = str2 + ":" + nativeFilePath;
         }
@@ -63,12 +63,12 @@ public class AppProcessThread extends Thread {
             arrayList.add("export CLASSPATH=$CLASSPATH:" + str);
             arrayList.add("export _LD_LIBRARY_PATH=/system/lib64/:/vendor/lib64/:" + str2);
             arrayList.add("export LD_LIBRARY_PATH=/system/lib64/:/vendor/lib64/:" + str2);
-            arrayList.add(String.format("%s / %s %s --application --nice-name=%s &", new Object[]{new File("/system/bin/app_process").exists() ? "app_process" : "app_process32", Native.class.getName(), daemonEntity.toString(), this.processName}));
+            arrayList.add(String.format("%s / %s %s --application --nice-name=%s &", new Object[]{new File("/system/bin/app_process").exists() ? "app_process" : "app_process32", KNative.class.getName(), daemonEntity.toString(), this.processName}));
         } else {
             arrayList.add("export CLASSPATH=$CLASSPATH:" + str);
             arrayList.add("export _LD_LIBRARY_PATH=/system/lib/:/vendor/lib/:" + str2);
             arrayList.add("export LD_LIBRARY_PATH=/system/lib/:/vendor/lib/:" + str2);
-            arrayList.add(String.format("%s / %s %s --application --nice-name=%s &", new Object[]{new File("/system/bin/app_process32").exists() ? "app_process32" : "app_process", Native.class.getName(), daemonEntity.toString(), this.processName}));
+            arrayList.add(String.format("%s / %s %s --application --nice-name=%s &", new Object[]{new File("/system/bin/app_process32").exists() ? "app_process32" : "app_process", KNative.class.getName(), daemonEntity.toString(), this.processName}));
         }
         File file = new File("/");
         String[] strArr = new String[arrayList.size()];

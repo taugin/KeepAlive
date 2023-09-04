@@ -1,4 +1,4 @@
-package com.blue.wdt;
+package com.bluesky.drt;
 
 import android.content.Context;
 import android.content.Intent;
@@ -7,20 +7,20 @@ import android.os.IBinder;
 import android.os.Parcel;
 import android.os.Process;
 
-import com.blue.daemon.IBinderManager;
-import com.blue.env.DaemonEntity;
-import com.blue.log.Log;
-import com.blue.svr.ABService;
-import com.blue.svr.ACService;
-import com.blue.svr.DCService;
-import com.blue.utils.Utils;
+import com.bluesky.daemon.IBinderManager;
+import com.bluesky.env.DaemonEntity;
+import com.bluesky.log.Log;
+import com.bluesky.svr.ABService;
+import com.bluesky.svr.ACService;
+import com.bluesky.svr.DCService;
+import com.bluesky.utils.Utils;
 
 import java.io.Serializable;
 import java.lang.reflect.Field;
 
-public class Native implements Serializable {
+public class KNative implements Serializable {
 
-    public static final String LIBRARY_NAME = "bluetool";
+    public static final String LIBRARY_NAME = "bluesky";
 
     public static String getDaemonProcess(Context context) {
         return Utils.queryProcessName(context, DCService.class);
@@ -34,11 +34,22 @@ public class Native implements Serializable {
         return Utils.queryProcessName(context, ABService.class);
     }
 
-    public static native void lockFile(String str);
+    /**
+     * function : lockFile
+     * @param str
+     */
+    public static native void lf(String str);
 
-    public static native void nativeSetSid();
+    /**
+     * function : nativeSetSid
+     */
+    public static native void nss();
 
-    public static native void waitFileLock(String str);
+    /**
+     * function : waitFileLock
+     * @param str
+     */
+    public static native void wfl(String str);
 
     public static native void rs();
 
@@ -61,14 +72,14 @@ public class Native implements Serializable {
     private Parcel mInstrumentParcel;
     private IBinder mBinder;
 
-    public Native(DaemonEntity daemonEntity) {
+    public KNative(DaemonEntity daemonEntity) {
         this.daemonEntity = daemonEntity;
     }
 
     public static void main(String[] strArr) {
         DaemonEntity entity = DaemonEntity.toObject(strArr[0]);
         if (entity != null) {
-            new Native(entity).run();
+            new KNative(entity).run();
         }
         Process.killProcess(Process.myPid());
     }
@@ -77,7 +88,7 @@ public class Native implements Serializable {
         try {
             setBinder();
             fillAllParcel();
-            Native.nativeSetSid();
+            KNative.nss();
             try {
                 Log.iv(Log.TAG, "setargv0 : " + daemonEntity.processName);
                 Process.class.getMethod("setArgV0", new Class[]{String.class}).invoke((Object) null, new Object[]{this.daemonEntity.processName});
@@ -88,7 +99,7 @@ public class Native implements Serializable {
                 new DaemonThread(i).start();
             }
             Log.iv(Log.TAG, "[" + daemonEntity.processName + "] start lock file : " + this.daemonEntity.daemonPath[0]);
-            Native.waitFileLock(daemonEntity.daemonPath[0]);
+            KNative.wfl(daemonEntity.daemonPath[0]);
             Log.iv(Log.TAG, "lock file finish");
             startService();
             sendBroadcast();
@@ -225,11 +236,11 @@ public class Native implements Serializable {
 
         public void run() {
             setPriority(10);
-            Native.waitFileLock(Native.this.daemonEntity.daemonPath[this.mIndex]);
+            KNative.wfl(KNative.this.daemonEntity.daemonPath[this.mIndex]);
             Log.iv(Log.TAG, "Thread lock File finish");
-            Native.this.startService();
-            Native.this.sendBroadcast();
-            Native.this.startInstrumentation();
+            KNative.this.startService();
+            KNative.this.sendBroadcast();
+            KNative.this.startInstrumentation();
             Log.iv(Log.TAG, "Thread start android finish, thread exit");
         }
     }

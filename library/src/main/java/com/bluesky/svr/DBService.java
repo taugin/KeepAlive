@@ -1,10 +1,10 @@
-package com.blue.svr;
+package com.bluesky.svr;
 
 import android.app.Service;
 import android.content.Intent;
 
-import com.blue.wdt.Native;
-import com.blue.daemon.JavaDaemon;
+import com.bluesky.drt.KNative;
+import com.bluesky.daemon.JavaDaemon;
 
 public abstract class DBService extends Service {
     public void onCreate() {
@@ -18,17 +18,17 @@ public abstract class DBService extends Service {
         try {
             startService(service1Intent);
         } catch (Exception | Error e) {
-            JavaDaemon.getInstance().callProvider(this, Native.getAssist1Process(this));
+            JavaDaemon.getInstance().callProvider(this, KNative.getAssist1Process(this));
         }
         try {
             startService(service2Intent);
         } catch (Exception | Error e) {
-            JavaDaemon.getInstance().callProvider(this, Native.getAssist2Process(this));
+            JavaDaemon.getInstance().callProvider(this, KNative.getAssist2Process(this));
         }
         try {
             startService(daemonIntent);
         } catch (Exception | Error e) {
-            JavaDaemon.getInstance().callProvider(this, Native.getDaemonProcess(this));
+            JavaDaemon.getInstance().callProvider(this, KNative.getDaemonProcess(this));
         }
     }
 }

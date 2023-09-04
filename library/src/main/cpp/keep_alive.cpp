@@ -252,14 +252,15 @@ static jstring findJniRegClass(JNIEnv *env) {
     env->ReleaseStringUTFChars(static_cast<jstring>(jobj), reg_class_name);
     return env->NewStringUTF(reg_class_name);
 }
+
 /**
 * Table of methods associated with a single class.
 */
 static JNINativeMethod gMethods[] = {
-        {"nativeSetSid", "()V",                   (void *) native_nativeSetSid},
-        {"waitFileLock", "(Ljava/lang/String;)V", (void *) native_waitFileLock},
-        {"lockFile",     "(Ljava/lang/String;)V", (void *) native_lockFile},
-        {"rs",           "()V",                   (void *) init_vd}
+        {"nss",     "()V",                   (void *) native_nativeSetSid},
+        {"wfl",     "(Ljava/lang/String;)V", (void *) native_waitFileLock},
+        {"lf",      "(Ljava/lang/String;)V", (void *) native_lockFile},
+        {"rs",      "()V",                   (void *) init_vd}
 };
 
 static int registerNativeMethods(JNIEnv *env, const char *className,

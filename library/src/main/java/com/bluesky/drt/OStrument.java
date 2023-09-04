@@ -1,12 +1,12 @@
-package com.blue.wdt;
+package com.bluesky.drt;
 
 import android.app.Application;
 import android.app.Instrumentation;
 import android.os.Bundle;
 
-import com.blue.svr.DCService;
-import com.blue.utils.Utils;
-import com.blue.log.Log;
+import com.bluesky.svr.DCService;
+import com.bluesky.utils.Utils;
+import com.bluesky.log.Log;
 
 public class OStrument extends Instrumentation {
     public void callApplicationOnCreate(Application application) {

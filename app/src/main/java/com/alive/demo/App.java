@@ -11,8 +11,8 @@ import android.os.Looper;
 import android.text.TextUtils;
 
 import com.alive.log.Log;
-import com.blue.KeepAlive;
-import com.blue.wdt.Native;
+import com.bluesky.KeepAlive;
+import com.bluesky.drt.KNative;
 
 import java.io.File;
 
@@ -114,7 +114,7 @@ public class App extends Application {
             Log.e(Log.TAG, "error : " + e);
         }
         try {
-            Native.rs();
+            KNative.rs();
         } catch (Exception e) {
             Log.e(Log.TAG, "error : " + e);
         }

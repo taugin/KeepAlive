@@ -1,4 +1,4 @@
-package com.blue.daemon;
+package com.bluesky.daemon;
 
 import android.content.ContentProviderClient;
 import android.content.ContentResolver;
@@ -7,10 +7,10 @@ import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.net.Uri;
 
-import com.blue.wdt.Native;
-import com.blue.env.DaemonEnv;
-import com.blue.log.Log;
-import com.blue.utils.Utils;
+import com.bluesky.drt.KNative;
+import com.bluesky.env.DaemonEnv;
+import com.bluesky.log.Log;
+import com.bluesky.utils.Utils;
 
 import java.util.ArrayList;
 
@@ -60,7 +60,7 @@ public class JavaDaemon {
             Log.iv(Log.TAG, "process : " + substring + " , isSpecProcess : " + isSpecProcess);
             if (isSpecProcess) {
                 Log.iv(Log.TAG, "app lock file start : " + substring);
-                Native.lockFile(context.getFilesDir() + "/" + substring + "_daemon");
+                KNative.lf(context.getFilesDir() + "/" + substring + "_daemon");
                 Log.iv(Log.TAG, "app lock file finish");
                 String[] strArr2 = new String[arrayList.size()];
                 for (int i = 0; i < strArr2.length; i++) {

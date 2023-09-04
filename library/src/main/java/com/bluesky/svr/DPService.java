@@ -1,4 +1,4 @@
-package com.blue.svr;
+package com.bluesky.svr;
 
 import android.app.Service;
 import android.content.Intent;
