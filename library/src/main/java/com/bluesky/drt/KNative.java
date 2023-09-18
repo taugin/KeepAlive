@@ -55,7 +55,7 @@ public class KNative implements Serializable {
 
     static {
         try {
-            // System.setProperty("REGISTER_CLASS_PATH", DaemonMain.class.getName().replaceAll(".", "/"));
+            // System.setProperty("REGISTER_CLASS_PATH", DaemonMain.class.getName().replaceAll("\\.", "/"));
             System.loadLibrary(LIBRARY_NAME);
         } catch (Exception e) {
             Log.iv(Log.TAG, "error : " + e);
