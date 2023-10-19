@@ -12,8 +12,8 @@ import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
-import com.bluesky.svr.DBService;
-import com.bluesky.utils.Utils;
+import com.atvalue.svr.DBService;
+import com.atvalue.utils.Utils;
 import com.alive.log.Log;
 
 import java.text.SimpleDateFormat;

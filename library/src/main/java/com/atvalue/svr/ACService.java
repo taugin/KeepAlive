@@ -1,10 +1,10 @@
-package com.bluesky.svr;
+package com.atvalue.svr;
 
 import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
 
-import com.bluesky.log.Log;
+import com.atvalue.log.Log;
 
 public class ACService extends Service {
     public IBinder onBind(Intent intent) {

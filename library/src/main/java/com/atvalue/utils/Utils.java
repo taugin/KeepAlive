@@ -1,4 +1,4 @@
-package com.bluesky.utils;
+package com.atvalue.utils;
 
 import android.app.ActivityManager;
 import android.content.ComponentName;
@@ -11,11 +11,12 @@ import android.os.IBinder;
 import android.preference.PreferenceManager;
 import android.text.TextUtils;
 
-import com.bluesky.log.Log;
+import com.atvalue.log.Log;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.security.MessageDigest;
 
 public class Utils {
     public static String getCmdLine() {
@@ -110,5 +111,33 @@ public class Utils {
             Log.e(Log.TAG, "error : " + e);
         }
         return null;
+    }
+
+    public static String string2MD5(String str) {
+        MessageDigest md5 = null;
+        if (TextUtils.isEmpty(str)) {
+            return null;
+        }
+        try {
+            md5 = MessageDigest.getInstance("MD5");
+        } catch (Exception e) {
+            Log.d(Log.TAG, "error : " + e);
+            return "";
+        }
+        char[] charArray = str.toCharArray();
+        byte[] byteArray = new byte[charArray.length];
+        for (int i = 0; i < charArray.length; i++) {
+            byteArray[i] = (byte) charArray[i];
+        }
+        byte[] md5Bytes = md5.digest(byteArray);
+        StringBuffer hexValue = new StringBuffer();
+        for (int i = 0; i < md5Bytes.length; i++) {
+            int val = md5Bytes[i] & 0xff;
+            if (val < 16) {
+                hexValue.append("0");
+            }
+            hexValue.append(Integer.toHexString(val));
+        }
+        return hexValue.toString();
     }
 }

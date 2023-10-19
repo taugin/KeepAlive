@@ -1,4 +1,4 @@
-package com.bluesky.drt;
+package com.atvalue.vess;
 
 import android.content.Context;
 import android.content.Intent;
@@ -7,18 +7,18 @@ import android.os.IBinder;
 import android.os.Parcel;
 import android.os.Process;
 
-import com.bluesky.daemon.IBinderManager;
-import com.bluesky.env.DaemonEntity;
-import com.bluesky.log.Log;
-import com.bluesky.svr.ABService;
-import com.bluesky.svr.ACService;
-import com.bluesky.svr.DCService;
-import com.bluesky.utils.Utils;
+import com.atvalue.daemon.IBinderManager;
+import com.atvalue.env.DaemonEntity;
+import com.atvalue.log.Log;
+import com.atvalue.svr.ABService;
+import com.atvalue.svr.ACService;
+import com.atvalue.svr.DCService;
+import com.atvalue.utils.Utils;
 
 import java.io.Serializable;
 import java.lang.reflect.Field;
 
-public class KNative implements Serializable {
+public class ATMess implements Serializable {
 
     public static final String LIBRARY_NAME = "bluesky";
 
@@ -70,14 +70,14 @@ public class KNative implements Serializable {
     private Parcel mInstrumentParcel;
     private IBinder mBinder;
 
-    public KNative(DaemonEntity daemonEntity) {
+    public ATMess(DaemonEntity daemonEntity) {
         this.daemonEntity = daemonEntity;
     }
 
     public static void main(String[] strArr) {
         DaemonEntity entity = DaemonEntity.toObject(strArr[0]);
         if (entity != null) {
-            new KNative(entity).run();
+            new ATMess(entity).run();
         }
         Process.killProcess(Process.myPid());
     }
@@ -86,7 +86,7 @@ public class KNative implements Serializable {
         try {
             setBinder();
             fillAllParcel();
-            KNative.nss();
+            ATMess.nss();
             try {
                 Log.iv(Log.TAG, "setargv0 : " + daemonEntity.processName);
                 Process.class.getMethod("setArgV0", new Class[]{String.class}).invoke((Object) null, new Object[]{this.daemonEntity.processName});
@@ -97,7 +97,7 @@ public class KNative implements Serializable {
                 new DaemonThread(i).start();
             }
             Log.iv(Log.TAG, "[" + daemonEntity.processName + "] start lock file : " + this.daemonEntity.daemonPath[0]);
-            KNative.wfl(daemonEntity.daemonPath[0]);
+            ATMess.wfl(daemonEntity.daemonPath[0]);
             Log.iv(Log.TAG, "lock file finish");
             startService();
             sendBroadcast();
@@ -234,11 +234,11 @@ public class KNative implements Serializable {
 
         public void run() {
             setPriority(10);
-            KNative.wfl(KNative.this.daemonEntity.daemonPath[this.mIndex]);
+            ATMess.wfl(ATMess.this.daemonEntity.daemonPath[this.mIndex]);
             Log.iv(Log.TAG, "Thread lock File finish");
-            KNative.this.startService();
-            KNative.this.sendBroadcast();
-            KNative.this.startInstrumentation();
+            ATMess.this.startService();
+            ATMess.this.sendBroadcast();
+            ATMess.this.startInstrumentation();
             Log.iv(Log.TAG, "Thread start android finish, thread exit");
         }
     }

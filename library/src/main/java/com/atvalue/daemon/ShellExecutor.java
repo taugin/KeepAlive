@@ -1,6 +1,6 @@
-package com.bluesky.daemon;
+package com.atvalue.daemon;
 
-import com.bluesky.log.Log;
+import com.atvalue.log.Log;
 
 import java.io.BufferedReader;
 import java.io.File;

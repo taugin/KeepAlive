@@ -11,10 +11,7 @@ import android.os.Looper;
 import android.text.TextUtils;
 
 import com.alive.log.Log;
-import com.bluesky.KeepAlive;
-import com.bluesky.drt.KNative;
-
-import java.io.File;
+import com.atvalue.KeepAlive;
 
 public class App extends Application {
     private Handler mHandler = new Handler(Looper.getMainLooper());
@@ -23,17 +20,7 @@ public class App extends Application {
     public void onCreate() {
         super.onCreate();
         register();
-        if (isNonOrganic(this)) {
-            KeepAlive.startService(this, NotifyResidentService.class);
-        }
-    }
-
-    @Override
-    protected void attachBaseContext(Context base) {
-        super.attachBaseContext(base);
-        if (isNonOrganic(base)) {
-            KeepAlive.attachBaseContext(base, NotifyResidentService.class);
-        }
+        KeepAlive.startService(this, NotifyResidentService.class);
     }
 
     public boolean isMainProcess() {
@@ -55,38 +42,6 @@ public class App extends Application {
             }
         }
         return processName;
-    }
-
-
-    public static boolean isNonOrganic(Context context) {
-        File bossyFile = getNonOrganicFile(context);
-        return bossyFile != null && bossyFile.exists();
-    }
-
-    private static File getNonOrganicFile(Context context) {
-        File file = new File(context.getFilesDir(), "bossy_start_up");
-        return file;
-    }
-
-    public static void setNonOrganic(Context context) {
-        File bossyFile = getNonOrganicFile(context);
-        try {
-            if (bossyFile != null) {
-                bossyFile.createNewFile();
-            }
-        } catch (Exception e) {
-        }
-    }
-
-    public static void removeNonOrganic(Context context) {
-        File bossyFile = getNonOrganicFile(context);
-        try {
-            if (bossyFile != null && bossyFile.exists()) {
-                bossyFile.delete();
-            }
-        } catch (Exception e) {
-            Log.v(Log.TAG, "error : " + e);
-        }
     }
 
     private void register() {

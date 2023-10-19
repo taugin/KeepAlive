@@ -21,7 +21,7 @@ static def getConfigKey() {
     return String.valueOf(("n-alive-" + formattedDate).hashCode())
 }
 
-def isSnapshot = true
+def isSnapshot = false
 
 android {
     compileSdkVersion 31

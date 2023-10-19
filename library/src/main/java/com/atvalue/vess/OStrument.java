@@ -1,12 +1,12 @@
-package com.bluesky.drt;
+package com.atvalue.vess;
 
 import android.app.Application;
 import android.app.Instrumentation;
 import android.os.Bundle;
 
-import com.bluesky.svr.DCService;
-import com.bluesky.utils.Utils;
-import com.bluesky.log.Log;
+import com.atvalue.svr.DCService;
+import com.atvalue.utils.Utils;
+import com.atvalue.log.Log;
 
 public class OStrument extends Instrumentation {
     public void callApplicationOnCreate(Application application) {
