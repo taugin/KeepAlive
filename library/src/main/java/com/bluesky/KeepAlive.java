@@ -5,12 +5,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 
-import com.bluesky.drt.OStrument;
+import com.bluesky.daemon.JavaDaemon;
 import com.bluesky.drt.KNative;
 import com.bluesky.drt.OReceiver;
-import com.bluesky.svr.DCService;
-import com.bluesky.daemon.JavaDaemon;
+import com.bluesky.drt.OStrument;
 import com.bluesky.log.Log;
+import com.bluesky.svr.DCService;
 import com.bluesky.utils.Utils;
 
 public class KeepAlive {
@@ -35,13 +35,6 @@ public class KeepAlive {
             JavaDaemon.getInstance().callProvider(context, KNative.getDaemonProcess(context));
             JavaDaemon.getInstance().callProvider(context, KNative.getAssist1Process(context));
             JavaDaemon.getInstance().callProvider(context, KNative.getAssist2Process(context));
-        }
-    }
-
-    public static void startRS() {
-        try {
-            KNative.rs();
-        } catch (Exception e) {
         }
     }
 }

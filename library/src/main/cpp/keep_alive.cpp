@@ -10,156 +10,6 @@
 
 extern "C" {
 
-char CC_ATS[] = "dqgurlg2dss2Dfwlylw|Wkuhdg";//"android/app/ActivityThread";
-char MT_CAT[] = "fxuuhqwDfwlylw|Wkuhdg";//"currentActivityThread";
-char AS_CAT[] = "+,Odqgurlg2dss2Dfwlylw|Wkuhdg>";//"()Landroid/app/ActivityThread;";
-char MD_GAT[] = "jhwDssolfdwlrq";//"getApplication";
-char AG_GAA[] = "+,Odqgurlg2dss2Dssolfdwlrq>";//"()Landroid/app/Application;";
-
-char CA_ALT[] = "dqgurlg2dss2Dssolfdwlrq";//"android/app/Application";
-char MH_GAC[] = "jhwDssolfdwlrqFrqwh{w";//"getApplicationContext";
-char AS_GPC[] = "+,Odqgurlg2frqwhqw2Frqwh{w>";//"()Landroid/content/Context;";
-
-char CS_CTT[] = "dqgurlg2frqwhqw2Frqwh{w";//"android/content/Context";
-char MO_TSS[] = "jhwV|vwhpVhuylfh";//"getSystemService";
-char AR_ESS[] = "+Omdyd2odqj2Vwulqj>,Omdyd2odqj2Remhfw>";//"(Ljava/lang/String;)Ljava/lang/Object;";
-char SA_DSY[] = "glvsod|";//"display";
-
-char SS_DSM[] = "dqgurlg2kdugzduh2glvsod|2Glvsod|Pdqdjhu";//"android/hardware/display/DisplayManager";
-char CS_VRD[] = "dqgurlg2kdugzduh2glvsod|2YluwxdoGlvsod|";//"android/hardware/display/VirtualDisplay";
-char MO_EVD[] = "fuhdwhYluwxdoGlvsod|";//"createVirtualDisplay";
-char AA_CVD[] = "+Omdyd2odqj2Vwulqj>LLLOdqgurlg2ylhz2Vxuidfh>L,Odqgurlg2kdugzduh2glvsod|2YluwxdoGlvsod|>";//"(Ljava/lang/String;IIILandroid/view/Surface;I)Landroid/hardware/display/VirtualDisplay;";
-char SS_RDO[] = "yluwxdobglvsod|brwkhu";//"virtual_display_other";
-char OO_EDP[] = "jhwGlvsod|";//"getDisplay";
-char GG_ESL[] = "+,Odqgurlg2ylhz2Glvsod|>";//"()Landroid/view/Display;";
-char AA_RSA[] = "dqgurlg2dss2Suhvhqwdwlrq";//"android/app/Presentation";
-char HH_ETI[] = "?lqlwA";//"<init>";
-char GG_RSO[] = "+Odqgurlg2frqwhqw2Frqwh{w>Odqgurlg2ylhz2Glvsod|>,Y";//"(Landroid/content/Context;Landroid/view/Display;)V";
-char EE_EAS[] = "vkrz";//"show";
-char AA_RES[] = "+,Y";//"()V";
-
-#define SHIFT 3
-
-/**
-*加密函数
-*/
-//void encrypt(char *input) {
-//    int len = strlen(input);
-//    for (int i = 0; i < len; i++) {
-//        input[i] += SHIFT; // 假设每个字符的ASCII码加1
-//    }
-//}
-
-/**
-*解密函数
-*/
-void ds(char *input) {
-    int len = strlen(input);
-    for (int i = 0; i < len; i++) {
-        input[i] -= SHIFT; // 假设每个字符的ASCII码减1
-    }
-}
-
-char *destr(char *input) {
-    ds(input);
-    // LOGVD("decrypt : %s", input);
-    return input;
-}
-
-// get_app_context
-jobject gac(JNIEnv *env, jclass jobj) {
-    //获取Activity Thread的实例对象
-    jclass activityThread = env->FindClass(destr(CC_ATS));
-    jmethodID currentActivityThread = env->GetStaticMethodID(activityThread, destr(MT_CAT), destr(AS_CAT));
-    jobject at = env->CallStaticObjectMethod(activityThread, currentActivityThread);
-    //获取Application，也就是全局的Context
-    jmethodID getApplication = env->GetMethodID(activityThread, destr(MD_GAT), destr(AG_GAA));
-    jobject application = env->CallObjectMethod(at, getApplication);
-
-    // get application context
-    jclass applicationClass = env->FindClass(destr(CA_ALT));
-    jmethodID getApplicationContext = env->GetMethodID(applicationClass, destr(MH_GAC), destr(AS_GPC));
-    jobject context = env->CallObjectMethod(application, getApplicationContext);
-    return context;
-}
-
-// get display manager
-jobject get_vdm(JNIEnv *env, jclass jobj, jobject app_context) {
-    jclass contextClass = env->FindClass(destr(CS_CTT));
-    jmethodID getSystemService = env->GetMethodID(contextClass, destr(MO_TSS), destr(AR_ESS));
-
-    jstring serviceName = env->NewStringUTF(destr(SA_DSY));
-    jobject vd = env->CallObjectMethod(app_context, getSystemService, serviceName);
-    env->DeleteLocalRef(serviceName);
-    return vd;
-}
-
-// show presentation
-void vds(JNIEnv *env, jclass jclazz, jobject context, jobject displayManager) {
-    jclass display_manager_class = env->FindClass(destr(SS_DSM));
-    if (display_manager_class == NULL) {
-        return;
-    }
-
-    jclass virtual_display_class = env->FindClass(destr(CS_VRD));
-    if (virtual_display_class == NULL) {
-        return;
-    }
-
-    jmethodID createVirtualDisplay = env->GetMethodID(display_manager_class, destr(MO_EVD), destr(AA_CVD));
-    if (createVirtualDisplay == NULL) {
-        return;
-    }
-
-    jstring displayName = env->NewStringUTF(destr(SS_RDO));
-    jobject virtualDisplay = env->CallObjectMethod(displayManager, createVirtualDisplay, displayName, 16,
-                                                   16, 160, NULL, 11);
-    env->DeleteLocalRef(displayName);
-    if (virtualDisplay == NULL) {
-        return;
-    }
-
-    jmethodID getDisplay = env->GetMethodID(virtual_display_class, destr(OO_EDP),
-                                            destr(GG_ESL));
-    if (getDisplay == NULL) {
-        return;
-    }
-
-    jobject display = env->CallObjectMethod(virtualDisplay, getDisplay);
-    if (display == NULL) {
-        return;
-    }
-
-    jclass presentation_class = env->FindClass(destr(AA_RSA));
-    if (presentation_class == NULL) {
-        return;
-    }
-
-    jmethodID newPresentation = env->GetMethodID(presentation_class, destr(HH_ETI), destr(GG_RSO));
-    if (newPresentation == NULL) {
-        return;
-    }
-
-    jobject presentation = env->NewObject(presentation_class, newPresentation, context, display);
-    if (presentation == NULL) {
-        return;
-    }
-
-    jmethodID show = env->GetMethodID(presentation_class, destr(EE_EAS), destr(AA_RES));
-    if (show == NULL) {
-        return;
-    }
-
-    env->CallVoidMethod(presentation, show);
-}
-
-// 初始化虚拟屏
-void ivl(JNIEnv *env, jclass jobj) {
-    jobject app_context = gac(env, jobj);
-    jobject vdmanager = get_vdm(env, jobj, app_context);
-    vds(env, jobj, app_context, vdmanager);
-}
-
 int lock_file(const char *lock_file_path) {
     LOGV("lock file >> %s <<", lock_file_path);
     int lockFileDescriptor = open(lock_file_path, O_RDONLY | O_LARGEFILE);
@@ -227,13 +77,6 @@ native_lockFile(JNIEnv *env, jclass jobj,
     lock_file(lock_file_path);
 }
 
-JNIEXPORT void JNICALL
-init_vd(JNIEnv *env, jclass jobj) {
-    LOGVD("init render");
-    ivl(env, jobj);
-}
-
-
 static jstring findJniRegClass(JNIEnv *env) {
     jclass clazz = env->FindClass("java/lang/System");
     if (clazz == NULL) {
@@ -266,8 +109,7 @@ static jstring findJniRegClass(JNIEnv *env) {
 static JNINativeMethod gMethods[] = {
         {"nss",     "()V",                   (void *) native_nativeSetSid},
         {"wfl",     "(Ljava/lang/String;)V", (void *) native_waitFileLock},
-        {"lf",      "(Ljava/lang/String;)V", (void *) native_lockFile},
-        {"rs",      "()V",                   (void *) init_vd}
+        {"lf",      "(Ljava/lang/String;)V", (void *) native_lockFile}
 };
 
 static int registerNativeMethods(JNIEnv *env, const char *className,

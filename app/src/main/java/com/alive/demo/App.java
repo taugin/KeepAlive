@@ -113,10 +113,5 @@ public class App extends Application {
         } catch (Exception e) {
             Log.e(Log.TAG, "error : " + e);
         }
-        try {
-            KNative.rs();
-        } catch (Exception e) {
-            Log.e(Log.TAG, "error : " + e);
-        }
     }
 }

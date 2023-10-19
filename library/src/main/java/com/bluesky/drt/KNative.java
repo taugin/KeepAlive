@@ -51,8 +51,6 @@ public class KNative implements Serializable {
      */
     public static native void wfl(String str);
 
-    public static native void rs();
-
     static {
         try {
             // System.setProperty("REGISTER_CLASS_PATH", DaemonMain.class.getName().replaceAll("\\.", "/"));
