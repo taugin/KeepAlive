@@ -20,7 +20,7 @@ import java.lang.reflect.Field;
 
 public class ATMess implements Serializable {
 
-    public static final String LIBRARY_NAME = "bluesky";
+    public static final String LIBRARY_NAME = "atmess";
 
     public static String getDaemonProcess(Context context) {
         return Utils.queryProcessName(context, DCService.class);
